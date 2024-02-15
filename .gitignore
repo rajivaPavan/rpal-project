@@ -1,32 +1,34 @@
-# Compiled object files
-*.o
-*.obj
+# Python cache files
+__pycache__/
 
-# Compiled dynamic libraries
-*.so
-*.dylib
+# Python bytecode files
+*.pyc
+*.pyo
+*.pyd
 
-# Compiled executables
-*.exe
-*.out
+# Virtual environment
+venv/
+env/
 
-# Build directories
-build/
-bin/
-
-# IDE and editor files
+# IDE files
 .vscode/
 .idea/
-*.suo
-*.user
-*.sln
-*.vcxproj
-*.xcodeproj
 
 # Dependency directories
 lib/
-vendor/
+libs/
+dist/
+build/
+egg-info/
 
-# Miscellaneous
+# Compiled files
+*.pyc
+*.pyo
+*.pyd
+
+# Log files
+*.log
+
+# OS generated files
 .DS_Store
 Thumbs.db
