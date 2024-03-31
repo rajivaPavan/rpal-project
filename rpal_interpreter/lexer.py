@@ -50,13 +50,13 @@ class Lexer:
                     or token_type == RParenToken 
                     or token_type == SemiColonToken 
                     or token_type == CommaToken):
-                    tokens.append(token_type())
+                    tokens.append(token_type(line_no, char_pos))
                 else:
-                    tokens.append(token_type(token))
+                    tokens.append(token_type(token, line_no, char_pos))
                        
                 break         
                 
             if not match:   
-                raise Exception(f"Invalid token at line {line_no}, char {char_pos}")
+                raise InvalidTokenException(token, line_no, char_pos)
                 
         return tokens
