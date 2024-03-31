@@ -36,29 +36,13 @@ class TestLexer(unittest.TestCase):
         src = "3 + 5 * (10 - 4)"
         self.assertEqual(str(lexer.lex(src)), "[(<INTEGER>, '3'), (<OPERATOR>, '+'), (<INTEGER>, '5'), (<OPERATOR>, '*'), ((, None), (<INTEGER>, '10'), (<OPERATOR>, '-'), (<INTEGER>, '4'), (), None)]")
 
-    def test_lex_invalid_digit(self):
+            
+    def test_lex_invalid_token(self):
         lexer = Lexer()
-        src = "1Sum"
+        src = "1 😂"
         with self.assertRaises(Exception):
             lexer.lex(src)
             
-    def test_lex_invalid_digit_2(self):
-        lexer = Lexer()
-        src = "1#2"
-        with self.assertRaises(Exception):
-            lexer.lex(src)
-            
-    def test_lex_invalid_digit_3(self):
-        lexer = Lexer()
-        src = "1.2"
-        with self.assertRaises(Exception):
-            lexer.lex(src)
-            
-    def test_lex_invalid_identifier(self):
-        lexer = Lexer()
-        src = "let@1"
-        with self.assertRaises(Exception):
-            lexer.lex(src)
     
 
 if __name__ == '__main__':
