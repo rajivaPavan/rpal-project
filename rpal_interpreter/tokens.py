@@ -103,8 +103,7 @@ class CommaToken(Token):
 
 
 class InvalidTokenException(Exception):
-    def __init__(self, token, line, col):
-        self.token = token
+    def __init__(self, line, col):
         self.line = line
         self.col = col
 

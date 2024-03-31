@@ -17,8 +17,8 @@ class Interpreter:
         self.program = program
         self.ast_switch = ast_switch
         # Get the tokens from the lexer
-        lexer = Lexer()
-        tokens = lexer.lex(self.program)
+        lexer = Lexer(self.program)
+        tokens = lexer.tokenize()
         print("Tokens: ", tokens)
 
         # # Get the ast from the parser
