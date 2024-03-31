@@ -21,11 +21,11 @@ class Interpreter:
         tokens = lexer.lex(self.program)
         print("Tokens: ", tokens)
 
-        # Get the ast from the parser
-        parser = Parser(tokens)
-        ast = parser.parse()
+        # # Get the ast from the parser
+        # parser = Parser(tokens)
+        # ast = parser.parse()
 
-        self.result(ast, ast_switch)
+        # self.result(ast, ast_switch)
 
         return
         
