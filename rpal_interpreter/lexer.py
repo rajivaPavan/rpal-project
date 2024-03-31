@@ -50,9 +50,9 @@ class Lexer:
                     or token_type == RParenToken 
                     or token_type == SemiColonToken 
                     or token_type == CommaToken):
-                    tokens.append(token_type())
+                    tokens.append(token_type(line_no, char_pos))
                 else:
-                    tokens.append(token_type(token))
+                    tokens.append(token_type(token, line_no, char_pos))
                        
                 break         
                 
