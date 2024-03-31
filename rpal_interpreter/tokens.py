@@ -100,3 +100,14 @@ class CommaToken(Token):
         
     def regex():
         return TokenRegex.Comma
+
+
+class InvalidTokenException(Exception):
+    def __init__(self, token, line, col):
+        self.token = token
+        self.line = line
+        self.col = col
+
+    def __str__(self):
+        return f"Invalid token at line {self.line}, char {self.col}"
+    

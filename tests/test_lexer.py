@@ -2,6 +2,7 @@
 import unittest
 from rpal_interpreter.lexer import Lexer
 from helpers import *
+from rpal_interpreter.tokens import InvalidTokenException
 
 class TestLexer(unittest.TestCase):
 
@@ -37,7 +38,7 @@ class TestLexer(unittest.TestCase):
         src = read_file("tests/lexer/invalid_token")
         
         # check if exception is raised
-        with self.assertRaises(Exception):
+        with self.assertRaises(InvalidTokenException):
             lexer.lex(src)
             
         # check if exception message is correct

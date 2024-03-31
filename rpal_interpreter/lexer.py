@@ -57,6 +57,6 @@ class Lexer:
                 break         
                 
             if not match:   
-                raise Exception(f"Invalid token at line {line_no}, char {char_pos}")
+                raise InvalidTokenException(token, line_no, char_pos)
                 
         return tokens
