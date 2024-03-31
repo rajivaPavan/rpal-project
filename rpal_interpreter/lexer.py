@@ -32,7 +32,7 @@ class Lexer:
                 position = match.end()
                 
                 # ignore spaces and comments
-                if token_type == CommaToken or token_type == SpacesToken:
+                if token_type == CommentToken or token_type == SpacesToken:
                     break
                                 
                 # punctions have no arguments in their constructor
