@@ -39,9 +39,18 @@ class TestLexer(unittest.TestCase):
             
     def test_lex_invalid_token(self):
         lexer = Lexer()
-        src = "1 😂"
+        src = read_file("tests/lexer/invalid_token")
+        
+        # check if exception is raised
         with self.assertRaises(Exception):
             lexer.lex(src)
+            
+        # check if exception message is correct
+        try:
+            lexer.lex(src)
+        except Exception as e:
+            self.assertEqual(str(e), "Invalid token at line 1, char 2")
+        
             
     
 

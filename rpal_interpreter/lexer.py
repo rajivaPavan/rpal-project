@@ -16,6 +16,8 @@ class Lexer:
         
         tokens = []
         position = 0
+        line_no = 1
+        char_pos = 1
 
         while position < len(program):
 
@@ -32,9 +34,14 @@ class Lexer:
                 # get the matched token
                 token = match.group(0)
                 position = match.end()
+                char_pos += len(token)
                 
-                # ignore spaces and comments
+                # update line number if token is comment or spaces and ignore them
                 if token_type == CommentToken or token_type == SpacesToken:
+                    newlines = token.count("\n")
+                    if newlines > 0:
+                        char_pos = 1 # reset char position to 1
+                        line_no += newlines
                     break
                                 
                 # punctions have no arguments in their constructor
@@ -49,6 +56,6 @@ class Lexer:
                 break         
                 
             if not match:   
-                raise Exception(f"Invalid token at position {position}")
+                raise Exception(f"Invalid token at line {line_no}, char {char_pos}")
                 
         return tokens
