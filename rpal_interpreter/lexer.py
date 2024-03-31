@@ -21,7 +21,9 @@ class Lexer:
 
             # using re get the first token that matches the pattern and the position at which it ends
             match = None
-            for token_type in Token.__subclasses__():
+            for token_type in [CommentToken, SpacesToken, IdentifierToken,
+                               IntegerToken, OperatorToken, StringToken, 
+                               LParenToken, RParenToken, SemiColonToken, CommaToken]:
                 regex = token_type.regex()
                 match = regex.match(program, position)
                 if not(match):

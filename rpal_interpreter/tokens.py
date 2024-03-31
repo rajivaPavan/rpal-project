@@ -7,7 +7,7 @@ class TokenRegex:
     Operator = re.compile(r"["+OPERATOR_SYMBOL+"]+")
     String = re.compile(r"\"[(\\t)(\\n)(\\)(\\\")\(\);,\sa-zA-Z0-9"+OPERATOR_SYMBOL+"]*\"")
     Spaces = re.compile(r"[\s\n]+")
-    Comment = re.compile(r"//.*\n")
+    Comment = re.compile(r"//[\"\(\);,\\ a-zA-Z0-9"+OPERATOR_SYMBOL+"]*\n")
     OpenParen = re.compile(r"\(")
     CloseParen = re.compile(r"\)")
     SemiColon = re.compile(r";")

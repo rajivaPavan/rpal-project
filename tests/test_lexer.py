@@ -28,7 +28,7 @@ class TestLexer(unittest.TestCase):
     
     def test_lex_comment_2(self):
         lexer = Lexer()
-        src = "3+5\n// this is a comment"
+        src = "3+5\n// this is a comment\n"
         self.assertEqual(str(lexer.lex(src)), "[(<INTEGER>, '3'), (<OPERATOR>, '+'), (<INTEGER>, '5')]")
     
     def test_lex_simple(self):
