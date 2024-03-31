@@ -15,12 +15,7 @@ class TestLexer(unittest.TestCase):
         lexer = Lexer()
         src = ""
         self.assertEqual(lexer.lex(src), [])
-        
-    def test_lex_spaces(self):
-        lexer = Lexer()
-        src = "  "
-        self.assertEqual(lexer.lex(src), [])
-        
+               
     def test_lex_comment(self):
         lexer = Lexer()
         src = "// this is a comment\n3+5"
@@ -51,7 +46,40 @@ class TestLexer(unittest.TestCase):
         except Exception as e:
             self.assertEqual(str(e), "Invalid token at line 1, char 2")
         
-            
+    def test_integer_token(self):
+        lexer = Lexer()
+        src = "123"
+        self.assertEqual(str(lexer.lex(src)), "[(<INTEGER>, '123')]")
+        
+    def test_operator_token(self):
+        lexer = Lexer()
+        src = "+"
+        self.assertEqual(str(lexer.lex(src)), "[(<OPERATOR>, '+')]")
+        
+    def test_string_token(self):
+        lexer = Lexer()
+        src = "\"hello ++ @ 123\""
+        self.assertEqual(str(lexer.lex(src)), "[(<STRING>, '\"hello ++ @ 123\"')]")        
+    
+    def test_lex_paren(self):
+        lexer = Lexer()
+        src = "( )"
+        self.assertEqual(str(lexer.lex(src)), "[((, None), (), None)]")
+        
+    def test_lex_semicolon(self):
+        lexer = Lexer()
+        src = "a;"
+        self.assertEqual(str(lexer.lex(src)), "[(<IDENTIFIER>, 'a'), (;, None)]")
+        
+    def test_lex_comma(self):
+        lexer = Lexer()
+        src = "a, b"
+        self.assertEqual(str(lexer.lex(src)), "[(<IDENTIFIER>, 'a'), (,, None), (<IDENTIFIER>, 'b')]")
+        
+    def test_lex_spaces(self):
+        lexer = Lexer()
+        src = "  \t \n\n\n  \t  "
+        self.assertEqual(lexer.lex(src), [])
     
 
 if __name__ == '__main__':
