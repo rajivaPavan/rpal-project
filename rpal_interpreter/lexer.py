@@ -16,12 +16,17 @@ class Lexer:
         
         tokens = []
         position = 0
+        line_no = 1
+        char_pos = 1
 
         while position < len(program):
 
             # using re get the first token that matches the pattern and the position at which it ends
             match = None
-            for token_type in Token.__subclasses__():
+            # the order of the token types is important as some tokens are substrings of others
+            for token_type in [CommentToken, SpacesToken, IdentifierToken,
+                               IntegerToken, StringToken, OperatorToken, 
+                               LParenToken, RParenToken, SemiColonToken, CommaToken]:
                 regex = token_type.regex()
                 match = regex.match(program, position)
                 if not(match):
@@ -30,9 +35,14 @@ class Lexer:
                 # get the matched token
                 token = match.group(0)
                 position = match.end()
+                char_pos += len(token)
                 
-                # ignore spaces and comments
-                if token_type == CommaToken or token_type == SpacesToken:
+                # update line number if token is comment or spaces and ignore them
+                if token_type == CommentToken or token_type == SpacesToken:
+                    newlines = token.count("\n")
+                    if newlines > 0:
+                        char_pos = 1 # reset char position to 1
+                        line_no += newlines
                     break
                                 
                 # punctions have no arguments in their constructor
@@ -47,6 +57,6 @@ class Lexer:
                 break         
                 
             if not match:   
-                raise Exception(f"Invalid token at position {position}")
+                raise Exception(f"Invalid token at line {line_no}, char {char_pos}")
                 
         return tokens

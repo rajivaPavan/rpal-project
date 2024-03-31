@@ -16,3 +16,12 @@ python myrpal.py simple -ast
 ```
 
 In Linux, run the command by replacing `python` with `python3`
+
+## Testing
+
+To run the tests, navigate to the root directory of the project and use the following commands.
+
+```bash
+# lexer tests
+python -m unittest tests/test_lexer.py
+```
