@@ -62,25 +62,33 @@ Proc At:
     End;
 End;
 
+------------------------------------
+
+A -> (At; | +At | -At) ( ('+' At) | ('-' At) )+
+
+// above is kind of like an regular expression for the procedure A
+
+// below code is incorrect, python code is implemented according to the above regular expression
 proc A:
     case Next_Token_of
         T_+: Read(T_+)
              At()
         T_-: Read(T_-)
-            Build_tree('Neg', 1)
             At();
-        else: At()
-              while(Next_Token == T_+)
+            Build_tree('Neg', 1)
+        otherwise: 
+            At()
+            while(Next_Token == T_+)
                     Read(T_+)
                     Build_tree('+',2)
                     At()
-              end;
-              while(Next_token == T_-)
+            end;
+            while(Next_token == T_-)
                     Read(T_-)
                     Build_tree('-',2)
                     At()
-              end;
-
+            end;
+---------------------------------------------------
 proc Bp: 
     A();
     case Next_Token_of
@@ -102,21 +110,24 @@ proc Bp:
         (T_ne):Read(T_ne)
                A()
                Build_tree('ne', 2)
-
-    Read('T_;')
+        (T_;):Read('T_;')
+        otherwise: Error
 End;
 
 
 proc Bs:
-    Bp();
-    case Next_Token_of
-        (T_not): Read(T_not)
-                Build_tree('not', 1)
-    Read(T_;);
+    if Next_Token == T_not:
+        Read(T_not)
+        Bp()
+        Build_tree('not', 1)
+    else:
+        Bp()
+        Read_semi_colon()
 End;
 
 proc Bt:
     Bs()
+    Read_semi_colon()
     while (Next_Token == T_&)
         Read(T_&)
         Bs()
@@ -126,6 +137,7 @@ End;
 
 proc B:
     Bt()
+    Read_semi_colon()
     while(Next_Token == T_or):
         Read(T_or)
         Bt();
@@ -133,6 +145,7 @@ proc B:
     End;
 End;    
 
+// this is incorrect - check the python code
 proc Tc:
     B()
     N = 1;

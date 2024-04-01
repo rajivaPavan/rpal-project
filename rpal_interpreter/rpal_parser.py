@@ -3,16 +3,158 @@ from .tokens import *
 class RPALParser(Parser):
     def __init__(self,src):
         super().__init__(src)
+
+    def proc_T(self):
+        """Parse the T production rule."""
+        self.proc_Ta()
+        self.__readSemiColon()
+        if self.nextToken().isValue(";"):
+            self.__readSemiColon()
+        elif self.nextToken().isValue(","):
+            while self.nextToken != None and self.nextToken().isValue(","):
+                self.read(CommaToken.instance())
+                self.proc_Ta()
+                self.buildTree("tau", 2)
+        else:
+            raise InvalidTokenException.fromToken(self.nextToken())
+
+    def proc_Ta(self):
+        """Parse the Ta production rule."""
+        self.proc_Tc()
+        self.__readSemiColon()
+        while self.nextToken() != None and self.nextToken().isValue("aug"):
+            self.read(IdentifierToken.fromValue("aug"))
+            self.proc_Tc()
+            self.buildTree("aug", 2)        
         
+    def proc_Tc(self):
+        """Parse the Tc production rule."""
+        self.proc_B()
+        if self.nextToken().isValue("->"):
+            self.read(OperatorToken.fromValue("->"))
+            self.proc_Tc()
+            self.read(OperatorToken.fromValue("|"))
+            self.proc_Tc()
+            self.buildTree("->", 3)
+        elif self.nextToken().isValue(";"):
+            self.__readSemiColon()
+        else:
+            raise InvalidTokenException.fromToken(self.nextToken())
+
+    def proc_B(self):
+        """Parse the B production rule."""
+        self.proc_Bt()
+        self.__readSemiColon()
+        while self.nextToken() != None and self.nextToken().isValue("or"):
+            self.read(IdentifierToken.fromValue("or"))
+            self.proc_Bt()
+            self.buildTree("or", 2)
+
+    def proc_Bt(self):
+        """Parse the Bt production rule."""
+        self.proc_Bs()
+        self.__readSemiColon()
+        while self.nextToken() != None and self.nextToken().isValue("&"):
+            self.read(OperatorToken.fromValue("&"))
+            self.proc_Bs()
+            self.buildTree("&", 2)
+
+    def proc_Bs(self):
+        """Parse the Bs production rule."""
+        if self.nextToken().isValue("not"):
+            self.read(IdentifierToken.fromValue("not"))
+            self.proc_Bp()
+            self.buildTree("not", 1)
+        else:
+            self.proc_Bp()
+            self.__readSemiColon()
+    
+    def proc_Bp(self):
+        self.proc_A()
+        if self.nextToken().isValue("gr"):
+            self.read(IdentifierToken.fromValue("gr"))
+            self.proc_A()
+            self.buildTree("gr", 2)
+        elif self.nextToken().isValue(">"):
+            self.read(OperatorToken.fromValue(">"))
+            self.proc_A()
+            self.buildTree("gr", 2)
+        elif self.nextToken().isValue("ge"):
+            self.read(IdentifierToken.fromValue("ge"))
+            self.proc_A()
+            self.buildTree("ge", 2)
+        elif self.nextToken().isValue(">="):
+            self.read(OperatorToken.fromValue(">="))
+            self.proc_A()
+            self.buildTree("ge", 2)
+        elif self.nextToken().isValue("ls"):
+            self.read(IdentifierToken.fromValue("ls"))
+            self.proc_A()
+            self.buildTree("ls", 2)
+        elif self.nextToken().isValue("<"):
+            self.read(OperatorToken.fromValue("<"))
+            self.proc_A()
+            self.buildTree("ls", 2)
+        elif self.nextToken().isValue("le"):
+            self.read(IdentifierToken.fromValue("le"))
+            self.proc_A()
+            self.buildTree("le", 2)
+        elif self.nextToken().isValue("<="):
+            self.read(OperatorToken.fromValue("<="))
+            self.proc_A()
+            self.buildTree("le", 2)
+        elif self.nextToken().isValue("eq"):
+            self.read(IdentifierToken.fromValue("eq"))
+            self.proc_A()
+            self.buildTree("eq", 2)
+        elif self.nextToken().isValue("ne"):
+            self.read(IdentifierToken.fromValue("ne"))
+            self.proc_A()
+            self.buildTree("ne", 2)
+        elif self.nextToken().isValue(";"):
+            self.read(SemiColonToken.instance())
+        else:
+            raise InvalidTokenException.fromToken(self.nextToken())
+
+    def proc_A(self):
+        # A -> (At; | +At | -At) ( ('+' At) | ('-' At) )+
+        if self.nextToken().__class__ == OperatorToken:
+            if self.nextToken().isValue("+"):
+                self.read(OperatorToken.fromValue("+"))
+                self.proc_At()
+            elif self.nextToken().isValue("-"):
+                self.read(OperatorToken.fromValue("-"))
+                self.proc_At()
+                self.buildTree("neg", 1)
+            else:
+                raise InvalidTokenException.fromToken(self.nextToken())
+        # SELECT(At) = FIRST(Rn)
+        elif self.nextToken().__class__ in RPALParser.__FIRST_RN: 
+            self.proc_At()
+            self.__readSemiColon()
+        else:
+            raise InvalidTokenException.fromToken(self.nextToken())
+        
+        while(self.nextToken() != None and 
+              self.nextToken().__class__ == OperatorToken
+              and (self.nextToken().isValue("+") or self.nextToken().isValue("-"))):
+            if self.nextToken().isValue("+"):
+                self.read(OperatorToken.fromValue("+"))
+                self.proc_At()
+                self.buildTree("+", 2)
+            else:
+                self.read(OperatorToken.fromValue("-"))
+                self.proc_At()
+                self.buildTree("-", 2)
+
     def proc_At(self):
-        """
-        Process the At production rule.
-        """
+        """Process the At production rule."""
         self.proc_Af()
         self.__readSemiColon()
         
         _next_token = self.nextToken()
-        while (_next_token.__class__ == OperatorToken 
+        while ( _next_token != None and 
+               _next_token.__class__ == OperatorToken 
             and (_next_token.isValue("*")) or _next_token.isValue("/")):
         
             # read the operator token and build the tree using the appropriate transduction rule
@@ -48,14 +190,12 @@ class RPALParser(Parser):
         self.__readSemiColon()
             
         # check if the next token is a @ 
-        token = self.nextToken()
-        while token != None and token.isValue("@"):
+        while self.nextToken() != None and self.nextToken().isValue("@"):
             # read the @ token and ignore it
             self.read(OperatorToken.fromValue("@"))
             
             # next token should be an identifier
-            token = self.nextToken()
-            self.read(IdentifierToken.fromValue(token.value))
+            self.read(IdentifierToken.fromValue(self.nextToken().value))
             
             self.proc_R()
             self.buildTree("@", 3)
@@ -65,7 +205,8 @@ class RPALParser(Parser):
         self.proc_Rn()
         self.__readSemiColon()
         n = 1
-        while self.nextToken().__class__ in RPALParser.__FIRST_RN:
+        while (self.nextToken() != None 
+               and self.nextToken().__class__ in RPALParser.__FIRST_RN):
             self.proc_Rn()
             n += 1
         self.buildTree("gamma", n)
