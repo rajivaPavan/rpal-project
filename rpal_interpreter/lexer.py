@@ -25,7 +25,7 @@ class Lexer:
             
         return self.tokens
             
-    def nextToken(self):
+    def nextToken(self)->Token:
         token = None
         while token == None and self.position < len(self.program):
             token = self.__nextToken()
