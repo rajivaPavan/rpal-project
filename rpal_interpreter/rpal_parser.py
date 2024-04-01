@@ -6,6 +6,7 @@ class RPALParser(Parser):
         
         
     def __Rn(self):
+        """TODO: Add Docstring for this method and implement this method correctly."""
         token = self.nextToken()
         if token.__class__ == IdentifierToken:
             pass
@@ -19,6 +20,10 @@ class RPALParser(Parser):
             raise Exception("Invalid token")
 
     def parse(self):
-        """returns the AST of the src program"""
-        return self.getAST()
+            """Parses the source program and returns the Abstract Syntax Tree (AST).
+
+            Returns:
+                The Abstract Syntax Tree (AST) of the source program.
+            """
+            return self.getAST()
     

@@ -3,7 +3,25 @@ from .tokens import Token
 from .ast import ASTNode
 
 class Parser:
+    """
+    The Parser class is responsible for parsing the source code and building the Abstract Syntax Tree (AST).
+    """
+
     def __init__(self, src):
+        """
+        Initializes a Parser object.
+
+        Parameters:
+        - src (str): The source code to be parsed.
+
+        Attributes:
+        - __lexer (Lexer): The lexer object used for tokenizing the source code.
+        - __nextToken (Token): The next token to be processed.
+        - __stack (ParserStack): The stack used for parsing.
+
+        Returns:
+        - None
+        """
         self.__lexer = Lexer(src)
         self.__nextToken:Token = self.__lexer.nextToken() 
         self.__stack = ParserStack()
@@ -21,19 +39,50 @@ class Parser:
         self.__nextToken = token
        
     def read(self, token):
+        """
+        Reads the next token in the parser and checks if it is the expected token. If not, raises an exception.
+        Pushes the token to the stack as an ASTNode and gets the next token from the lexer.
+        """
         if self.nextToken() != token:
             raise Exception("Expected token: " + str(token) + " but found: " + str(self.nextToken()))    
         self.__pushStack(ASTNode(self.nextToken()))
         self.__setNextToken(self.__getTokenFromLexer())
 
     def __getTokenFromLexer(self):
+        """
+        Retrieves the next token from the lexer.
+
+        Returns:
+            The next token from the lexer.
+        """
         return self.__lexer.nextToken()
         
     def parse(self):
+        """
+        Parses the source code and returns the corresponding abstract syntax tree (AST).
+
+        This method must be implemented by the subclass.
+
+        Raises:
+            NotImplementedError: If the method is not implemented by the subclass.
+
+        Returns:
+            AST: The abstract syntax tree representing the parsed source code.
+        """
         # the lexer will be used to get tokens from the src as required
         raise NotImplementedError("parse method must be implemented by the subclass")
     
-    def buildTree(self, x, n):     
+    def buildTree(self, x, n):
+        """
+        Builds a tree with the given root value and number of children.
+
+        Args:
+            x (str): The value of the root node.
+            n (int): The number of children nodes.
+
+        Returns:
+            None
+        """
         p = None
         for i in range(n):
             c = self.__popStack()

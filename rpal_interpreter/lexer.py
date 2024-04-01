@@ -2,6 +2,26 @@ import re
 from .tokens import *
 
 class Lexer:
+    """
+    The Lexer class is responsible for tokenizing a program string into a list of tokens.
+
+    Attributes:
+        program (str): The program string to be tokenized.
+        tokens (list): The list of tokens generated from the program string.
+        position (int): The current position in the program string.
+        line_no (int): The current line number.
+        char_pos (int): The current character position.
+
+    Methods:
+        reset(): Resets the lexer to its initial state.
+        tokenize(count=-1): Tokenizes the program string up to a specified count.
+        nextToken(): Retrieves the next token from the program string.
+        __nextToken(): Retrieves the next token from the program string (internal method).
+
+    Raises:
+        InvalidTokenException: If the next token is invalid.
+    """
+
     def __init__(self, program):
         self.program = program
         self.tokens = []
@@ -10,22 +30,43 @@ class Lexer:
         self.char_pos = 1
         
     def reset(self):
+        """
+        Resets the lexer to its initial state.
+        """
         self.tokens = []
         self.position = 0
         self.line_no = 1
         self.char_pos = 1
 
-    def tokenize(self, count = -1):
+    def tokenize(self, count=-1):
+        """
+        Tokenizes the program string up to a specified count.
+
+        Args:
+            count (int, optional): The maximum number of tokens to tokenize. Defaults to -1 (tokenize all).
+
+        Returns:
+            list: The list of tokens generated from the program string.
+        """
         counter = 0
         while self.position < len(self.program):
             self.nextToken()
-            counter+=1
+            counter += 1
             if counter == count:
                 break
             
         return self.tokens
             
-    def nextToken(self)->Token:
+    def nextToken(self):
+        """
+        Retrieves the next token from the program string.
+
+        Returns:
+            Token: The next token from the program string.
+
+        Raises:
+            InvalidTokenException: If the next token is invalid.
+        """
         token = None
         while token == None and self.position < len(self.program):
             token = self.__nextToken()
@@ -36,7 +77,7 @@ class Lexer:
         Retrieves the next token from the program string.
 
         Returns:
-            str: The next token from the program string.
+            Token: The next token from the program string.
 
         Raises:
             InvalidTokenException: If the next token is invalid.
