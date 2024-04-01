@@ -17,7 +17,7 @@ class TestParser(unittest.TestCase):
         self.assertEqual(str(ast),
 """program
 .gamma
-..(<IDENTIFIER>, 'let')
+..<ID:let>
 .gamma
-..(<IDENTIFIER>, 'Sum')
+..<ID:Sum>
 ..((, None)""")
