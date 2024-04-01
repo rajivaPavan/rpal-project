@@ -6,16 +6,24 @@ class RPALParser(Parser):
         
         
     def __Rn(self):
-        """TODO: Add Docstring for this method and implement this method correctly."""
+        """Parse the Rn production rule.
+
+        Raises:
+            Exception: If an invalid token is encountered.
+
+        Returns:
+            None
+        """
         token = self.nextToken()
         if token.__class__ == IdentifierToken:
+            self.read(token)
+            if token.value in ["true", "false", "nil", "dummy"]:
+                self.buildTree(token.value, 0)
             pass
-        elif token.__class__ == IntegerToken:
-            pass
-        elif token.__class__ == StringToken:
-            pass
+        elif token.__class__ in [IntegerToken, StringToken]:
+            self.read(token)
         elif token.__class__ == LParenToken:
-            pass
+            self.read(token, ignore=True)
         else:
             raise Exception("Invalid token")
 
