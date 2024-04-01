@@ -24,7 +24,7 @@ class Token:
         col (int): The column number where the token appears.
     """
 
-    def __init__(self, type, value, line, col):
+    def __init__(self, type, value, line = None, col = None):
         self.type = type
         self.value = value
         self.line = line
@@ -35,6 +35,22 @@ class Token:
 
     def regex():
         raise NotImplementedError("regex method not implemented")
+    
+    def __eq__(self, other) -> bool:
+        if other == None:
+            return False
+        return self.type == other.type and self.value == other.value
+    
+    def isValue(self, value):
+        return self.value == value
+    
+    @classmethod
+    def fromValue(cls, value):
+        return cls(value, None, None)
+    
+    @classmethod
+    def instance(cls):
+        return cls(None, None)
     
     
 class IdentifierToken(Token):
@@ -59,7 +75,7 @@ class IntegerToken(Token):
         return f"<INT:{self.value}>"
     
     
-class OperatorToken(Token):
+class OperatorToken(Token):      
     def __init__(self, value, line, col):
         super().__init__("<OPERATOR>", value, line, col)
     
@@ -136,6 +152,10 @@ class InvalidTokenException(Exception):
     def __init__(self, line, col):
         self.line = line
         self.col = col
+        
+    @classmethod
+    def fromToken(cls, token):
+        return cls(token.line, token.col)
 
     def __str__(self):
         return f"Invalid token at line {self.line}, char {self.col}"
