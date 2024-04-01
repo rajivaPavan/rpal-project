@@ -1,6 +1,8 @@
 Select_Rn =  [T_Id , T_Int, T_Str, T_true, T_false, T_nil, T_Lparen, T_dummy]
 
 //In Rn does not build a tree just puts into the stack ? --not sure
+//Reading the semi colan is not properly done in the code
+
 Proc Rn;
 	If Next_Token is in Select_Rn:
 		Read(Next_Token)
@@ -27,9 +29,8 @@ Proc Ap:
         Read(T_@)
         Read(T_ID)
         R()
-        N += 2
+        Build_tree('@', 3)
     End;
-    Build_tree('@', N)
 End;
 
 Proc Af:
@@ -57,7 +58,101 @@ End;
 proc A:
     case Next_Token_of
         T_+: Read(T_+)
-            Build_tree()
-            Build_tree
+             At()
+        T_-: Read(T_-)
+            Build_tree('Neg', 1)
+            At();
+        else: At()
+              while(Next_Token == T_+)
+                    Read(T_+)
+                    Build_tree('+',2)
+                    At()
+              end;
+              while(Next_token == T_-)
+                    Read(T_-)
+                    Build_tree('-',2)
+                    At()
+              end;
+
+proc Bp: 
+    A();
+    case Next_Token_of
+        (T_gr) or (T_>):Read(T_gr)
+                        A()
+                        Build_tree('gr', 2)
+        (T_ge) or (T_>=): Read(T_ge)
+                        A()
+                        Build_tree('ge', 2)
+        (T_ls) or (T_<): Read(T_ls)  
+                        A()
+                        Build_tree('ls', 2)
+        (T_le) or (T_<=): Read(T_le)
+                        A()
+                        Build_tree('le', 2)
+        (T_eq):Read(T_eq)
+                A()
+                Build_tree('eq', 2)     \
+        (T_ne):Read(T_ne)
+               A()
+               Build_tree('ne', 2)
+
+    Read('T_;')
+End;
+
+
+proc Bs:
+    Bp();
+    case Next_Token_of
+        (T_not): Read(T_not)
+                Build_tree('not', 1)
+    Read(T_;);
+End;
+
+proc Bt:
+    Bs()
+    while (Next_Token == T_&)
+        Read(T_&)
+        Bs()
+        Build_tree('&', 2)
+    End; 
+End;
+
+proc B:
+    Bt()
+    while(Next_Token == T_or):
+        Read(T_or)
+        Bt();
+        Build_tree('or', 2)
+    End;
+End;    
+
+proc Tc:
+    B()
+    N = 1;
+    M = 1;
+    while(Next_Token == T_->):
+        Read(T_->)
+        B()
+        N++;
+    Build_tree('->', N)
+    while(Next_Token == T_|)
+        Read(T_|)
+        B()
+        M++;
+    Build_tree('|', M)
+    End;
+End;
+
+
+
+    
+
+
+    
+
+
+
+
+
 
              
