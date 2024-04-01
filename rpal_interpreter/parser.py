@@ -38,14 +38,14 @@ class Parser:
     def __setNextToken(self, token):
         self.__nextToken = token
        
-    def read(self, token, ignore=False):
+    def read(self, token, ignore=True):
         """
         Reads the next token in the parser and checks if it is the expected token. If not, raises an exception.
         Pushes the token to the stack as an ASTNode and gets the next token from the lexer.
 
         Parameters:
             token (str): The expected token.
-            ignore (bool, optional): If True, the token will not be pushed to the stack. Defaults to False.
+            ignore (bool, optional): If True, the token will not be pushed to the stack. Defaults to True.
 
         Raises:
             Exception: If the next token is not the expected token.

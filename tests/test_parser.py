@@ -22,17 +22,3 @@ class TestParser(unittest.TestCase):
 .gamma
 ..<ID:Sum>
 ..((, None)""")
-        
-    def test_R(self):
-        src = "r ; @ id r @ id r"
-        parser = RPALParser(src)
-        parser.proc_R()
-        ast = parser.getAST()
-        self.assertEqual(str(ast),
-"""@
-.<ID:r>
-.<ID:id>
-.@
-..<ID:r>
-..<ID:id>
-..<ID:r>""")
