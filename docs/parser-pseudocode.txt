@@ -1,9 +1,9 @@
 Select_Rn =  [T_Id , T_Int, T_Str, T_true, T_false, T_nil, T_Lparen, T_dummy]
 
+//In Rn does not build a tree just puts into the stack ? --not sure
 Proc Rn;
 	If Next_Token is in Select_Rn:
 		Read(Next_Token)
-        Write(Rn -> Next_Token)
 	else:
 		Error;
 	End;
@@ -11,48 +11,53 @@ End;
 
 
 Proc R:
+    N = 1
     Rn();
-    Write(R -> Rn)
     while(Next_Token in Select_Rn):
-        Rn()
-        Write(R -> R Rn)
+        Rn();
+        N++; 
     End;
+    Build_tree('gamma', N);
 End;
 
 Proc Ap:
     R()
-    Write(Ap -> R)
+    N = 1
     While (Next_Token == T_@):
         Read(T_@)
         Read(T_ID)
         R()
-        Write(Ap -> Ap @ ID R)
+        N += 2
     End;
+    Build_tree('@', N)
 End;
 
 Proc Af:
     Ap()
-    Write(Af -> Ap)
     While (Next_Token == T_**):
         Read(T_**)
         Af()
-        Write(Af -> Ap ** Af)
+        Build_tree('**', 2)
     End;
 End;
 
 Proc At:
     Af()
-    Write(At -> Af)
     While(Next_Token == T_//):
         Read(T_//)
         Af()
-        Write(At -> At / Af)
+        Build_tree('*', 2)
     While(Next_Token == T_*):
         Read(T_*)
         Af()
-        Write(At -> At * Af)
+        Build_tree('*', 2)
     End;
 End;
 
+proc A:
+    case Next_Token_of
+        T_+: Read(T_+)
+            Build_tree()
+            Build_tree
 
-        
+             
