@@ -1,0 +1,58 @@
+Select_Rn =  [T_Id , T_Int, T_Str, T_true, T_false, T_nil, T_Lparen, T_dummy]
+
+Proc Rn;
+	If Next_Token is in Select_Rn:
+		Read(Next_Token)
+        Write(Rn -> Next_Token)
+	else:
+		Error;
+	End;
+End;
+
+
+Proc R:
+    Rn();
+    Write(R -> Rn)
+    while(Next_Token in Select_Rn):
+        Rn()
+        Write(R -> R Rn)
+    End;
+End;
+
+Proc Ap:
+    R()
+    Write(Ap -> R)
+    While (Next_Token == T_@):
+        Read(T_@)
+        Read(T_ID)
+        R()
+        Write(Ap -> Ap @ ID R)
+    End;
+End;
+
+Proc Af:
+    Ap()
+    Write(Af -> Ap)
+    While (Next_Token == T_**):
+        Read(T_**)
+        Af()
+        Write(Af -> Ap ** Af)
+    End;
+End;
+
+Proc At:
+    Af()
+    Write(At -> Af)
+    While(Next_Token == T_//):
+        Read(T_//)
+        Af()
+        Write(At -> At / Af)
+    While(Next_Token == T_*):
+        Read(T_*)
+        Af()
+        Write(At -> At * Af)
+    End;
+End;
+
+
+        
