@@ -1,4 +1,4 @@
-Select_Rn =  [T_Id , T_Int, T_Str, T_true, T_false, T_nil, T_Lparen, T_dummy]
+First =  [T_Id , T_Int, T_Str, T_Lparen]
 
 //In Rn does not build a tree just puts into the stack ? --not sure
 //Reading the semi colan is not properly done in the code
@@ -15,7 +15,8 @@ End;
 Proc R:
     N = 1
     Rn();
-    while(Next_Token in Select_Rn):
+    Read_semi_colon();
+    while(Next_Token in First_Rn):
         Rn();
         N++; 
     End;
@@ -24,9 +25,10 @@ End;
 
 Proc Ap:
     R()
+    Read_semi_colon()
     N = 1
     While (Next_Token == T_@):
-        Read(T_@)
+        Read(T_@, ignore)
         Read(T_ID)
         R()
         Build_tree('@', 3)
@@ -35,23 +37,28 @@ End;
 
 Proc Af:
     Ap()
-    While (Next_Token == T_**):
+    if Next_Token == ";" then
+        Read_semi_colon()
+    else if Next_Token == "**" then
         Read(T_**)
         Af()
         Build_tree('**', 2)
-    End;
+    else 
+        Error
+    end;
 End;
 
 Proc At:
     Af()
-    While(Next_Token == T_//):
-        Read(T_//)
-        Af()
-        Build_tree('*', 2)
-    While(Next_Token == T_*):
-        Read(T_*)
-        Af()
-        Build_tree('*', 2)
+    While(Next_Token == T_// or Next_Token == T_*):
+        if Next_Token == T_//:
+            Read(T_//, ignore)
+            Af()
+            Build_tree('*', 2)
+        if (Next_Token == T_*):
+            Read(T_*, ignore)
+            Af()
+            Build_tree('*', 2)
     End;
 End;
 
