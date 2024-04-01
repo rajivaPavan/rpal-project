@@ -12,11 +12,12 @@ class ASTNode:
     def setRightSibling(self, node):
         self.right_sibling = node
         
-    def __str__(self):
-        s = str(self.node) 
+    def __str__(self, level=0):
+        s = str(self.node)
         if self.left_child != None:
-            s += "\n.." + str(self.left_child)
+            child_level = level + 1
+            s += "\n" + "."*child_level + self.left_child.__str__(child_level)
         if self.right_sibling != None:
-            s += "\n.." + str(self.right_sibling)
+            s += "\n" + "."*level + self.right_sibling.__str__(level)
         return s
  

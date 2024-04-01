@@ -36,8 +36,7 @@ class Parser:
     def buildTree(self, x, n):     
         p = None
         for i in range(n):
-            token = self.__popStack()
-            c = ASTNode(token)
+            c = self.__popStack()
             c.setRightSibling(p)
             p = c
         self.__pushStack(ASTNode(x, p, None))

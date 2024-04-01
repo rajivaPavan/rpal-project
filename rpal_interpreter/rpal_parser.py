@@ -5,5 +5,6 @@ class RPALParser(Parser):
         super().__init__(src)
         
     def parse(self):
-        pass
+        """returns the AST of the src program"""
+        return self.getAST()
     
