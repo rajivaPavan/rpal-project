@@ -4,10 +4,21 @@ class RPALParser(Parser):
     def __init__(self,src):
         super().__init__(src)
 
+    def proc_Ew(self):
+        """Parse the Ew production rule."""
+        self.proc_T()
+        if self.nextToken() != None and self.nextToken().isValue("where"):
+            self.read(IdentifierToken.fromValue("where"))
+            self.proc_Dr()
+            self.buildTree("where", 2)
+        elif self.nextToken().isValue(";"):
+            self.__readSemiColon()
+        else:
+            raise InvalidTokenException.fromToken(self.nextToken())
+        
     def proc_T(self):
         """Parse the T production rule."""
         self.proc_Ta()
-        self.__readSemiColon()
         if self.nextToken().isValue(";"):
             self.__readSemiColon()
         elif self.nextToken().isValue(","):
