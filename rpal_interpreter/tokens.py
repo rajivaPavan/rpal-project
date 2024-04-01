@@ -34,6 +34,9 @@ class IdentifierToken(Token):
     def regex():
         return TokenRegex.Identifier
     
+    def __str__(self):
+        return f"<ID:{self.value}>"
+    
         
 class IntegerToken(Token):
     def __init__(self, value, line, col):
@@ -41,6 +44,9 @@ class IntegerToken(Token):
         
     def regex():
         return TokenRegex.Integer
+    
+    def __str__(self):
+        return f"<INT:{self.value}>"
     
     
 class OperatorToken(Token):
@@ -56,6 +62,9 @@ class StringToken(Token):
         
     def regex():
         return TokenRegex.String
+    
+    def __str__(self):
+        return f"<STR:{self.value}>"
     
     
 class SpacesToken(Token):
