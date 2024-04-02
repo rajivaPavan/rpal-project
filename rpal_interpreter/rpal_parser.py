@@ -194,7 +194,7 @@ class RPALParser(Parser):
             self.read(OperatorToken.fromValue("@"))
             
             # next token should be an identifier
-            self.read(IdentifierToken.fromValue(self.nextToken().value))
+            self.read(IdentifierToken.fromValue(self.nextToken().value, ignore=False))
             
             self.proc_R()
             self.buildTree("@", 3)
@@ -267,7 +267,7 @@ class RPALParser(Parser):
         elif(token.__class__ == IdentifierToken):
             look_ahead = self.lookahead()
             if look_ahead != None and look_ahead.__class__ in RPALParser.__FIRST_VB:
-                self.read(IdentifierToken.fromValue(self.nextToken().value))
+                self.read(IdentifierToken.fromValue(self.nextToken().value), ignore=False)
                 N = 1
                 while(self.nextToken() != None 
                 and self.nextToken().__class__ in RPALParser.__FIRST_VB):
@@ -275,7 +275,7 @@ class RPALParser(Parser):
                     N += 1
                 self.read(OperatorToken.fromValue("="))
                 self.proc_E()
-                self.buildTree("fcn_form", N+2)
+                self.buildTree("fcn_form", N+1)
             elif look_ahead != None and look_ahead.__class__ == CommaToken:
                     self.proc_Vl()
                     self.read(OperatorToken.fromValue("="))
