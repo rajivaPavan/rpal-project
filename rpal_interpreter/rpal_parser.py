@@ -3,36 +3,32 @@ from .tokens import *
 class RPALParser(Parser):
     def __init__(self,src):
         super().__init__(src)
-        
-        
+    
+    __FIRST_RN = [IdentifierToken, IntegerToken, StringToken, LParenToken]
+    __FIRST_VB = [IdentifierToken, LParenToken]
+    
     def proc_E(self):
-            """Parse the E production rule."""
             if self.NextToken() != None and self.nextToken().isValue("let"):
                 self.read(IdentifierToken.fromValue("let"))
                 self.proc_D()
-                if (self.nextToken() != None and self.nextToken().isValue("in")):
-                    self.read(IdentifierToken.fromValue("in"))
-                    self.proc_E()
-                    self.buildTree("let", 2)
-                else:
-                    raise InvalidTokenException.fromToken(self.nextToken)
+                self.read(IdentifierToken.fromValue("in"))
+                self.proc_E()
+                self.buildTree("let", 2)
             elif self.nextToken().isValue("fn"):
                 self.read(IdentifierToken.fromValue("fn"))
                 N = 1
-                while (self.nextToken() != None and (self.nextToken().__class__ in RPALParser.__FIRST_Vb or self.nextToken().__class__ == IdentifierToken)):
+                while (self.nextToken() != None):
+                    if(self.nextToken().isValue(".")):
+                        break
                     self.proc_Vb()
                     N += 1
-                if(self.nextToken() != None and self.nextToken().isValue(",")):
-                    self.read(CommaToken.instance())
-                    self.proc_E()
-                    self.buildTree("lambda", N+1)
-                else:
-                    raise InvalidTokenException.fromToken(self.nextToken())
+                self.read(IdentifierToken.fromValue("."))
+                self.proc_E()
+                self.buildTree("lambda", N+1)
             else: 
                 self.proc_Ew()
                             
     def proc_Ew(self):
-        """Parse the Ew production rule."""
         self.proc_T()
         if self.nextToken() != None and self.nextToken().isValue("where"):
             self.read(IdentifierToken.fromValue("where"))
@@ -42,7 +38,6 @@ class RPALParser(Parser):
             raise InvalidTokenException.fromToken(self.nextToken())
         
     def proc_T(self):
-        """Parse the T production rule."""
         self.proc_Ta()
         if self.nextToken().isValue(","):
             while self.nextToken != None and self.nextToken().isValue(","):
@@ -53,7 +48,6 @@ class RPALParser(Parser):
             raise InvalidTokenException.fromToken(self.nextToken())
 
     def proc_Ta(self):
-        """Parse the Ta production rule."""
         self.proc_Tc()
         while self.nextToken() != None and self.nextToken().isValue("aug"):
             self.read(IdentifierToken.fromValue("aug"))
@@ -61,7 +55,6 @@ class RPALParser(Parser):
             self.buildTree("aug", 2)        
         
     def proc_Tc(self):
-        """Parse the Tc production rule."""
         self.proc_B()
         if self.nextToken().isValue("->"):
             self.read(OperatorToken.fromValue("->"))
@@ -73,7 +66,6 @@ class RPALParser(Parser):
             raise InvalidTokenException.fromToken(self.nextToken())
 
     def proc_B(self):
-        """Parse the B production rule."""
         self.proc_Bt()
         while self.nextToken() != None and self.nextToken().isValue("or"):
             self.read(IdentifierToken.fromValue("or"))
@@ -81,7 +73,6 @@ class RPALParser(Parser):
             self.buildTree("or", 2)
 
     def proc_Bt(self):
-        """Parse the Bt production rule."""
         self.proc_Bs()
         while self.nextToken() != None and self.nextToken().isValue("&"):
             self.read(OperatorToken.fromValue("&"))
@@ -89,7 +80,6 @@ class RPALParser(Parser):
             self.buildTree("&", 2)
 
     def proc_Bs(self):
-        """Parse the Bs production rule."""
         if self.nextToken().isValue("not"):
             self.read(IdentifierToken.fromValue("not"))
             self.proc_Bp()
@@ -175,8 +165,9 @@ class RPALParser(Parser):
                 self.buildTree("-", 2)
 
     def proc_At(self):
-        """Process the At production rule."""
+        
         self.proc_Af()
+        
         _next_token = self.nextToken()
         while ( _next_token != None and 
                _next_token.__class__ == OperatorToken 
@@ -195,9 +186,7 @@ class RPALParser(Parser):
             _next_token = self.nextToken()
 
     def proc_Af(self):
-        """
-        Process the Af production rule.
-        """
+        
         self.proc_Ap()
         if self.nextToken().isValue("**"):
             self.read(OperatorToken.fromValue("**"), ignore=True)
@@ -207,8 +196,7 @@ class RPALParser(Parser):
             raise InvalidTokenException.fromToken(self.nextToken())
         
     def proc_Ap(self):
-        """Parse the Ap production rule."""
-        
+                
         self.proc_R()
             
         # check if the next token is a @ 
@@ -223,7 +211,6 @@ class RPALParser(Parser):
             self.buildTree("@", 3)
 
     def proc_R(self):
-        """Parse the R production rule."""
         self.proc_Rn()
         n = 1
         while (self.nextToken() != None 
@@ -232,18 +219,11 @@ class RPALParser(Parser):
             n += 1
         self.buildTree("gamma", n)
         
-    __FIRST_RN = [IdentifierToken, IntegerToken, StringToken, LParenToken]
         
     def proc_Rn(self):
-        """Parse the Rn production rule.
-
-        Raises:
-            Exception: If an invalid token is encountered.
-
-        Returns:
-            None
-        """
+        
         token = self.nextToken()
+        
         if token.__class__ == IdentifierToken:
             # read the identifier token
             self.read(token, ignore=False)
@@ -251,14 +231,98 @@ class RPALParser(Parser):
                 # build the tree with the token value
                 self.buildTree(token.value, 0)
             pass
+        
         elif token.__class__ in [IntegerToken, StringToken]:
             # read the integer or string token
             self.read(token, ignore = False)
+            
         elif token.__class__ == LParenToken:
             # read and ignore the ( token
             self.read(token)
+            
         else:
             raise InvalidTokenException.fromToken(token)
+        
+    def proc_D(self):
+        self.proc_Da()
+        if self.nextToken().isValue("within"):
+            self.read(IdentifierToken.fromValue("within"))
+            self.proc_D()
+            self.buildTree("within", 2)
+        
+    def proc_Da(self):
+        self.proc_Dr()
+        while self.nextToken() != None and self.nextToken().isValue("and"):
+            self.read(IdentifierToken.fromValue("and"))      
+            self.proc_Dr()
+            self.buildTree("and", 2)
+        
+    
+    def proc_Dr(self):
+        if self.nextToken().isValue("rec"):
+            self.read(IdentifierToken.fromValue("rec"))
+            self.proc_Db()
+            self.buildTree("rec", 1)
+        else:
+            self.proc_Db()
+        
+        
+    def proc_Db(self):
+        
+        N = 1
+        token = self.nextToken()
+        
+        if(token.__class__ == IdentifierToken):
+            self.read(token, ignore = False)
+            while(self.nextToken() != None):
+                if self.nextToken().isValue("="):
+                    break
+                self.Vb()
+                N += 1
+            self.read(IdentifierToken.fromValue("="))
+            self.proc_E()
+            self.buildTree("fcn_form", N+1)
+        elif(token.__class__ == LParenToken):
+            self.read(token)
+            self.proc_D()
+            self.read(RParenToken.instance())
+        else:
+            self.proc_Vl()
+            self.read(IdentifierToken.fromValue("="))
+            self.proc_E()
+            self.buildTree("=", 2)
+             
+    def proc_Vb(self):
+        token = self.nextToken()
+        if(token.__class__ == IdentifierToken):
+            self.read(self.nextToken(), ignore = False)
+        elif(token.__class__ == LParenToken):
+            self.read(LParenToken.instance())
+            if(self.nextToken().__class__ == RParenToken):
+                self.read(RParenToken.instance())
+                self.buildTree("()", 0)
+            else:
+                self.proc_Vl()
+                self.read(RParenToken.instance())
+        else:
+            raise InvalidTokenException.fromToken(token)
+        
+    def proc_vl(self):
+        N = 1
+        if(self.nextToken().__class__ == IdentifierToken):
+            self.read(self.nextToken(), ignore = False)
+            while(self.nextToken() != None and self.nextToken().isValue(",")):
+                self.read(CommaToken.instance())
+                if (self.nextToken() != None and self.nextToken().__class__ == IdentifierToken):
+                    self.read(self.nextToken(), ignore = False)
+                    N += 1
+                else:
+                    raise InvalidTokenException.fromToken(self.nextToken())
+            self.buildTree(",", N)
+            
+        else:
+            raise InvalidTokenException.fromToken(self.nextToken()) 
+            
 
     def parse(self):
             """Parses the source program and returns the Abstract Syntax Tree (AST).
