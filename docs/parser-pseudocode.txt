@@ -4,13 +4,27 @@ First =  [T_Id , T_Int, T_Str, T_Lparen]
 //Reading the semi colan is not properly done in the code
 
 Proc Rn;
-	If Next_Token is in Select_Rn:
-		Read(Next_Token)
-	else:
-		Error;
-	End;
-End;
+    If (Next_Token == T_id or T_Int or T_Str)
+        Read(Next_Token)
 
+    elif: (Next_Token == T_true)
+          Read(T_true)
+          Build_tree('true', 0) 
+    elif: (Next_Token == T_false)   
+            Read(T_false)
+            Build_tree('false', 0)
+    elif: (Next_Token == T_nil)
+            Read(T_nil)
+            Build_tree('nil', 0)
+    elif: (Next_Token == T_('E))
+            Read(T_('E))
+    elif (Next_Token == T_dummy)
+            Read(T_dummy)
+            Build_tree('dummy', 0)
+    else:
+        Error;
+    End;
+End;
 
 Proc R:
     N = 1
@@ -163,6 +177,51 @@ proc Tc:
     End;
 End;
 
+proc Ta:
+    Tc()
+    while(Next_Token == T_aug):
+        Read(T_aug)
+        Tc()
+        Build_tree('aug', 2)
+    End;
+End;
+
+proc T:
+    Ta()
+    while(Next_Token == T_,):
+        Read(T_,)
+        Ta()
+        Build_tree('tau', 2)
+    End;
+End;
+
+proc Ew:
+    T();
+    if (Next_Token == T_where):
+        Read(T_where)
+        Dr();
+        Build_tree('where', 2)
+    else:
+        Error;
+End;
+
+proc E:
+    if(Next_token == T_let):
+        Read(T_let)
+        D()
+        Read(T_in)
+        E()
+        Build_tree('let', 2)
+    elif(Next_Token = T_fn):
+        Read(T_fn)
+        Read(T_ID)
+        Read(T_.)
+        E();
+        E()
+        Build_tree('lambda', 2)
+    else:
+        Ew()
+    End;
 
 
     
