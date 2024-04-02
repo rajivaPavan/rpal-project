@@ -163,6 +163,51 @@ proc Tc:
     End;
 End;
 
+proc Ta:
+    Tc()
+    while(Next_Token == T_aug):
+        Read(T_aug)
+        Tc()
+        Build_tree('aug', 2)
+    End;
+End;
+
+proc T:
+    Ta()
+    while(Next_Token == T_,):
+        Read(T_,)
+        Ta()
+        Build_tree('tau', 2)
+    End;
+End;
+
+proc Ew:
+    T();
+    if (Next_Token == T_where):
+        Read(T_where)
+        Dr();
+        Build_tree('where', 2)
+    else:
+        Error;
+End;
+
+proc E:
+    if(Next_token == T_let):
+        Read(T_let)
+        D()
+        Read(T_in)
+        E()
+        Build_tree('let', 2)
+    elif(Next_Token = T_fn):
+        Read(T_fn)
+        Read(T_ID)
+        Read(T_.)
+        E();
+        E()
+        Build_tree('lambda', 2)
+    else:
+        Ew()
+    End;
 
 
     
