@@ -53,8 +53,6 @@ Proc Af:
         Read(T_**)
         Af()
         Build_tree('**', 2)
-    else 
-        Error
     end;
 End;
 
@@ -194,8 +192,6 @@ proc Ew:
         Read(T_where)
         Dr();
         Build_tree('where', 2)
-    else:
-        Error;
 End;
 
 proc E:
@@ -246,6 +242,61 @@ proc Vb:
 End;
 
 # Definitions
+
+proc Db:
+    if Next_Token == T_( :
+        Read(T_( )
+        D()
+        Read(T_) )
+    elif Next_Token == T_id:
+        look_next_token = look_ahead()
+        if look_next_token == T_comma:
+            Vl()
+            Read(T_=)
+            E()
+            Build_tree("=", 2)
+        else if look_next_token == T_id:
+            Read(T_id)
+            N = 1
+            while Next_Token IN First_Vb:
+                Vb()
+                N++;
+            Read(T_=)
+            E()
+            Build_tree('function', N+2)
+        else 
+            Error
+    else:
+        Error
+    End;
+
+proc Dr:
+    if Next_Token == T_rec:
+        Read(T_rec)
+        Db()
+        Build_tree('rec', 2)
+    else:
+        Db()
+    End;
+End;
+
+proc Da:
+    Dr()
+    while Next_Token == T_and:
+        Read(T_and)
+        Dr()
+        Build_tree('and', 2)
+    End;
+End;
+
+proc D:
+    Da()
+    if Next_Token == T_within:
+        Read(T_within)
+        D()
+        Build_tree('and', 2)
+    End;
+End;
 
 
 
