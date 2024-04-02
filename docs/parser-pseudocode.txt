@@ -230,12 +230,13 @@ proc Vl:
     Build_tree(',', N)
 End;
 
+// implemented python code is correct
 proc Vb:
     if(Next_Token == T_(  ):
         Read(T_()
         if Next_Token == T_) ):
             Read(T_) )
-            Build_tree('()', 1)
+            Build_tree('()', 0)
         else:
             Vl()
             Read(T_) )
@@ -274,7 +275,7 @@ proc Dr:
     if Next_Token == T_rec:
         Read(T_rec)
         Db()
-        Build_tree('rec', 2)
+        Build_tree('rec', 1)
     else:
         Db()
     End;

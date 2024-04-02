@@ -34,6 +34,9 @@ class Parser:
     
     def nextToken(self)->Token:
         return self.__nextToken
+
+    def lookahead(self)->Token:
+        return self.__lexer.lookAhead()
     
     def __setNextToken(self, token):
         self.__nextToken = token
