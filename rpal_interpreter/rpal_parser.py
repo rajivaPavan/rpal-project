@@ -17,6 +17,7 @@ class RPALParser(Parser):
         elif self.nextToken().isValue("fn"):
             self.read(IdentifierToken.fromValue("fn"))
             N = 1
+            self.proc_Vb()
             while (self.nextToken() != None 
                    and self.nextToken().__class__ in RPALParser.__FIRST_VB):
                 self.proc_Vb()
@@ -269,6 +270,7 @@ class RPALParser(Parser):
             if look_ahead != None and look_ahead.__class__ in RPALParser.__FIRST_VB:
                 self.read(IdentifierToken.fromValue(self.nextToken().value), ignore=False)
                 N = 1
+                self.proc_Vb()
                 while(self.nextToken() != None 
                 and self.nextToken().__class__ in RPALParser.__FIRST_VB):
                     self.proc_Vb()
