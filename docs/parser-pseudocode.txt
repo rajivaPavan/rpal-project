@@ -1,6 +1,5 @@
 --What the hell is list?
 First =  [T_Id , T_Int, T_Str, T_Lparen]
-//In Rn does not build a tree just puts into the stack ? --not sure
 
 Proc Rn;
     If (Next_Token == T_id or T_Int or T_Str)
@@ -28,17 +27,17 @@ End;
 Proc R:
     N = 1
     Rn();
-    Read_semi_colon();
-    while(Next_Token in First_Rn):
+    while(Next_Token in Select_Rn):
         Rn();
         N++; 
+    else: 
+        Error;
     End;
     Build_tree('gamma', N);
 End;
 
 Proc Ap:
     R()
-    Read_semi_colon()
     N = 1
     While (Next_Token == T_@):
         Read(T_@, ignore)
@@ -50,9 +49,7 @@ End;
 
 Proc Af:
     Ap()
-    if Next_Token == ";" then
-        Read_semi_colon()
-    else if Next_Token == "**" then
+    if Next_Token == "**" then
         Read(T_**)
         Af()
         Build_tree('**', 2)
@@ -135,12 +132,10 @@ proc Bs:
         Build_tree('not', 1)
     else:
         Bp()
-        Read_semi_colon()
 End;
 
 proc Bt:
     Bs()
-    Read_semi_colon()
     while (Next_Token == T_&)
         Read(T_&)
         Bs()
@@ -150,7 +145,6 @@ End;
 
 proc B:
     Bt()
-    Read_semi_colon()
     while(Next_Token == T_or):
         Read(T_or)
         Bt();
@@ -213,15 +207,50 @@ proc E:
         Build_tree('let', 2)
     elif(Next_Token = T_fn):
         Read(T_fn)
-        Read(T_ID)
+        N = 1
+        while (Next_Token in First of Vb):
+            Vb()
+            N++;
         Read(T_.)
         E();
-        E()
-        Build_tree('lambda', 2)
+        Build_tree('lambda', N+1)
     else:
         Ew()
     End;
 
+------------------------ 
+# Variables
+
+proc Vl:
+    Read(T_id)
+    N = 1
+    if Next_Token is not T_,"
+        Error
+    while (Next_Token == T_,):
+        Read(T_,)
+        Read(T_id)
+        N++;
+    End;
+    Build_tree(',', N)
+End;
+
+proc Vb:
+    if(Next_Token == T_(  ):
+        Read(T_()
+        if Next_Token == T_) ):
+            Read(T_) )
+            Build_tree('()', 1)
+        else:
+            Vl()
+            Read(T_) )
+End;
+
+# Definitions
+
+
+
+
+    
 
     
     

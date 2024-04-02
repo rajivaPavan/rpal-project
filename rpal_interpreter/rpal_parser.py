@@ -38,17 +38,13 @@ class RPALParser(Parser):
             self.read(IdentifierToken.fromValue("where"))
             self.proc_Dr()
             self.buildTree("where", 2)
-        elif self.nextToken().isValue(";"):
-            self.__readSemiColon()
         else:
             raise InvalidTokenException.fromToken(self.nextToken())
         
     def proc_T(self):
         """Parse the T production rule."""
         self.proc_Ta()
-        if self.nextToken().isValue(";"):
-            self.__readSemiColon()
-        elif self.nextToken().isValue(","):
+        if self.nextToken().isValue(","):
             while self.nextToken != None and self.nextToken().isValue(","):
                 self.read(CommaToken.instance())
                 self.proc_Ta()
@@ -59,7 +55,6 @@ class RPALParser(Parser):
     def proc_Ta(self):
         """Parse the Ta production rule."""
         self.proc_Tc()
-        self.__readSemiColon()
         while self.nextToken() != None and self.nextToken().isValue("aug"):
             self.read(IdentifierToken.fromValue("aug"))
             self.proc_Tc()
@@ -74,15 +69,12 @@ class RPALParser(Parser):
             self.read(OperatorToken.fromValue("|"))
             self.proc_Tc()
             self.buildTree("->", 3)
-        elif self.nextToken().isValue(";"):
-            self.__readSemiColon()
         else:
             raise InvalidTokenException.fromToken(self.nextToken())
 
     def proc_B(self):
         """Parse the B production rule."""
         self.proc_Bt()
-        self.__readSemiColon()
         while self.nextToken() != None and self.nextToken().isValue("or"):
             self.read(IdentifierToken.fromValue("or"))
             self.proc_Bt()
@@ -91,7 +83,6 @@ class RPALParser(Parser):
     def proc_Bt(self):
         """Parse the Bt production rule."""
         self.proc_Bs()
-        self.__readSemiColon()
         while self.nextToken() != None and self.nextToken().isValue("&"):
             self.read(OperatorToken.fromValue("&"))
             self.proc_Bs()
@@ -105,7 +96,6 @@ class RPALParser(Parser):
             self.buildTree("not", 1)
         else:
             self.proc_Bp()
-            self.__readSemiColon()
     
     def proc_Bp(self):
         self.proc_A()
@@ -169,7 +159,6 @@ class RPALParser(Parser):
         # SELECT(At) = FIRST(Rn)
         elif self.nextToken().__class__ in RPALParser.__FIRST_RN: 
             self.proc_At()
-            self.__readSemiColon()
         else:
             raise InvalidTokenException.fromToken(self.nextToken())
         
@@ -188,8 +177,6 @@ class RPALParser(Parser):
     def proc_At(self):
         """Process the At production rule."""
         self.proc_Af()
-        self.__readSemiColon()
-        
         _next_token = self.nextToken()
         while ( _next_token != None and 
                _next_token.__class__ == OperatorToken 
@@ -212,9 +199,7 @@ class RPALParser(Parser):
         Process the Af production rule.
         """
         self.proc_Ap()
-        if self.nextToken().__class__ == SemiColonToken:
-            self.__readSemiColon()
-        elif self.nextToken().isValue("**"):
+        if self.nextToken().isValue("**"):
             self.read(OperatorToken.fromValue("**"), ignore=True)
             self.proc_Af()
             self.buildTree("**", 2)
@@ -225,7 +210,6 @@ class RPALParser(Parser):
         """Parse the Ap production rule."""
         
         self.proc_R()
-        self.__readSemiColon()
             
         # check if the next token is a @ 
         while self.nextToken() != None and self.nextToken().isValue("@"):
@@ -241,7 +225,6 @@ class RPALParser(Parser):
     def proc_R(self):
         """Parse the R production rule."""
         self.proc_Rn()
-        self.__readSemiColon()
         n = 1
         while (self.nextToken() != None 
                and self.nextToken().__class__ in RPALParser.__FIRST_RN):
@@ -277,10 +260,6 @@ class RPALParser(Parser):
         else:
             raise InvalidTokenException.fromToken(token)
 
-    def __readSemiColon(self):
-        """Reads the semicolon token if it is present in the source program and ignores it."""
-        self.read(SemiColonToken.instance())
-            
     def parse(self):
             """Parses the source program and returns the Abstract Syntax Tree (AST).
 
