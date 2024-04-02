@@ -257,8 +257,11 @@ class RPALParser(Parser):
         elif token.__class__ == LParenToken:
             # read and ignore the ( token
             self.read(token)
+            self.proc_E()
+            # read and ignore the ) token
+            self.read(RParenToken.instance())
         else:
-            raise InvalidTokenException.fromToken(token)
+            raise Exception("Invalid token: Identifier, Integer, String or \"(\" expected but found: " + str(token))
 
     def parse(self):
             """Parses the source program and returns the Abstract Syntax Tree (AST).
