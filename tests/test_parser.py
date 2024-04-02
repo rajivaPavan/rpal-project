@@ -8,10 +8,10 @@ class TestParser(unittest.TestCase):
     def test_ast_str(self):
         src = read_file("file_name")
         parser = Parser(src)
-        parser.read(parser.nextToken())
+        parser.read(parser.nextToken(), ignore=False)
         parser.buildTree("gamma", 1)
-        parser.read(parser.nextToken())
-        parser.read(parser.nextToken())
+        parser.read(parser.nextToken(), ignore=False)
+        parser.read(parser.nextToken(), ignore=False)
         parser.buildTree("gamma", 2)
         parser.buildTree("program", 2)
         ast = parser.getAST()
