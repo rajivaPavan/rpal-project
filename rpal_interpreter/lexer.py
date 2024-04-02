@@ -38,33 +38,32 @@ class Lexer:
         self.__line_no = 1
         self.__char_pos = 1
 
-    def lookAhead(self, count:int=1):
+    def lookAhead(self):
         """
-        Retrieves the N next tokens from the program string without consuming it.
-
-        Args:
-            count (int, optional): The number of tokens to look ahead. Defaults to 1.
-
-        Returns:
-            list: The list of tokens from the program string.
+        Retrieves the next token from the program string without consuming the token
+        
+        Returns: Next Token or None if there are no more tokens.
         """
-        tokens = self.tokenize(count)
-        for token in tokens:
-            self.__look_ahead_q.put(token)
-        return tokens
+        if self.__look_ahead_q.empty():
+            tokens = self.tokenize(count=1)
+            if len(tokens) == 0:
+                return None
+            else:
+                self.__look_ahead_q.put(tokens[0])
+                return tokens[0]
+        else:
+            return self.__look_ahead_q.queue[0]
+            
     
-    def nextToken(self, look_ahead:int=1):
+    def nextToken(self):
         """
         Retrieves the next token from the program string. This consumes the token.
-
-        Args:
-            count (int, optional): The number of tokens to retrieve. Defaults to 1.
 
         Returns:
             Token: The next token from the program string.
         """
         if self.__look_ahead_q.empty():
-            self.__tokenize(look_ahead)
+            self.__tokenize()
         return self.__look_ahead_q.get()
 
     def tokenize(self, count:int=-1):
