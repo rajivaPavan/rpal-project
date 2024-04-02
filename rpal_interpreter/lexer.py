@@ -189,7 +189,7 @@ class Lexer:
             break         
             
         if not match:   
-            raise InvalidTokenException(line_no, char_pos)
+            raise InvalidTokenException.fromLine(line_no, char_pos)
                 
         # update the position, line number and character position
         self.__position = position

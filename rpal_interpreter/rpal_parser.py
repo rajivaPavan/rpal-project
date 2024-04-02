@@ -15,7 +15,7 @@ class RPALParser(Parser):
                     self.proc_E()
                     self.buildTree("let", 2)
                 else:
-                    raise InvalidTokenException.fromToken(self.nextToken)
+                    raise InvalidTokenException.fromToken(self.nextToken())
             elif self.nextToken().isValue("fn"):
                 self.read(IdentifierToken.fromValue("fn"))
                 N = 1
@@ -250,7 +250,6 @@ class RPALParser(Parser):
             if token.value in ["true", "false", "nil", "dummy"]:
                 # build the tree with the token value
                 self.buildTree(token.value, 0)
-            pass
         elif token.__class__ in [IntegerToken, StringToken]:
             # read the integer or string token
             self.read(token, ignore = False)
