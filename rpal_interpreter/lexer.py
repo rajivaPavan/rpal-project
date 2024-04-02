@@ -1,5 +1,6 @@
 import re
 from .tokens import *
+import queue as q
 
 class Lexer:
     """
@@ -23,74 +24,120 @@ class Lexer:
     """
 
     def __init__(self, program):
-        self.program = program
-        self.tokens = []
-        self.position = 0
-        self.line_no = 1
-        self.char_pos = 1
+        self.__program = program
+        self.__position = 0
+        self.__line_no = 1
+        self.__char_pos = 1
+        self.__look_ahead_q = q.Queue()
         
     def reset(self):
         """
         Resets the lexer to its initial state.
         """
-        self.tokens = []
-        self.position = 0
-        self.line_no = 1
-        self.char_pos = 1
+        self.__position = 0
+        self.__line_no = 1
+        self.__char_pos = 1
 
-    def tokenize(self, count=-1):
+    def lookAhead(self, count:int=1):
         """
-        Tokenizes the program string up to a specified count.
+        Retrieves the N next tokens from the program string without consuming it.
 
         Args:
-            count (int, optional): The maximum number of tokens to tokenize. Defaults to -1 (tokenize all).
+            count (int, optional): The number of tokens to look ahead. Defaults to 1.
+
+        Returns:
+            list: The list of tokens from the program string.
+        """
+        tokens = self.tokenize(count)
+        for token in tokens:
+            self.__look_ahead_q.put(token)
+        return tokens
+    
+    def nextToken(self, look_ahead:int=1):
+        """
+        Retrieves the next token from the program string. This consumes the token.
+
+        Args:
+            count (int, optional): The number of tokens to retrieve. Defaults to 1.
+
+        Returns:
+            Token: The next token from the program string.
+        """
+        if self.__look_ahead_q.empty():
+            self.__tokenize(look_ahead)
+        return self.__look_ahead_q.get()
+
+    def tokenize(self, count:int=-1):
+        """
+        Tokenizes the program string up to a specified count and 
+        returns the list of tokens from the look ahead queue.
+
+        Args:
+            count (int, optional): The number of tokens to tokenize. Defaults to -1.
 
         Returns:
             list: The list of tokens generated from the program string.
         """
+        tokens = []
+        self.__tokenize(count)
+        while not self.__look_ahead_q.empty():
+            tokens.append(self.__look_ahead_q.get())
+        return tokens
+
+    def __tokenize(self, count:int=1):
+        """
+        Tokenizes the program by extracting tokens using the __lexToken method.
+        This method adds the tokens to the look ahead queue.
+
+        Args:
+            count (int, optional): The number of tokens to tokenize. Defaults to 1.
+
+        Returns:
+            None
+
+        """
         counter = 0
-        while self.position < len(self.program):
-            self.nextToken()
+        while self.__position < len(self.__program):
+            token = self.__lexToken()
+            if token == None:
+                break
+            self.__look_ahead_q.put(token)
             counter += 1
             if counter == count:
                 break
             
-        return self.tokens
-            
-    def nextToken(self):
+                    
+    def __lexToken(self):
         """
-        Retrieves the next token from the program string.
+        Lexes the next token in the program.
 
         Returns:
-            Token: The next token from the program string.
-
-        Raises:
-            InvalidTokenException: If the next token is invalid.
+            The next token in the program, or None if there are no more tokens.
         """
         token = None
-        while token == None and self.position < len(self.program):
-            token = self.__nextToken()
-        return token 
+        while token == None and self.__position < len(self.__program):
+            token = self.__lex()
+        return token
     
-    def __nextToken(self):
+    def __lex(self):
         """
         Retrieves the next token from the program string.
 
         Returns:
-            Token: The next token from the program string.
+            Token: The next token from the program string. 
+            Can be None if no token is a <DELETE> token or if end of program is reached.
 
         Raises:
             InvalidTokenException: If the next token is invalid.
         """
-        program = self.program
-        position = self.position
+        program = self.__program
+        position = self.__position
         
         if position >= len(program):
             return None
         
-        tokens = self.tokens
-        line_no = self.line_no
-        char_pos = self.char_pos
+        line_no = self.__line_no
+        char_pos = self.__char_pos
 
         # using re get the first token that matches the pattern and the position at which it ends
         match = None
@@ -124,10 +171,8 @@ class Lexer:
                 or token_type == SemiColonToken 
                 or token_type == CommaToken):
                     res = token_type(line_no, char_pos)
-                    tokens.append(res)
             else:
                 res = token_type(token_val, line_no, char_pos)
-                tokens.append(res)
                    
             break         
             
@@ -135,8 +180,8 @@ class Lexer:
             raise InvalidTokenException(line_no, char_pos)
                 
         # update the position, line number and character position
-        self.position = position
-        self.line_no = line_no
-        self.char_pos = char_pos
+        self.__position = position
+        self.__line_no = line_no
+        self.__char_pos = char_pos
         
         return res
