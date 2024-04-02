@@ -15,15 +15,15 @@ class TestLexer(unittest.TestCase):
     def test_lex_one_token(self):
         src = read_file("file_name")
         lexer = Lexer(src)
-        expected = "(<IDENTIFIER>, 'let')"
+        expected = "<ID:let>"
         self.assertEqual(str(lexer.nextToken()), expected)
         
     def test_nextToken(self):
         src = read_file("file_name")
         lexer = Lexer(src)
-        expected = "(<IDENTIFIER>, 'let')"
+        expected = "<ID:let>"
         self.assertEqual(str(lexer.nextToken()), expected)
-        expected = "(<IDENTIFIER>, 'Sum')"
+        expected = "<ID:Sum>"
         self.assertEqual(str(lexer.nextToken()), expected)
         
     def test_lex_two_tokens(self):

@@ -1,4 +1,4 @@
-Select_Rn =  [T_Id , T_Int, T_Str, T_true, T_false, T_nil, T_Lparen, T_dummy]
+First =  [T_Id , T_Int, T_Str, T_Lparen]
 
 //In Rn does not build a tree just puts into the stack ? --not sure
 //Reading the semi colan is not properly done in the code
@@ -29,7 +29,6 @@ End;
 Proc R:
     N = 1
     Rn();
-    Read (T_;)
     while(Next_Token in Select_Rn):
         Rn();
         N++; 
@@ -41,9 +40,10 @@ End;
 
 Proc Ap:
     R()
+    Read_semi_colon()
     N = 1
     While (Next_Token == T_@):
-        Read(T_@)
+        Read(T_@, ignore)
         Read(T_ID)
         R()
         Build_tree('@', 3)
@@ -52,45 +52,58 @@ End;
 
 Proc Af:
     Ap()
-    While (Next_Token == T_**):
+    if Next_Token == ";" then
+        Read_semi_colon()
+    else if Next_Token == "**" then
         Read(T_**)
         Af()
         Build_tree('**', 2)
-    End;
+    else 
+        Error
+    end;
 End;
 
 Proc At:
     Af()
-    While(Next_Token == T_//):
-        Read(T_//)
-        Af()
-        Build_tree('*', 2)
-    While(Next_Token == T_*):
-        Read(T_*)
-        Af()
-        Build_tree('*', 2)
+    While(Next_Token == T_// or Next_Token == T_*):
+        if Next_Token == T_//:
+            Read(T_//, ignore)
+            Af()
+            Build_tree('*', 2)
+        if (Next_Token == T_*):
+            Read(T_*, ignore)
+            Af()
+            Build_tree('*', 2)
     End;
 End;
 
+------------------------------------
+
+A -> (At; | +At | -At) ( ('+' At) | ('-' At) )+
+
+// above is kind of like an regular expression for the procedure A
+
+// below code is incorrect, python code is implemented according to the above regular expression
 proc A:
     case Next_Token_of
         T_+: Read(T_+)
              At()
         T_-: Read(T_-)
-            Build_tree('Neg', 1)
             At();
-        else: At()
-              while(Next_Token == T_+)
+            Build_tree('Neg', 1)
+        otherwise: 
+            At()
+            while(Next_Token == T_+)
                     Read(T_+)
                     Build_tree('+',2)
                     At()
-              end;
-              while(Next_token == T_-)
+            end;
+            while(Next_token == T_-)
                     Read(T_-)
                     Build_tree('-',2)
                     At()
-              end;
-
+            end;
+---------------------------------------------------
 proc Bp: 
     A();
     case Next_Token_of
@@ -112,21 +125,24 @@ proc Bp:
         (T_ne):Read(T_ne)
                A()
                Build_tree('ne', 2)
-
-    Read('T_;')
+        (T_;):Read('T_;')
+        otherwise: Error
 End;
 
 
 proc Bs:
-    Bp();
-    case Next_Token_of
-        (T_not): Read(T_not)
-                Build_tree('not', 1)
-    Read(T_;);
+    if Next_Token == T_not:
+        Read(T_not)
+        Bp()
+        Build_tree('not', 1)
+    else:
+        Bp()
+        Read_semi_colon()
 End;
 
 proc Bt:
     Bs()
+    Read_semi_colon()
     while (Next_Token == T_&)
         Read(T_&)
         Bs()
@@ -136,6 +152,7 @@ End;
 
 proc B:
     Bt()
+    Read_semi_colon()
     while(Next_Token == T_or):
         Read(T_or)
         Bt();
@@ -143,6 +160,7 @@ proc B:
     End;
 End;    
 
+// this is incorrect - check the python code
 proc Tc:
     B()
     N = 1;
