@@ -102,7 +102,50 @@ class TestLexer(unittest.TestCase):
         src = "  \t \n\n\n  \t  "
         lexer = Lexer(src)
         self.assertEqual(lexer.tokenize(), [])
-    
+
+    def test_lookAhead_default(self):
+        src = read_file("file_name")
+        lexer = Lexer(src)
+        expected = "[(<IDENTIFIER>, 'let')]"
+        self.assertEqual(str(lexer.lookAhead()), expected)
+
+    def test_lookAhead_count(self):
+        src = read_file("file_name")
+        lexer = Lexer(src)
+        expected = "[(<IDENTIFIER>, 'let'), (<IDENTIFIER>, 'Sum')]"
+        self.assertEqual(str(lexer.lookAhead(count=2)), expected)
+
+    def test_lookAhead_multiple_calls(self):
+        src = read_file("file_name")
+        lexer = Lexer(src)
+        expected = "[(<IDENTIFIER>, 'let'), (<IDENTIFIER>, 'Sum'), ((, None)]"
+        self.assertEqual(str(lexer.lookAhead(count=3)), expected)
+        expected = "[(<IDENTIFIER>, 'let'), (<IDENTIFIER>, 'Sum'), ((, None), (<IDENTIFIER>, 'A'), (), None), (<OPERATOR>, '=')]"
+        self.assertEqual(str(lexer.lookAhead(count=3)), expected)
+
+    def test_lookAhead_empty(self):
+        src = ""
+        lexer = Lexer(src)
+        self.assertEqual(lexer.lookAhead(), [])
+
+    def test_lookAhead_comment(self):
+        src = "// this is a comment\n3+5"
+        lexer = Lexer(src)
+        expected = "[(<INTEGER>, '3')]"
+        self.assertEqual(str(lexer.lookAhead()), expected)
+
+    def test_lookAhead_comment_2(self):
+        src = "3+5\n// this is a comment\n"
+        lexer = Lexer(src)
+        expected = "[(<INTEGER>, '3')]"
+        self.assertEqual(str(lexer.lookAhead()), expected)
+
+    def test_lookAhead_simple(self):
+        src = "3 + 5 * (10 - 4)"
+        lexer = Lexer(src)
+        expected = "[(<INTEGER>, '3')]"
+        self.assertEqual(str(lexer.lookAhead()), expected)
+
 
 if __name__ == '__main__':
     unittest.main()
