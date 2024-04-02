@@ -36,6 +36,9 @@ class Token:
     def regex():
         raise NotImplementedError("regex method not implemented")
     
+    def isType(self, t):
+        return self.__class__ == t
+    
     def __eq__(self, other) -> bool:
         if other == None:
             return False

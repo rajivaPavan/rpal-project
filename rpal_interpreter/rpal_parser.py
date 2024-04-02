@@ -33,18 +33,14 @@ class RPALParser(Parser):
             self.read(IdentifierToken.fromValue("where"))
             self.proc_Dr()
             self.buildTree("where", 2)
-        else:
-            raise InvalidTokenException.fromToken(self.nextToken())
         
     def proc_T(self):
         self.proc_Ta()
-        if self.nextToken().isValue(","):
-            while self.nextToken != None and self.nextToken().isValue(","):
-                self.read(CommaToken.instance())
-                self.proc_Ta()
-                self.buildTree("tau", 2)
-        else:
-            raise InvalidTokenException.fromToken(self.nextToken())
+        while self.nextToken != None and self.nextToken().isType(CommaToken):
+            self.read(CommaToken.instance())
+            self.proc_Ta()
+            self.buildTree("tau", 2)
+            
 
     def proc_Ta(self):
         self.proc_Tc()
@@ -61,8 +57,6 @@ class RPALParser(Parser):
             self.read(OperatorToken.fromValue("|"))
             self.proc_Tc()
             self.buildTree("->", 3)
-        else:
-            raise InvalidTokenException.fromToken(self.nextToken())
 
     def proc_B(self):
         self.proc_Bt()
@@ -130,9 +124,7 @@ class RPALParser(Parser):
             self.buildTree("ne", 2)
         elif self.nextToken().isValue(";"):
             self.read(SemiColonToken.instance())
-        else:
-            raise InvalidTokenException.fromToken(self.nextToken())
-
+        
     def proc_A(self):
         # A -> (At; | +At | -At) ( ('+' At) | ('-' At) )+
         if self.nextToken().__class__ == OperatorToken:
@@ -191,9 +183,7 @@ class RPALParser(Parser):
             self.read(OperatorToken.fromValue("**"), ignore=True)
             self.proc_Af()
             self.buildTree("**", 2)
-        else:
-            raise InvalidTokenException.fromToken(self.nextToken())
-        
+              
     def proc_Ap(self):
                 
         self.proc_R()
@@ -276,12 +266,7 @@ class RPALParser(Parser):
             self.read(RParenToken.instance())
         elif(token.__class__ == IdentifierToken):
             look_ahead = self.lookahead()
-            if look_ahead != None and look_ahead.__class__ == CommaToken:
-                self.proc_Vl()
-                self.read(OperatorToken.fromValue("="))
-                self.proc_E()
-                self.buildTree("=", 2)
-            elif look_ahead != None and look_ahead.__class__ in RPALParser.__FIRST_VB:
+            if look_ahead != None and look_ahead.__class__ in RPALParser.__FIRST_VB:
                 self.read(IdentifierToken.fromValue(self.nextToken().value))
                 N = 1
                 while(self.nextToken() != None 
@@ -291,6 +276,11 @@ class RPALParser(Parser):
                 self.read(OperatorToken.fromValue("="))
                 self.proc_E()
                 self.buildTree("fcn_form", N+2)
+            elif look_ahead != None and look_ahead.__class__ == CommaToken:
+                    self.proc_Vl()
+                    self.read(OperatorToken.fromValue("="))
+                    self.proc_E()
+                    self.buildTree("=", 2)
             else:
                 raise InvalidTokenException.fromToken(token)
         else:
@@ -314,14 +304,13 @@ class RPALParser(Parser):
         
     def proc_Vl(self):
         self.read(IdentifierToken.fromValue(self.nextToken().value), ignore = False)
-        if (self.nextToken() != None and self.nextToken().__class__ != CommaToken):
-            raise InvalidTokenException.fromToken(self.nextToken())
-        N = 1
-        while(self.nextToken() != None and self.nextToken().__class__ != CommaToken):
-            self.read(CommaToken.instance())
-            self.read(IdentifierToken.fromValue(self.nextToken().value), ignore = False)
-            N += 1
-        self.buildTree(",", N)
+        if (self.nextToken() != None and self.nextToken().__class__ == CommaToken):
+            N = 1
+            while(self.nextToken() != None and self.nextToken().__class__== CommaToken):
+                self.read(CommaToken.instance())
+                self.read(IdentifierToken.fromValue(self.nextToken().value), ignore = False)
+                N += 1
+            self.buildTree(",", N)
             
     def parse(self):
             """Parses the source program and returns the Abstract Syntax Tree (AST).
