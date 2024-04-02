@@ -3,7 +3,34 @@ from .tokens import *
 class RPALParser(Parser):
     def __init__(self,src):
         super().__init__(src)
-
+        
+        
+    def proc_E(self):
+            """Parse the E production rule."""
+            if self.NextToken() != None and self.nextToken().isValue("let"):
+                self.read(IdentifierToken.fromValue("let"))
+                self.proc_D()
+                if (self.nextToken() != None and self.nextToken().isValue("in")):
+                    self.read(IdentifierToken.fromValue("in"))
+                    self.proc_E()
+                    self.buildTree("let", 2)
+                else:
+                    raise InvalidTokenException.fromToken(self.nextToken)
+            elif self.nextToken().isValue("fn"):
+                self.read(IdentifierToken.fromValue("fn"))
+                N = 1
+                while (self.nextToken() != None and (self.nextToken().__class__ in RPALParser.__FIRST_Vb or self.nextToken().__class__ == IdentifierToken)):
+                    self.proc_Vb()
+                    N += 1
+                if(self.nextToken() != None and self.nextToken().isValue(",")):
+                    self.read(CommaToken.instance())
+                    self.proc_E()
+                    self.buildTree("lambda", N+1)
+                else:
+                    raise InvalidTokenException.fromToken(self.nextToken())
+            else: 
+                self.proc_Ew()
+                            
     def proc_Ew(self):
         """Parse the Ew production rule."""
         self.proc_T()

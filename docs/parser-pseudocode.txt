@@ -1,7 +1,6 @@
+--What the hell is list?
 First =  [T_Id , T_Int, T_Str, T_Lparen]
-
 //In Rn does not build a tree just puts into the stack ? --not sure
-//Reading the semi colan is not properly done in the code
 
 Proc Rn;
     If (Next_Token == T_id or T_Int or T_Str)
@@ -225,8 +224,6 @@ proc E:
 
 
     
-
-
     
 
 
