@@ -230,8 +230,6 @@ class RPALParser(Parser):
             if token.value in ["true", "false", "nil", "dummy"]:
                 # build the tree with the token value
                 self.buildTree(token.value, 0)
-            pass
-        
         elif token.__class__ in [IntegerToken, StringToken]:
             # read the integer or string token
             self.read(token, ignore = False)
@@ -239,10 +237,13 @@ class RPALParser(Parser):
         elif token.__class__ == LParenToken:
             # read and ignore the ( token
             self.read(token)
-            
+            self.proc_E()
+            # read and ignore the ) token
+            self.read(RParenToken.instance())
         else:
-            raise InvalidTokenException.fromToken(token)
-        
+            raise Exception("Invalid token: Identifier, Integer, String or \"(\" expected but found: " + str(token))
+
+
     def proc_D(self):
         self.proc_Da()
         if self.nextToken().isValue("within"):
@@ -323,7 +324,6 @@ class RPALParser(Parser):
         else:
             raise InvalidTokenException.fromToken(self.nextToken()) 
             
-
     def parse(self):
             """Parses the source program and returns the Abstract Syntax Tree (AST).
 

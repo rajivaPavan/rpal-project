@@ -1,5 +1,5 @@
 from .lexer import Lexer
-from .tokens import Token
+from .tokens import InvalidTokenException, Token
 from .ast import ASTNode
 
 class Parser:
@@ -54,7 +54,7 @@ class Parser:
             None
         """
         if self.nextToken() != token:
-            raise Exception("Expected token: " + str(token) + " but found: " + str(self.nextToken()))    
+            raise InvalidTokenException("Expected token: " + str(token) + " but found: " + str(self.nextToken()))    
         if not ignore:
             self.__pushStack(ASTNode(self.nextToken()))
         self.__setNextToken(self.__getTokenFromLexer())

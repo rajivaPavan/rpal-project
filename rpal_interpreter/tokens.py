@@ -149,14 +149,12 @@ class CommaToken(Token):
 
 
 class InvalidTokenException(Exception):
-    def __init__(self, line, col):
-        self.line = line
-        self.col = col
         
     @classmethod
-    def fromToken(cls, token):
-        return cls(token.line, token.col)
-
-    def __str__(self):
-        return f"Invalid token at line {self.line}, char {self.col}"
+    def fromToken(cls, token:Token):
+        return cls(f"Invalid token: {token.value} at line {token.line}, col {token.col}")
+    
+    @classmethod
+    def fromLine(cls, line, col):
+        return cls(f"Invalid token at line {line}, char {col}")
     

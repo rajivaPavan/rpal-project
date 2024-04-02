@@ -57,14 +57,24 @@ class Lexer:
     
     def nextToken(self):
         """
-        Retrieves the next token from the program string. This consumes the token.
-
+        Retrieves the next token from the program string. This consumes the token. 
+        Returns only if there are no more tokens.
+        
         Returns:
-            Token: The next token from the program string.
-        """
+            Token: The next token from the program string | None if there are no more tokens.
+        """        
+
+        if not self.__isScanning():
+            return None
+        
         if self.__look_ahead_q.empty():
             self.__tokenize()
-        return self.__look_ahead_q.get()
+               
+        try:
+            t = self.__look_ahead_q.get(block=False) 
+        except q.Empty:
+            t = None
+        return t
 
     def tokenize(self, count:int=-1):
         """
@@ -96,7 +106,7 @@ class Lexer:
 
         """
         counter = 0
-        while self.__position < len(self.__program):
+        while self.__isScanning():
             token = self.__lexToken()
             if token == None:
                 break
@@ -104,6 +114,9 @@ class Lexer:
             counter += 1
             if counter == count:
                 break
+
+    def __isScanning(self):
+        return self.__position < len(self.__program)
             
                     
     def __lexToken(self):
@@ -114,7 +127,7 @@ class Lexer:
             The next token in the program, or None if there are no more tokens.
         """
         token = None
-        while token == None and self.__position < len(self.__program):
+        while token == None and self.__isScanning():
             token = self.__lex()
         return token
     
@@ -176,7 +189,7 @@ class Lexer:
             break         
             
         if not match:   
-            raise InvalidTokenException(line_no, char_pos)
+            raise InvalidTokenException.fromLine(line_no, char_pos)
                 
         # update the position, line number and character position
         self.__position = position
