@@ -74,6 +74,13 @@ class TestRPALParser(unittest.TestCase):
         ast = parser.parse()
         out = read_file("tests/parser/test_D_out").rstrip('\n')
         self.assertEqual(str(ast), out)
+        
+    def test_E(self):
+        src = read_file("tests/parser/test_E")
+        parser = RPALParser(src)
+        ast = parser.parse()
+        out = read_file("tests/parser/test_E_out").rstrip('\n')
+        self.assertEqual(str(ast), out)
                 
         
 if __name__ == '__main__':

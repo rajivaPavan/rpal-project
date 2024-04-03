@@ -51,7 +51,7 @@ class RPALParser(Parser):
                 self.read(CommaToken.instance())
                 self.proc_Ta()
                 n+=1
-                if self.nextToken != None:
+                if self.nextToken == None:
                     break
             self.buildTree("tau", n)
             
@@ -248,8 +248,10 @@ class RPALParser(Parser):
         if token.__class__ == IdentifierToken:
             # read the identifier token
             self.read(token, ignore=False)
-            if token.value in ["true", "false", "nil", "dummy"]:
+        elif(token.__class__ == KeywordToken 
+             and token.value in ["true", "false", "nil", "dummy"]):
                 # build the tree with the token value
+                self.read(token)
                 self.buildTree(token.value, 0)
         elif token.__class__ in [IntegerToken, StringToken]:
             # read the integer or string token
