@@ -7,19 +7,19 @@ from rpal_interpreter.tokens import InvalidTokenException
 class TestLexer(unittest.TestCase):
 
     def test_lex(self):
-        src = read_file("file_name")
+        src = read_file("tests/parser/test")
         lexer = Lexer(src)
         expected = "[(<KEYWORD>, 'let'), (<IDENTIFIER>, 'Sum'), ((, None), (<IDENTIFIER>, 'A'), (), None), (<OPERATOR>, '='), (<IDENTIFIER>, 'Psum'), ((, None), (<IDENTIFIER>, 'A'), (,, None), (<IDENTIFIER>, 'Order'), (<IDENTIFIER>, 'A'), (), None), (<KEYWORD>, 'where'), (<KEYWORD>, 'rec'), (<IDENTIFIER>, 'Psum'), ((, None), (<IDENTIFIER>, 'T'), (,, None), (<IDENTIFIER>, 'N'), (), None), (<OPERATOR>, '='), (<IDENTIFIER>, 'N'), (<KEYWORD>, 'eq'), (<INTEGER>, '0'), (<OPERATOR>, '->'), (<INTEGER>, '0'), (<OPERATOR>, '|'), (<IDENTIFIER>, 'Psum'), ((, None), (<IDENTIFIER>, 'T'), (,, None), (<IDENTIFIER>, 'N'), (<OPERATOR>, '-'), (<INTEGER>, '1'), (), None), (<OPERATOR>, '+'), (<IDENTIFIER>, 'T'), (<IDENTIFIER>, 'N'), (<KEYWORD>, 'in'), (<IDENTIFIER>, 'Print'), ((, None), (<IDENTIFIER>, 'Sum'), ((, None), (<INTEGER>, '1'), (,, None), (<INTEGER>, '2'), (,, None), (<INTEGER>, '3'), (,, None), (<INTEGER>, '4'), (,, None), (<INTEGER>, '5'), (), None), (), None)]"
         self.assertEqual(str(lexer.tokenize()), expected)
         
     def test_lex_one_token(self):
-        src = read_file("file_name")
+        src = read_file("tests/parser/test")
         lexer = Lexer(src)
         expected = "let"
         self.assertEqual(str(lexer.nextToken()), expected)
         
     def test_nextToken(self):
-        src = read_file("file_name")
+        src = read_file("tests/parser/test")
         lexer = Lexer(src)
         expected = "let"
         self.assertEqual(str(lexer.nextToken()), expected)
@@ -27,7 +27,7 @@ class TestLexer(unittest.TestCase):
         self.assertEqual(str(lexer.nextToken()), expected)
         
     def test_lex_two_tokens(self):
-        src = read_file("file_name")
+        src = read_file("tests/parser/test")
         lexer = Lexer(src)
         expected = "[(<KEYWORD>, 'let'), (<IDENTIFIER>, 'Sum')]"
         self.assertEqual(str(lexer.tokenize(count=2)), expected)
@@ -104,13 +104,13 @@ class TestLexer(unittest.TestCase):
         self.assertEqual(lexer.tokenize(), [])
 
     def test_lookAhead_default(self):
-        src = read_file("file_name")
+        src = read_file("tests/parser/test")
         lexer = Lexer(src)
         expected = "let"
         self.assertEqual(str(lexer.lookAhead()), expected)
 
     def test_lookAhead_multiple_calls(self):
-        src = read_file("file_name")
+        src = read_file("tests/parser/test")
         lexer = Lexer(src)
         expected = "let"
         self.assertEqual(str(lexer.lookAhead()), expected)
@@ -141,7 +141,7 @@ class TestLexer(unittest.TestCase):
         self.assertEqual(str(lexer.lookAhead()), expected)
         
     def test_lookAhead_after_nextToken(self):
-        src = read_file("file_name")
+        src = read_file("tests/parser/test")
         lexer = Lexer(src)
         self.assertEqual(str(lexer.nextToken()), "let")
         self.assertEqual(str(lexer.lookAhead()), "<ID:Sum>")
