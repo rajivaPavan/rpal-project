@@ -89,6 +89,12 @@ class TestRPALParser(unittest.TestCase):
         ast = parser.parse()
         out = read_file("tests/parser/test_E_out").rstrip('\n')
         self.assertEqual(str(ast), out)
+        
+    def test_Tc(self):
+        src = """ N ls 0 -> 'Negative' | 'Zero' """
+        parser =RPALParser(src)
+        ast = parser.proc_Tc()
+        print(ast)
                 
         
 if __name__ == '__main__':
