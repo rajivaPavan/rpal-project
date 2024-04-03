@@ -24,11 +24,4 @@ To run the tests, navigate to the root directory of the project and use the foll
 ```bash
 # lexer tests
 python -m unittest tests/test_lexer.py
-
-# parser tests
-python -m unittest tests/test_parser.py
-python -m unittest tests/test_rpal_parser.py
-
-# all
-python3 -m unittest discover -s tests -p 'test_*.py'
 ```
