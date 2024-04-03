@@ -1,0 +1,19 @@
+let rec calcMod(num, divisor) = 
+    num < divisor -> num
+    | calcMod(num - divisor, divisor)
+in
+let rec reverse(n, acc) =
+    n eq 0 -> acc
+    | reverse(n / 10, acc * 10 + calcMod(n, 10))
+in
+let isPalindrome(n) =
+    n eq reverse(n, 0) -> true
+    | false
+in
+let rec displayPalindrome(start, end) =
+    end le start -> isPalindrome(end) -> (nil aug end) | nil
+    | isPalindrome(end) -> (displayPalindrome(start, end-1) aug end) 
+    | displayPalindrome(start, end-1)
+in 
+    Print(displayPalindrome(100, 200))
+

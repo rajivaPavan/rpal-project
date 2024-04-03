@@ -1,5 +1,5 @@
 from .lexer import Lexer
-from .parser import Parser
+from .rpal_parser import RPALParser
 
 class Interpreter:
     def __init__(self):
@@ -13,19 +13,12 @@ class Interpreter:
             program - the source code
             ast_switch - whether to print the ast or the result
         """
+        
+        # Get the ast from the parser
+        parser = RPALParser(program)
+        ast = parser.parse()
 
-        self.program = program
-        self.ast_switch = ast_switch
-        # Get the tokens from the lexer
-        lexer = Lexer(self.program)
-        tokens = lexer.tokenize()
-        print("Tokens: ", tokens)
-
-        # # Get the ast from the parser
-        # parser = Parser(tokens)
-        # ast = parser.parse()
-
-        # self.result(ast, ast_switch)
+        self.result(ast, ast_switch)
 
         return
         
