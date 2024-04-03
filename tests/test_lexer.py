@@ -79,10 +79,16 @@ class TestLexer(unittest.TestCase):
         self.assertEqual(str(lexer.tokenize()), "[(<OPERATOR>, '+')]")
         
     def test_string_token(self):
-        src = "\"hello ++ @ 123\""
+        src = "'hello ++ @ 123'"
         lexer = Lexer(src)
-        self.assertEqual(str(lexer.tokenize()), "[(<STRING>, '\"hello ++ @ 123\"')]")        
+        self.assertEqual(str(lexer.tokenize()), "[(<STRING>, \"'hello ++ @ 123'\")]")        
     
+    def test_strings(self):
+        src = read_file("tests/lexer/strings")
+        lexer = Lexer(src)
+        expected = "[(<STRING>, \"'Positive'\"), (<OPERATOR>, '|'), (<IDENTIFIER>, 'x'), (<STRING>, \"'ab'\"), (<KEYWORD>, 'in')]"
+        self.assertEqual(str(lexer.tokenize()),expected)
+                         
     def test_lex_paren(self):
         src = "( )"
         lexer = Lexer(src)
