@@ -1,6 +1,6 @@
 import unittest
 from rpal_interpreter.rpal_parser import RPALParser
-
+from helpers import *
 class TestRPALParser(unittest.TestCase):
     
     def test_Rn(self):
@@ -67,6 +67,13 @@ class TestRPALParser(unittest.TestCase):
 ..gamma
 ...<ID:Order>
 ...<ID:A>""")
+        
+    def test_D(self):
+        src = read_file("tests/parser/test_D")
+        parser = RPALParser(src)
+        ast = parser.parse()
+        out = read_file("tests/parser/test_D_out").rstrip('\n')
+        self.assertEqual(str(ast), out)
                 
         
 if __name__ == '__main__':
