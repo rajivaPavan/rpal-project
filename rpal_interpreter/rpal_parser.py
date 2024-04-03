@@ -45,12 +45,15 @@ class RPALParser(Parser):
         
     def proc_T(self):
         self.proc_Ta()
-        if self.nextToken() == None:
-            return
-        while self.nextToken != None and self.nextToken().isType(CommaToken):
-            self.read(CommaToken.instance())
-            self.proc_Ta()
-            self.buildTree("tau", 2)
+        if self.nextToken() != None  and self.nextToken().isType(CommaToken):
+            n = 1
+            while self.nextToken().isType(CommaToken):
+                self.read(CommaToken.instance())
+                self.proc_Ta()
+                n+=1
+                if self.nextToken != None:
+                    break
+            self.buildTree("tau", n)
             
 
     def proc_Ta(self):
@@ -210,7 +213,8 @@ class RPALParser(Parser):
     def proc_Ap(self):
                 
         self.proc_R()
-            
+        if self.nextToken() == None:
+            return
         # check if the next token is a @ 
         while self.nextToken() != None and self.nextToken().isValue("@"):
             # read the @ token and ignore it
@@ -224,12 +228,13 @@ class RPALParser(Parser):
 
     def proc_R(self):
         self.proc_Rn()
-        n = 1
-        while (self.nextToken() != None 
-               and self.nextToken().__class__ in RPALParser.__FIRST_RN):
-            self.proc_Rn()
-            n += 1
-        self.buildTree("gamma", n)
+        if self.nextToken().__class__ in RPALParser.__FIRST_RN:
+            n = 1
+            while (self.nextToken() != None 
+                and self.nextToken().__class__ in RPALParser.__FIRST_RN):
+                self.proc_Rn()
+                n += 1
+            self.buildTree("gamma", n)
         
         
     def proc_Rn(self):
@@ -258,7 +263,7 @@ class RPALParser(Parser):
 
     def proc_D(self):
         self.proc_Da()
-        if self.nextToken().isValue("within"):
+        if self.nextToken() != None and self.nextToken().isValue("within"):
             self.read(IdentifierToken.fromValue("within"))
             self.proc_D()
             self.buildTree("within", 2)

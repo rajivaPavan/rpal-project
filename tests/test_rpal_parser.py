@@ -55,6 +55,18 @@ class TestRPALParser(unittest.TestCase):
             parser.proc_Vb()
             ast = parser.getAST()
             self.assertEqual(str(ast), expected_ast)
+            
+    def test_E_1(self):
+        src= """Psum (A,Order A )"""
+        parser = RPALParser(src)
+        ast = parser.parse()
+        self.assertEqual(str(ast), """gamma
+.<ID:Psum>
+.tau
+..<ID:A>
+..gamma
+...<ID:Order>
+...<ID:A>""")
                 
         
 if __name__ == '__main__':
