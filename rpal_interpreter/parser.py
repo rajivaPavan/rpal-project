@@ -30,7 +30,7 @@ class Parser:
         self.__stack.push(token)
     
     def __popStack(self)->ASTNode:
-        return self.__stack.pop()
+        return self.__stack.top()
     
     def nextToken(self)->Token:
         return self.__nextToken
@@ -120,3 +120,6 @@ class ParserStack:
         
     def pop(self)->ASTNode:
         return self.__stack.pop()
+    
+    def top(self)->ASTNode:
+        return self.__stack[-1]
