@@ -6,7 +6,7 @@ from helpers import *
 class TestParser(unittest.TestCase):
     
     def test_ast_str(self):
-        src = read_file("file_name")
+        src = "let Sum("
         parser = Parser(src)
         parser.read(parser.nextToken(), ignore=False)
         parser.buildTree("gamma", 1)
@@ -18,7 +18,7 @@ class TestParser(unittest.TestCase):
         self.assertEqual(str(ast),
 """program
 .gamma
-..<ID:let>
+..let
 .gamma
 ..<ID:Sum>
 ..((, None)""")

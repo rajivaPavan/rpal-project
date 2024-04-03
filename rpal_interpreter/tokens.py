@@ -4,10 +4,10 @@ class TokenRegex:
     OPERATOR_SYMBOL ="+\-*<>&.@/:=~|$!#%^_\[\]\{\}\"\'?"
     Identifier = re.compile(r"[a-zA-Z][a-zA-Z0-9_]*")
     Integer = re.compile(r"[0-9]+")
-    Operator = re.compile(r"["+OPERATOR_SYMBOL+"]+")
-    String = re.compile(r"\"[(\\t)(\\n)(\\)(\\\")\(\);,\sa-zA-Z0-9"+OPERATOR_SYMBOL+"]*\"")
+    Operator = re.compile(r"[+\-*<>&.@/:=~|$!#%^_\[\]\{\}\"\'?]+")
+    String = re.compile(r"\"[(\\t)(\\n)(\\)(\\\")\(\);,\sa-zA-Z0-9+\-*<>&.@/:=~|$!#%^_\[\]\{\}\"\'?]*\"")
     Spaces = re.compile(r"[\s\n]+")
-    Comment = re.compile(r"//[\"\(\);,\\ a-zA-Z0-9"+OPERATOR_SYMBOL+"]*\n")
+    Comment = re.compile(r"\/\/[\"\(\);,\\ a-zA-Z0-9+\-*<>&.@/:=~|$!#%^_\[\]\{\}\"\'?]*\n")
     OpenParen = re.compile(r"\(")
     CloseParen = re.compile(r"\)")
     SemiColon = re.compile(r";")
@@ -66,6 +66,21 @@ class IdentifierToken(Token):
     def __str__(self):
         return f"<ID:{self.value}>"
     
+class KeywordToken(Token):
+    
+    ___VALUES = ["let", "fn", "in", "where", "aug", 
+                 "or", "not", "gr", "ge", "ls", "le", 
+                 "eq", "ne", "nil", "dummy", "true", 
+                 "false", "within", "and", "rec"]
+    
+    def values():
+        return KeywordToken.___VALUES
+    
+    def __init__(self, value, line, col):
+        super().__init__("<KEYWORD>", value, line, col)
+        
+    def __str__(self):
+        return self.value
         
 class IntegerToken(Token):
     def __init__(self, value, line, col):
