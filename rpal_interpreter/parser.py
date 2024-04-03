@@ -60,7 +60,7 @@ class Parser:
         if _next_token != token:
             raise InvalidTokenException(
                 "Expected token: " + str(token) + " but found: " + str(_next_token)
-                + "at line " + str(_next_token.line) + " and column " + str(_next_token.col) + " in the source code.")    
+                + " at line " + str(_next_token.line) + " and column " + str(_next_token.col) + " in the source code.")    
         if not ignore:
             self.__pushStack(ASTNode(self.nextToken()))
         self.__setNextToken(self.__getTokenFromLexer())

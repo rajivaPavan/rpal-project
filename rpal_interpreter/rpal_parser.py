@@ -18,19 +18,19 @@ class RPALParser(Parser):
     
     def proc_E(self):
         if self.nextToken() != None and self.nextToken().isValue("let"):
-            self.read(IdentifierToken.fromValue("let"))
+            self.read(KeywordToken.fromValue("let"))
             self.proc_D()
-            self.read(IdentifierToken.fromValue("in"))
+            self.read(KeywordToken.fromValue("in"))
             self.proc_E()
             self.buildTree("let", 2)
         elif self.nextToken().isValue("fn"):
-            self.read(IdentifierToken.fromValue("fn"))
+            self.read(KeywordToken.fromValue("fn"))
             N = 1
             self.proc_Vb()
             while (self.nextToken() != None):
                 self.proc_Vb()
                 N += 1
-            self.read(IdentifierToken.fromValue("."))
+            self.read(OperatorToken.fromValue("."))
             self.proc_E()
             self.buildTree("lambda", N+1)
         else: 
@@ -39,7 +39,7 @@ class RPALParser(Parser):
     def proc_Ew(self):
         self.proc_T()
         if self.nextToken() != None and self.nextToken().isValue("where"):
-            self.read(IdentifierToken.fromValue("where"))
+            self.read(KeywordToken.fromValue("where"))
             self.proc_Dr()
             self.buildTree("where", 2)
         
@@ -61,7 +61,7 @@ class RPALParser(Parser):
         if self.nextToken() == None:
             return
         while self.nextToken() != None and self.nextToken().isValue("aug"):
-            self.read(IdentifierToken.fromValue("aug"))
+            self.read(KeywordToken.fromValue("aug"))
             self.proc_Tc()
             self.buildTree("aug", 2)        
         
@@ -79,7 +79,7 @@ class RPALParser(Parser):
         if self.nextToken() == None:
             return
         while self.nextToken() != None and self.nextToken().isValue("or"):
-            self.read(IdentifierToken.fromValue("or"))
+            self.read(KeywordToken.fromValue("or"))
             self.proc_Bt()
             self.buildTree("or", 2)
 
@@ -94,7 +94,7 @@ class RPALParser(Parser):
 
     def proc_Bs(self):
         if self.nextToken() != None and self.nextToken().isValue("not"):
-            self.read(IdentifierToken.fromValue("not"))
+            self.read(KeywordToken.fromValue("not"))
             self.proc_Bp()
             self.buildTree("not", 1)
         else:
@@ -107,7 +107,7 @@ class RPALParser(Parser):
             return
 
         if self.nextToken().isValue("gr"):
-            self.read(IdentifierToken.fromValue("gr"))
+            self.read(KeywordToken.fromValue("gr"))
             self.proc_A()
             self.buildTree("gr", 2)
         elif self.nextToken().isValue(">"):
@@ -115,7 +115,7 @@ class RPALParser(Parser):
             self.proc_A()
             self.buildTree("gr", 2)
         elif self.nextToken().isValue("ge"):
-            self.read(IdentifierToken.fromValue("ge"))
+            self.read(KeywordToken.fromValue("ge"))
             self.proc_A()
             self.buildTree("ge", 2)
         elif self.nextToken().isValue(">="):
@@ -123,7 +123,7 @@ class RPALParser(Parser):
             self.proc_A()
             self.buildTree("ge", 2)
         elif self.nextToken().isValue("ls"):
-            self.read(IdentifierToken.fromValue("ls"))
+            self.read(KeywordToken.fromValue("ls"))
             self.proc_A()
             self.buildTree("ls", 2)
         elif self.nextToken().isValue("<"):
@@ -131,7 +131,7 @@ class RPALParser(Parser):
             self.proc_A()
             self.buildTree("ls", 2)
         elif self.nextToken().isValue("le"):
-            self.read(IdentifierToken.fromValue("le"))
+            self.read(KeywordToken.fromValue("le"))
             self.proc_A()
             self.buildTree("le", 2)
         elif self.nextToken().isValue("<="):
@@ -139,11 +139,11 @@ class RPALParser(Parser):
             self.proc_A()
             self.buildTree("le", 2)
         elif self.nextToken().isValue("eq"):
-            self.read(IdentifierToken.fromValue("eq"))
+            self.read(KeywordToken.fromValue("eq"))
             self.proc_A()
             self.buildTree("eq", 2)
         elif self.nextToken().isValue("ne"):
-            self.read(IdentifierToken.fromValue("ne"))
+            self.read(KeywordToken.fromValue("ne"))
             self.proc_A()
             self.buildTree("ne", 2)
         elif self.nextToken().isValue(";"):
@@ -162,7 +162,7 @@ class RPALParser(Parser):
             else:
                 raise InvalidTokenException.fromToken(self.nextToken())
         # SELECT(At) = FIRST(Rn)
-        elif self.nextToken().__class__ in RPALParser.__FIRST_RN: 
+        elif RPALParser.__isInFirstRn(self.nextToken()): 
             self.proc_At()
         else:
             raise InvalidTokenException.fromToken(self.nextToken())
@@ -228,14 +228,18 @@ class RPALParser(Parser):
 
     def proc_R(self):
         self.proc_Rn()
-        if self.nextToken().__class__ in RPALParser.__FIRST_RN:
+        if RPALParser.__isInFirstRn(self.nextToken()):
             n = 1
             while (self.nextToken() != None 
-                and self.nextToken().__class__ in RPALParser.__FIRST_RN):
+                and RPALParser.__isInFirstRn(self.nextToken())):
                 self.proc_Rn()
                 n += 1
             self.buildTree("gamma", n)
-        
+
+    def __isInFirstRn(token:Token):
+        if token.__class__ == KeywordToken:
+            return token.value in ["true", "false", "nil", "dummy"]
+        return token.__class__ in RPALParser.__FIRST_RN
         
     def proc_Rn(self):
         
@@ -271,7 +275,7 @@ class RPALParser(Parser):
     def proc_Da(self):
         self.proc_Dr()
         while self.nextToken() != None and self.nextToken().isValue("and"):
-            self.read(IdentifierToken.fromValue("and"))      
+            self.read(KeywordToken.fromValue("and"))      
             self.proc_Dr()
             self.buildTree("and", 2)
         
@@ -282,7 +286,7 @@ class RPALParser(Parser):
            -> Db ;
         """
         if self.nextToken().isValue("rec"):
-            self.read(IdentifierToken.fromValue("rec"))
+            self.read(KeywordToken.fromValue("rec"))
             self.proc_Db()
             self.buildTree("rec", 1)
         else:
@@ -298,13 +302,13 @@ class RPALParser(Parser):
             self.read(RParenToken.instance())
         elif(token.__class__ == IdentifierToken):
             look_ahead = self.lookahead()
-            if look_ahead != None and look_ahead.__class__ in RPALParser.__FIRST_VB:
+            if look_ahead != None and RPALParser.__isInFirstVb(look_ahead):
                 # Db -> ’<IDENTIFIER>’ Vb+ ’=’ E
                 self.read(IdentifierToken.fromValue(self.nextToken().value), ignore=False)
                 N = 1
                 self.proc_Vb()
                 while(self.nextToken() != None 
-                and self.nextToken().__class__ in RPALParser.__FIRST_VB):
+                and RPALParser.__isInFirstVb(self.nextToken())):
                     self.proc_Vb()
                     N += 1
                 self.read(OperatorToken.fromValue("="))
@@ -322,6 +326,9 @@ class RPALParser(Parser):
                 raise InvalidTokenException.fromToken(token)
         else:
             raise InvalidTokenException.fromToken(token)
+
+    def __isInFirstVb(token:Token):
+        return token.__class__ in RPALParser.__FIRST_VB
 
              
     def proc_Vb(self):
