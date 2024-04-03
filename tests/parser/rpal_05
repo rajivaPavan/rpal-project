@@ -1,0 +1,14 @@
+let rec Fib(N) = (N eq 0) -> 0 | (N eq 1) -> 1 | Fib(N-2) + Fib(N-1) 
+in
+let rec FindN(upper, N) = 
+    upper ls Fib(N) -> 0
+    | 1 + FindN(upper, N+1)
+in
+let rec FibHelper(lower, N) =
+    lower eq Fib(N) -> (nil aug lower)
+    | lower gr Fib(N) -> nil
+    | (FibHelper(lower, N-1) aug Fib(N))
+in
+let FibRange(lower, upper) = FibHelper(lower, FindN(upper, 1))
+in
+    Print(FibRange(0, 100))

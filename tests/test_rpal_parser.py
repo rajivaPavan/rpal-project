@@ -3,6 +3,14 @@ from rpal_interpreter.rpal_parser import RPALParser
 from helpers import *
 class TestRPALParser(unittest.TestCase):
     
+    def test(self):
+        src = read_file("tests/parser/test")
+        parser = RPALParser(src)
+        ast = parser.parse()
+        expected = read_file("tests/parser/test.out").strip('\n')
+        self.maxDiff = None
+        self.assertEqual(str(ast), expected)
+        
     def test_Rn(self):
         
         test_cases = [
