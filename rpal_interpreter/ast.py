@@ -22,20 +22,20 @@ class ASTNode:
         self.right_sibling = node
 
     def __str__(self, level=0):
-            """
-            Returns a string representation of the current node and its children.
-            
-            Args:
-                level (int): The current level of the node in the tree.
-            
-            Returns:
-                str: A string representation of the current node and its children.
-            """
-            s = str(self.node)
-            if self.left_child != None:
-                child_level = level + 1
-                s += "\n" + "." * child_level + self.left_child.__str__(child_level)
-            if self.right_sibling != None:
-                s += "\n" + "." * level + self.right_sibling.__str__(level)
-            return s
+        """
+        Returns a string representation of the current node and its children.
+        
+        Args:
+            level (int): The current level of the node in the tree.
+        
+        Returns:
+            str: A string representation of the current node and its children.
+        """
+        s = str(self.node)
+        if self.left_child != None:
+            child_level = level + 1
+            s += "\n" + "." * child_level + self.left_child.__str__(child_level)
+        if self.right_sibling != None:
+            s += "\n" + "." * level + self.right_sibling.__str__(level)
+        return s
  
