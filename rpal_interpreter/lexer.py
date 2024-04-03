@@ -184,7 +184,10 @@ class Lexer:
                 or token_type == CommaToken):
                     res = token_type(line_no, char_pos)
             else:
-                res = token_type(token_val, line_no, char_pos)
+                if token_val in KeywordToken.values():
+                    res = KeywordToken(token_val, line_no, char_pos)
+                else:
+                    res = token_type(token_val, line_no, char_pos)
                    
             break         
             
