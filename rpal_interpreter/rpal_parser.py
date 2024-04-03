@@ -315,7 +315,7 @@ class RPALParser(Parser):
                     N += 1
                 self.read(OperatorToken.fromValue("="))
                 self.proc_E()
-                self.buildTree("fcn_form", N+2)
+                self.buildTree("function_form", N+2)
             elif (look_ahead != None 
                   and look_ahead.isType(OperatorToken) 
                   and look_ahead.isValue("=")):
