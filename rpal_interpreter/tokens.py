@@ -1,13 +1,13 @@
 import re
 
 class TokenRegex:
-    OPERATOR_SYMBOL ="+\-*<>&.@/:=~|$!#%^_\[\]\{\}\"\'?"
+    OPERATOR_SYMBOL ="+\-*<>&.@/:=~|$!#%^_\[\]\{\}\"\`?"
     Identifier = re.compile(r"[a-zA-Z][a-zA-Z0-9_]*")
     Integer = re.compile(r"[0-9]+")
-    Operator = re.compile(r"[+\-*<>&.@/:=~|$!#%^_\[\]\{\}\"\'?]+")
-    String = re.compile(r"\"[(\\t)(\\n)(\\)(\\\")\(\);,\sa-zA-Z0-9+\-*<>&.@/:=~|$!#%^_\[\]\{\}\"\'?]*\"")
+    Operator = re.compile(r"["+OPERATOR_SYMBOL+"]+")
+    String = re.compile(r"\'[(\\t)(\\n)(\\)(\\\")\(\);,\sa-zA-Z0-9"+OPERATOR_SYMBOL+"]*\'")
     Spaces = re.compile(r"[\s\n]+")
-    Comment = re.compile(r"\/\/[\"\(\);,\\ a-zA-Z0-9+\-*<>&.@/:=~|$!#%^_\[\]\{\}\"\'?]*\n")
+    Comment = re.compile(r"\/\/[\"\(\);,\\ a-zA-Z0-9"+OPERATOR_SYMBOL+"]*\n")
     OpenParen = re.compile(r"\(")
     CloseParen = re.compile(r"\)")
     SemiColon = re.compile(r";")
@@ -92,8 +92,11 @@ class IntegerToken(Token):
     def __str__(self):
         return f"<INT:{self.value}>"
     
+    def __str__(self):
+        return f"<INT:{self.value}>"
     
-class OperatorToken(Token):      
+    
+class OperatorToken(Token):            
     def __init__(self, value, line, col):
         super().__init__("<OPERATOR>", value, line, col)
     
@@ -106,6 +109,9 @@ class StringToken(Token):
         
     def regex():
         return TokenRegex.String
+    
+    def __str__(self):
+        return f"<STR:{self.value}>"
     
     def __str__(self):
         return f"<STR:{self.value}>"
@@ -128,6 +134,8 @@ class CommentToken(Token):
 class LParenToken(Token):
     """Represents a left parenthesis token."""
 
+    """Represents a left parenthesis token."""
+
     def __init__(self, line, col):
         super().__init__("(", None, line, col)
     
@@ -136,6 +144,9 @@ class LParenToken(Token):
     
     
 class RParenToken(Token):
+    """
+    Represents a right parenthesis token in the RPAL interpreter.
+    """
     """
     Represents a right parenthesis token in the RPAL interpreter.
     """
@@ -149,6 +160,9 @@ class SemiColonToken(Token):
     """
     Represents a semicolon token in the interpreter.
     """
+    """
+    Represents a semicolon token in the interpreter.
+    """
     def __init__(self, line, col):
         super().__init__(";", None, line, col)
     
@@ -156,6 +170,9 @@ class SemiColonToken(Token):
         return TokenRegex.SemiColon
     
 class CommaToken(Token):
+    """
+    Represents a comma token in the RPAL language.
+    """
     """
     Represents a comma token in the RPAL language.
     """

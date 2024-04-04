@@ -16,7 +16,7 @@ class TestRPALParser(unittest.TestCase):
         test_cases = [
             ("x", "<ID:x>"),
             ("1", "<INT:1>"),
-            ("\"hello\"", "<STR:\"hello\">"),
+            ("\'hello\'", "<STR:\'hello\'>"),
             ("true", "true"),
             ("false", "false"),
             ("nil", "nil"),
