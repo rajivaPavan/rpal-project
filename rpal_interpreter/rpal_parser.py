@@ -224,7 +224,7 @@ class RPALParser(Parser):
             self.read(OperatorToken.fromValue("@"))
             
             # next token should be an identifier
-            self.read(IdentifierToken.fromValue(self.nextToken().value, ignore=False))
+            self.read(IdentifierToken.fromValue(self.nextToken().value), ignore=False)
             
             self.proc_R()
             self.buildTree("@", 3)
