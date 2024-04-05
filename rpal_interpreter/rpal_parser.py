@@ -27,9 +27,12 @@ class RPALParser(Parser):
             self.read(KeywordToken.fromValue("fn"))
             N = 1
             self.proc_Vb()
-            while (self.nextToken() != None):
-                self.proc_Vb()
-                N += 1
+            if self.nextToken() != None:
+                while (self.nextToken().__class__ in RPALParser.__FIRST_VB):
+                    self.proc_Vb()
+                    N += 1
+                    if self.nextToken() != None:
+                        break
             self.read(OperatorToken.fromValue("."))
             self.proc_E()
             self.buildTree("lambda", N+1)
