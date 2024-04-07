@@ -61,9 +61,9 @@ class Parser:
             if _next_token == None:
                 raise InvalidTokenException(
                 "Expected token: " + str(token) + " but found: " + str(_next_token))
-            raise InvalidTokenException(
-                "Expected token: " + str(token) + " but found: " + str(_next_token)
-                + ", at line " + str(_next_token.line) + " and column " + str(_next_token.col) + " in the source code.")    
+            else:
+                raise InvalidTokenException("Expected token \"" + str(token) + "\" but found: " + str(_next_token)
+                + " at line " + str(_next_token.line) + " and column " + str(_next_token.col) + " in the source code")    
         if not ignore:
             self.__pushStack(ASTNode(self.nextToken()))
         self.__setNextToken(self.__getTokenFromLexer())
@@ -122,6 +122,8 @@ class ParserStack:
         self.__stack.append(token)
         
     def pop(self)->ASTNode:
+        if len(self.__stack) == 0:
+            return None
         return self.__stack.pop()
     
     def top(self)->ASTNode:
