@@ -103,7 +103,6 @@ class TestRPALParser(unittest.TestCase):
         src = read_file("tests/parser/test_E_empty")
         parser = RPALParser(src)
         ast = parser.parse()
-        out = read_file("tests/parser/test_E_empty_out").rstrip('\n')
         self.assertEqual(ast, None)
         
     def test_invalid_syntax_1(self):
