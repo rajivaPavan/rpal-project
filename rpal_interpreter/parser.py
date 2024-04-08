@@ -62,11 +62,7 @@ class Parser:
                 try: 
                     raise InvalidTokenException("Expected token \"" + str(token) + "\" but found " + str(_next_token)+ ".")
                 except:
-                    print("Expected token \"" + str(token) + "\" but found " + str(_next_token)+ ".")
-                    
-            elif token.isType(token) == KeywordToken:
-                raise InvalidTokenException("Expected token \"" + str(token) + "\" but found \"" + str(_next_token)
-                + "\" at line " + str(_next_token.line) + ", column " + str(_next_token.col) + " in the source code.")    
+                    print("Expected token \"" + str(token) + "\" but found " + str(_next_token)+ ".")    
             else:
                 raise InvalidTokenException("Expected token \"" + str(token) + "\" but found \"" + str(_next_token)
                 + "\" at line " + str(_next_token.line) + ", column " + str(_next_token.col) + " in the source code.")
@@ -119,7 +115,7 @@ class Parser:
                 p = c
             self.__pushStack(ASTNode(x, p, None))
         except:
-            print("Error in building the tree")
+            print("Error in building tree")
         
     def getAST(self)->ASTNode:
         return self.__popStack()
