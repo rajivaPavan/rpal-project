@@ -1,5 +1,5 @@
 from .lexer import Lexer
-from .tokens import InvalidTokenException, Token
+from .tokens import *
 from .ast import ASTNode
 
 class Parser:
@@ -59,14 +59,22 @@ class Parser:
         _next_token = self.nextToken()
         if _next_token != token:
             if _next_token == None:
-                raise InvalidTokenException(
-                "Expected token: " + str(token) + " but found: " + str(_next_token))
+                try: 
+                    raise InvalidTokenException("Expected token \"" + str(token) + "\" but found " + str(_next_token)+ ".")
+                except:
+                    print("Expected token \"" + str(token) + "\" but found " + str(_next_token)+ ".")
+                    
+            elif token.isType(token) == KeywordToken:
+                raise InvalidTokenException("Expected token \"" + str(token) + "\" but found \"" + str(_next_token)
+                + "\" at line " + str(_next_token.line) + ", column " + str(_next_token.col) + " in the source code.")    
             else:
-                raise InvalidTokenException("Expected token \"" + str(token) + "\" but found: " + str(_next_token)
-                + " at line " + str(_next_token.line) + " and column " + str(_next_token.col) + " in the source code")    
-        if not ignore:
-            self.__pushStack(ASTNode(self.nextToken()))
-        self.__setNextToken(self.__getTokenFromLexer())
+                raise InvalidTokenException("Expected token \"" + str(token) + "\" but found \"" + str(_next_token)
+                + "\" at line " + str(_next_token.line) + ", column " + str(_next_token.col) + " in the source code.")
+        
+        else:
+            if not ignore:
+                self.__pushStack(ASTNode(self.nextToken()))
+            self.__setNextToken(self.__getTokenFromLexer())
 
     def __getTokenFromLexer(self):
         """
@@ -103,12 +111,15 @@ class Parser:
         Returns:
             None
         """
-        p = None
-        for i in range(n):
-            c = self.__popStack()
-            c.setRightSibling(p)
-            p = c
-        self.__pushStack(ASTNode(x, p, None))
+        try: 
+            p = None
+            for i in range(n):
+                c = self.__popStack()
+                c.setRightSibling(p)
+                p = c
+            self.__pushStack(ASTNode(x, p, None))
+        except:
+            print("Error in building the tree")
         
     def getAST(self)->ASTNode:
         return self.__popStack()
