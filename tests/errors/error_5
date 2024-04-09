@@ -1,0 +1,4 @@
+//Missing keyword "where" Parses and Prints half of the AST. Prints the error "Program not fully parsed. Has extra tokens."
+Psum (A,Order A )
+rec Psum (T,N) = N eq 0 -> 0
+ | Psum(T,N-1)
