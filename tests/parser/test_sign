@@ -1,0 +1,4 @@
+let Sign = 
+fn x. x gr 0 -> 'positive' 
+    | x ls 0 ->'Negative'
+        | 'Zero' in Print(Sign -5)
