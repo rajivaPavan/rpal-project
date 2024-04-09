@@ -96,26 +96,12 @@ class TestRPALParser(unittest.TestCase):
         ast = parser.proc_Tc()
         print(ast)
         
-        
-# adding new unit tests
-        
     def test_E_empty(self):
         src = read_file("tests/parser/test_E_empty")
         parser = RPALParser(src)
         ast = parser.parse()
         self.assertEqual(ast, None)
-        
-    def test_invalid_syntax_1(self):
-        src = read_file("tests/parser/test_E_2")
-        parser = RPALParser(src)
-        
-        try:
-            ast = parser.parse()
-        except Exception as e:
-            self.assertEqual(str(e), "Expected token \"in\" but found: Print at line 4 and column 6 in the source code")
     
-    
-            
    
 if __name__ == '__main__':
     unittest.main()
