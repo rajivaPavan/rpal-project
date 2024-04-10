@@ -151,7 +151,7 @@ class Parser:
                 p = c
             self.__pushStack(ASTNode(x, p, None))
         except:
-            print("Error in building tree")
+            raise BuilTreeException("Error building the tree.")
         
     def getAST(self)->ASTNode:
         return self.__popStack()
