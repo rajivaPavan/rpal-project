@@ -187,8 +187,7 @@ class Lexer:
                 if token_val in KeywordToken.values():
                     res = KeywordToken(token_val, line_no, char_pos)
                 else:
-                    res = token_type(token_val, line_no, char_pos)
-                   
+                    res = token_type(token_val, line_no, char_pos)     
             break         
             
         if not match:   
