@@ -69,8 +69,7 @@ class Parser:
             operator_type1: Tokens with exact values for OperatorToken
             
             """
-            
-            token_type1 = ["LParenToken","RParenToken", "SemiColonToken", "CommaToken"] 
+            token_type1 = [LParenToken, RParenToken, SemiColonToken, CommaToken]
             operator_type1 = ["->", "&", "|", "@", ".", "=", "."]  
             
             # Raise error for none token
@@ -79,13 +78,13 @@ class Parser:
             
             
             # Raise error for keyword token
-            elif token.getType() == "KeywordToken":          
+            elif token.isType(KeywordToken):          
                 raise InvalidTokenException("Expected token \"" + str(token) + "\" but found \"" + str(_next_token)
                     + "\" at line " + str(_next_token.line) + ", column " + str(_next_token.col) + " in the source code.")
                 
             
             # Raise error for tokens with exact values 
-            elif token.getType() in token_type1:
+            elif token.isType(token_type1):
                 raise InvalidTokenException("Expected " + str(token) + " but found " + str(_next_token)
                     + " at line " + str(_next_token.line) + ", column " + str(_next_token.col) + " in the source code.")
                 
@@ -94,7 +93,7 @@ class Parser:
             else:
                 
                 #Print the required value of the token for the operator_type1 in the error message        
-                if token.getType() == "OperatorToken" and token.getValue() in operator_type1:
+                if token.isType(OperatorToken) and token.getValue() in operator_type1:
                     raise InvalidTokenException("Expected \"" + token.getValue() + "\" but found " + str(_next_token)
                     + " at line " + str(_next_token.line) + ", column " + str(_next_token.col) + " in the source code.")
                     
