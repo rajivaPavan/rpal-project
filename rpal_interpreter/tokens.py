@@ -48,13 +48,10 @@ class Token:
     def isValue(self, value):
         return self.value == value
     
-    def getType(self):
-        return self.__class__.__name__
-    
     def getValue(self):
         return self.value
     
-    def getType2(self):
+    def getType(self):
         return self.type
     
     @classmethod
