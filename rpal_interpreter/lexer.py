@@ -167,7 +167,6 @@ class Lexer:
             # get the matched token
             token_val = match.group(0)
             position = match.end()
-            char_pos += len(token_val)
             
             # update line number if token is comment or spaces and ignore them
             if token_type == CommentToken or token_type == SpacesToken:
@@ -193,6 +192,8 @@ class Lexer:
         if not match:   
             raise InvalidTokenException.fromLine(line_no, char_pos)
                 
+        char_pos += len(token_val)
+        
         # update the position, line number and character position
         self.__position = position
         self.__line_no = line_no
