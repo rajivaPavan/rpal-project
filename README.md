@@ -34,6 +34,4 @@ python -m unittest tests/test_rpal_parser.py
 # all
 python3 -m unittest discover -s tests -p 'test_*.py'
 
-# error tests
-python myrpal.py tests/errors/error_1 -ast
 ```
