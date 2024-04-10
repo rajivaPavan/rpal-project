@@ -54,6 +54,9 @@ class Token:
     def getValue(self):
         return self.value
     
+    def getType2(self):
+        return self.type
+    
     @classmethod
     def fromValue(cls, value):
         return cls(value, None, None)
@@ -204,9 +207,13 @@ class InvalidTokenException(Exception):
         
     @classmethod
     def fromToken(cls, token:Token):
-        return cls(f"Invalid token: {token.value} at line {token.line}, col {token.col}")
+        return cls(f"Invalid token \"{token.value}\" at line {token.line}, col {token.col}")
     
     @classmethod
     def fromLine(cls, line, col):
         return cls(f"Invalid token at line {line}, char {col}")
+    
+    
+class BuilTreeException(Exception):
+    pass
     
