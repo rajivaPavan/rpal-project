@@ -211,6 +211,9 @@ class InvalidTokenException(Exception):
         return cls(f"Invalid token at line {line}, char {col}")
     
     
-class BuilTreeException(Exception):
+class BuiltTreeException(Exception):
+    """
+    Raises an exception when there is an error in building the parse tree.
+    """
     pass
     

@@ -27,8 +27,8 @@ class Interpreter:
         # Check if the program was fully parsed
         try:
             if parser.nextToken() != None:
-                raise BuilTreeException("Program not fully parsed. Has extra tokens.")
-        except BuilTreeException as e:
+                raise BuiltTreeException("Program not fully parsed. Has extra tokens.")
+        except BuiltTreeException as e:
             self.result(ast, ast_switch)
             print(e)
             return
