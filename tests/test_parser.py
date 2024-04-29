@@ -21,4 +21,4 @@ class TestParser(unittest.TestCase):
 ..let
 .gamma
 ..<ID:Sum>
-..((, None)""")
+..\"(\"""")
