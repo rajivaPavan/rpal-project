@@ -204,7 +204,10 @@ class InvalidTokenException(Exception):
         
     @classmethod
     def fromToken(cls, token:Token):
-        return cls(f"Invalid token \"{token.value}\" at line {token.line}, col {token.col}")
+        t = token.value
+        if isinstance(token, (LParenToken, RParenToken, SemiColonToken, CommaToken)):
+            t = token.type
+        return cls(f"Invalid token \"{t}\" at line {token.line}, col {token.col}")
     
     @classmethod
     def fromLine(cls, line, col):

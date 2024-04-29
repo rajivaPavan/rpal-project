@@ -326,7 +326,7 @@ class RPALParser(Parser):
                     self.proc_E()
                     self.buildTree("=", 2)
             else:
-                raise InvalidTokenException.fromToken(token)
+                raise InvalidTokenException.fromToken(look_ahead)
         else:
             raise InvalidTokenException.fromToken(token)
 
