@@ -1,5 +1,5 @@
 from .lexer import Lexer
-from .tokens import InvalidTokenException, Token
+from .tokens import *
 from .ast import ASTNode
 
 class Parser:
@@ -40,6 +40,8 @@ class Parser:
     
     def __setNextToken(self, token):
         self.__nextToken = token
+        
+    
        
     def read(self, token, ignore=True):
         """
@@ -56,17 +58,55 @@ class Parser:
         Returns:
             None
         """
+        
         _next_token = self.nextToken()
         if _next_token != token:
+            
+            """
+            Prints custom ERROR messages for different types of tokens.
+            
+            token_type1: Tokens with exact values
+            operator_type1: Tokens with exact values for OperatorToken
+            
+            """
+            token_type1 = [LParenToken, RParenToken, SemiColonToken, CommaToken]
+            operator_type1 = ["->", "&", "|", "@", ".", "=", "."]  
+            
+            # Raise error for none token
             if _next_token == None:
-                raise InvalidTokenException(
-                "Expected token: " + str(token) + " but found: " + str(_next_token))
-            raise InvalidTokenException(
-                "Expected token: " + str(token) + " but found: " + str(_next_token)
-                + ", at line " + str(_next_token.line) + " and column " + str(_next_token.col) + " in the source code.")    
-        if not ignore:
-            self.__pushStack(ASTNode(self.nextToken()))
-        self.__setNextToken(self.__getTokenFromLexer())
+                raise InvalidTokenException("Expected token \"" + str(token) + "\" but found " + str(_next_token)+ ".")
+            
+            
+            # Raise error for keyword token
+            elif token.isType(KeywordToken):          
+                raise InvalidTokenException("Expected token \"" + str(token) + "\" but found \"" + str(_next_token)
+                    + "\" at line " + str(_next_token.line) + ", column " + str(_next_token.col) + " in the source code.")
+                
+            
+            # Raise error for tokens with exact values 
+            elif token.isType(token_type1):
+                raise InvalidTokenException("Expected " + str(token) + " but found " + str(_next_token)
+                    + " at line " + str(_next_token.line) + ", column " + str(_next_token.col) + " in the source code.")
+                
+                
+            # Raise errors for other tokens
+            else:
+                
+                #Print the required value of the token for the operator_type1 in the error message        
+                if token.isType(OperatorToken) and token.getValue() in operator_type1:
+                    raise InvalidTokenException("Expected \"" + token.getValue() + "\" but found " + str(_next_token)
+                    + " at line " + str(_next_token.line) + ", column " + str(_next_token.col) + " in the source code.")
+                    
+                    
+                else:     
+                    raise InvalidTokenException("Expected " + token.getType() + " but found " + str(_next_token)
+                        + " at line " + str(_next_token.line) + ", column " + str(_next_token.col) + " in the source code.")
+                            
+                            
+        else:
+            if not ignore:
+                self.__pushStack(ASTNode(self.nextToken()))
+            self.__setNextToken(self.__getTokenFromLexer())
 
     def __getTokenFromLexer(self):
         """
@@ -103,17 +143,19 @@ class Parser:
         Returns:
             None
         """
-        p = None
-        for i in range(n):
-            c = self.__popStack()
-            c.setRightSibling(p)
-            p = c
-        self.__pushStack(ASTNode(x, p, None))
+        try: 
+            p = None
+            for i in range(n):
+                c = self.__popStack()
+                c.setRightSibling(p)
+                p = c
+            self.__pushStack(ASTNode(x, p, None))
+        except:
+            raise BuilTreeException("Error building the tree.")
         
     def getAST(self)->ASTNode:
         return self.__popStack()
-
-   
+    
 class ParserStack:
     def __init__(self):
         self.__stack:ASTNode = []
@@ -122,6 +164,8 @@ class ParserStack:
         self.__stack.append(token)
         
     def pop(self)->ASTNode:
+        if len(self.__stack) == 0:
+            return None
         return self.__stack.pop()
     
     def top(self)->ASTNode:

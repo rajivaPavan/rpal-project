@@ -95,7 +95,13 @@ class TestRPALParser(unittest.TestCase):
         parser =RPALParser(src)
         ast = parser.proc_Tc()
         print(ast)
-                
         
+    def test_E_empty(self):
+        src = read_file("tests/parser/test_E_empty")
+        parser = RPALParser(src)
+        ast = parser.parse()
+        self.assertEqual(ast, None)
+    
+   
 if __name__ == '__main__':
     unittest.main()

@@ -23,7 +23,7 @@ class RPALParser(Parser):
             self.read(KeywordToken.fromValue("in"))
             self.proc_E()
             self.buildTree("let", 2)
-        elif self.nextToken().isValue("fn"):
+        elif self.nextToken() != None and self.nextToken().isValue("fn"):
             self.read(KeywordToken.fromValue("fn"))
             N = 1
             self.proc_Vb()
@@ -167,10 +167,8 @@ class RPALParser(Parser):
         # SELECT(At) = FIRST(Rn)
         elif RPALParser.__isInFirstRn(self.nextToken()): 
             self.proc_At()
-        else:
-            raise InvalidTokenException.fromToken(self.nextToken())
         
-        if self.nextToken() == None:
+        elif self.nextToken() == None:
             return
         while(self.nextToken().__class__ == OperatorToken
               and (self.nextToken().isValue("+") or self.nextToken().isValue("-"))):
@@ -328,7 +326,7 @@ class RPALParser(Parser):
                     self.proc_E()
                     self.buildTree("=", 2)
             else:
-                raise InvalidTokenException.fromToken(token)
+                raise InvalidTokenException.fromToken(look_ahead)
         else:
             raise InvalidTokenException.fromToken(token)
 
