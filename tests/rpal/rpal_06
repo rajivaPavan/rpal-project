@@ -1,4 +1,19 @@
-let Sum(A) = Psum (A,Order A )
-where rec Psum (T,N) = N eq 0 -> 0
-| Psum(T,N-1)+T N
-in Print ( Sum (1,2,3,4,5) )
+let mod(num, div) =
+num < div -> num
+    | (num - (num / div) * div)
+in
+let isPalindrome(N) = (
+   reverseNumber(N, 0) eq N where 
+rec reverseNumber(num,rev) =
+num eq 0 ->
+rev |
+reverseNumber( num/10, rev * 10 + mod(num, 10) )
+)
+in
+let rec palNumbers(start, stop) =
+	start < stop -> 
+	  isPalindrome(stop) -> (palNumbers(start, stop-1) aug stop) 
+| palNumbers(start,stop-1)
+  | isPalindrome(stop) -> (nil aug stop) | nil
+ 
+in Print(palNumbers(1, 1000))

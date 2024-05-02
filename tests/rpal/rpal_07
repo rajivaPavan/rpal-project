@@ -1,0 +1,2 @@
+let isOddEven(N) = N - N / 2 eq 1 -> 'Even' | 'Odd' 
+in Print( isOddEven(37) )

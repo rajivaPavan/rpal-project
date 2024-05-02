@@ -1,5 +1,6 @@
-let maxNum(x,y,z) =
-    (x ge y) & (x ge z) -> x
-    | (y ge x) & (y ge z) -> y |z
+let S = (0,1) and start = 1 and end = 10
 in
-    Print ( maxNum (-2, -7, 10) )
+  let rec fib (nums) =
+let N = nums 1 + nums 2 in
+N < end -> ( N aug fib((nums 2, N)) ) | nil
+in Print (fib (S))

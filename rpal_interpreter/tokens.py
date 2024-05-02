@@ -13,6 +13,7 @@ class TokenRegex:
     SemiColon = re.compile(r";")
     Comma = re.compile(r",")
     
+    
 class Token:
     """
     Represents a token in the interpreter.
@@ -46,6 +47,12 @@ class Token:
     
     def isValue(self, value):
         return self.value == value
+    
+    def getValue(self):
+        return self.value
+    
+    def getType(self):
+        return self.type
     
     @classmethod
     def fromValue(cls, value):
@@ -81,6 +88,8 @@ class KeywordToken(Token):
         
     def __str__(self):
         return self.value
+    
+    
         
 class IntegerToken(Token):
     def __init__(self, value, line, col):
@@ -92,16 +101,15 @@ class IntegerToken(Token):
     def __str__(self):
         return f"<INT:{self.value}>"
     
-    def __str__(self):
-        return f"<INT:{self.value}>"
-    
-    
 class OperatorToken(Token):            
     def __init__(self, value, line, col):
         super().__init__("<OPERATOR>", value, line, col)
     
     def regex():
         return TokenRegex.Operator
+    
+    def __str__(self) -> str:
+        return f"<OPERATOR:{self.value}>"
         
 class StringToken(Token):
     def __init__(self, value, line, col):
@@ -109,9 +117,6 @@ class StringToken(Token):
         
     def regex():
         return TokenRegex.String
-    
-    def __str__(self):
-        return f"<STR:{self.value}>"
     
     def __str__(self):
         return f"<STR:{self.value}>"
@@ -142,6 +147,9 @@ class LParenToken(Token):
     def regex():
         return TokenRegex.OpenParen
     
+    def __str__(self):
+        return  f"\"(\""
+    
     
 class RParenToken(Token):
     """
@@ -156,6 +164,9 @@ class RParenToken(Token):
     def regex():
         return TokenRegex.CloseParen
     
+    def __str__(self):
+        return  f"\")\""
+    
 class SemiColonToken(Token):
     """
     Represents a semicolon token in the interpreter.
@@ -169,6 +180,9 @@ class SemiColonToken(Token):
     def regex():
         return TokenRegex.SemiColon
     
+    def __str__(self):
+        return  f"\";\""
+    
 class CommaToken(Token):
     """
     Represents a comma token in the RPAL language.
@@ -181,15 +195,28 @@ class CommaToken(Token):
         
     def regex():
         return TokenRegex.Comma
-
+    
+    def __str__(self):
+        return  f"\",\""
+    
 
 class InvalidTokenException(Exception):
         
     @classmethod
     def fromToken(cls, token:Token):
-        return cls(f"Invalid token: {token.value} at line {token.line}, col {token.col}")
+        t = token.value
+        if isinstance(token, (LParenToken, RParenToken, SemiColonToken, CommaToken)):
+            t = token.type
+        return cls(f"Invalid token \"{t}\" at line {token.line}, col {token.col}")
     
     @classmethod
     def fromLine(cls, line, col):
         return cls(f"Invalid token at line {line}, char {col}")
+    
+    
+class BuiltTreeException(Exception):
+    """
+    Raises an exception when there is an error in building the parse tree.
+    """
+    pass
     
