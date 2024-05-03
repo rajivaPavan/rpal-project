@@ -1,6 +1,6 @@
 from .lexer import Lexer
 from .tokens import *
-from .ast import ASTNode
+from .trees import ASTNode
 
 class Parser:
     """
