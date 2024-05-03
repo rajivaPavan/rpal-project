@@ -216,7 +216,15 @@ class InvalidTokenException(Exception):
     
 class BuiltTreeException(Exception):
     """
-    Raises an exception when there is an error in building the parse tree.
+    Exception to throw the parser has finished parsing.
     """
-    pass
+    def __init__(self, message = "Error building parse tree"):
+        super().__init__("BuiltTreeException: " + message)
+
+class BuildTreeException(Exception):
+    """
+    Exception to throw when there is an error in building the parse tree.
+    """
+    def __init__(self, message = "Error building parse tree"):
+        super().__init__("BuildTreeException: " + message)
     

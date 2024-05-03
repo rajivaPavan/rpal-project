@@ -1,6 +1,6 @@
 from .lexer import Lexer
 from .tokens import *
-from .ast import ASTNode
+from .trees import ASTNode
 
 class Parser:
     """
@@ -40,8 +40,6 @@ class Parser:
     
     def __setNextToken(self, token):
         self.__nextToken = token
-        
-    
        
     def read(self, token, ignore=True):
         """
@@ -59,54 +57,42 @@ class Parser:
             None
         """
         
+        def raise_invalid_token_exception(token, expected_token, line = None, col = None):
+            err_msg = "Expected \"" + str(token) + "\" but found " + str(expected_token)
+            if line != None and col != None:
+                err_msg = err_msg + "\" at line " + str(line) + ", column " + str(col)
+            raise InvalidTokenException(err_msg)
+            
+        def raise_exception(token:Token, expected_token):
+            _token_type = [LParenToken, RParenToken, SemiColonToken, CommaToken, KeywordToken]
+            _operator_type = ["->", "&", "|", "@", ".", "=", "."]  
+            
+            _token = token
+            _expected_token = expected_token
+            _line = None
+            _col = None
+            
+            if _token is not None:
+                _line = _token.line
+                _col = _token.col
+            
+            if token.isType(OperatorToken) and token.getValue() in _operator_type:
+                _token = token.getValue()
+            elif token.type not in _token_type:
+                _token = token.getType()
+                
+            raise_invalid_token_exception(_token, _expected_token, _line, _col)  
+            
         _next_token = self.nextToken()
+        
         if _next_token != token:
-            
-            """
-            Prints custom ERROR messages for different types of tokens.
-            
-            token_type1: Tokens with exact values
-            operator_type1: Tokens with exact values for OperatorToken
-            
-            """
-            token_type1 = [LParenToken, RParenToken, SemiColonToken, CommaToken]
-            operator_type1 = ["->", "&", "|", "@", ".", "=", "."]  
-            
-            # Raise error for none token
-            if _next_token == None:
-                raise InvalidTokenException("Expected token \"" + str(token) + "\" but found " + str(_next_token)+ ".")
+            raise_exception(token, _next_token)
+        
+        if not ignore:
+            self.__pushStack(ASTNode(self.nextToken()))
+        self.__setNextToken(self.__getTokenFromLexer())
             
             
-            # Raise error for keyword token
-            elif token.isType(KeywordToken):          
-                raise InvalidTokenException("Expected token \"" + str(token) + "\" but found \"" + str(_next_token)
-                    + "\" at line " + str(_next_token.line) + ", column " + str(_next_token.col) + " in the source code.")
-                
-            
-            # Raise error for tokens with exact values 
-            elif token.isType(token_type1):
-                raise InvalidTokenException("Expected " + str(token) + " but found " + str(_next_token)
-                    + " at line " + str(_next_token.line) + ", column " + str(_next_token.col) + " in the source code.")
-                
-                
-            # Raise errors for other tokens
-            else:
-                
-                #Print the required value of the token for the operator_type1 in the error message        
-                if token.isType(OperatorToken) and token.getValue() in operator_type1:
-                    raise InvalidTokenException("Expected \"" + token.getValue() + "\" but found " + str(_next_token)
-                    + " at line " + str(_next_token.line) + ", column " + str(_next_token.col) + " in the source code.")
-                    
-                    
-                else:     
-                    raise InvalidTokenException("Expected " + token.getType() + " but found " + str(_next_token)
-                        + " at line " + str(_next_token.line) + ", column " + str(_next_token.col) + " in the source code.")
-                            
-                            
-        else:
-            if not ignore:
-                self.__pushStack(ASTNode(self.nextToken()))
-            self.__setNextToken(self.__getTokenFromLexer())
 
     def __getTokenFromLexer(self):
         """
@@ -151,7 +137,7 @@ class Parser:
                 p = c
             self.__pushStack(ASTNode(x, p, None))
         except:
-            raise BuiltTreeException("Error building the tree.")
+            raise BuildTreeException()
         
     def getAST(self)->ASTNode:
         return self.__popStack()

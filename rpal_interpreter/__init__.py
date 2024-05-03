@@ -1,54 +1,80 @@
+from rpal_interpreter.ast_standardizer import ASTStandardizer
+from rpal_interpreter.trees import ASTNode, STNode
 from .lexer import *
 from .rpal_parser import RPALParser
 from .tokens import *
 
 class Interpreter:
-    def __init__(self):
-        pass
     
-    def interpret(self, program, ast_switch = False):
+    __AST_SWITCH = "-ast"
+    __ST_SWITCH = "-st"
+    
+    def __init__(self, program, switch = None):
+        self.__program = program
+        self.__switch = switch
+        self.__ast: ASTNode = None
+        self.__st: STNode = None
+        self.__result = ""
+    
+    def interpret(self):
         """
         Interpret the given program
         
         args: 
             program - the source code
-            ast_switch - whether to print the ast or the result
+            switch - switch specifying to print the ast or st
         """
-        
-        # Get the ast from the parser
-        parser = RPALParser(program)
+        res = ""
         try: 
-            ast = parser.parse()
-            
-        except InvalidTokenException as e:
-            print(e)
-            return
+            # Parse the program to get the ast
+            self.__parse()
+            # Get the st from the ast
+            self.__standardize_ast()
         
-        # Check if the program was fully parsed
-        try:
-            if parser.nextToken() != None:
-                raise BuiltTreeException("Program not fully parsed. Has extra tokens.")
-        except BuiltTreeException as e:
-            self.result(ast, ast_switch)
-            print(e)
-            return
-        except InvalidTokenException as e:
-            print(e)
-            return
+            # Print the ast or st
+            if self.__switch is None:
+                self.__compute()
             
-        self.result(ast, ast_switch)
+        except Exception as e:
+            print(e)
 
         return
     
+    def __parse(self):
+        """
+        Parse the program given to the interpreter. Also print the AST if the switch is -ast
+        """
         
-    def result(self, ast, has_ast_switch):
-        """Print the ast or the result"""
-        if has_ast_switch:
-            print(ast)
-        else:
-            output = Interpreter.__compute(ast)
-            print(output)
+        parser = RPALParser(self.__program)
 
-    def __compute(ast):
-        return "computed result"
+        self.__ast = parser.parse()
+        
+        # Check if the program was fully parsed
+        if parser.nextToken() != None:
+            if self.__switch is Interpreter.__AST_SWITCH:
+                print(self.__ast)
+            raise BuiltTreeException("Program was not fully parsed.")
+        
+        if self.__switch == Interpreter.__AST_SWITCH:
+            print(self.__ast)
+             
+    def __standardize_ast(self):
+        """
+        Standardize the ast. Also print the ST if the switch is -st
+        """
+        standardizer = ASTStandardizer()
+        self._st = standardizer.standardize(self.__ast)
+        
+        if self.__switch == Interpreter.__ST_SWITCH:
+            print(self.__st)
+
+    def __compute(self):
+            """
+            Computes the result by inputting the standardized tree (ST) to the CSE machine.
+            """
+            st = self.__st
+            
+            # input the ST to a CSE machine and get the result
+
+            print("computed result")
 
