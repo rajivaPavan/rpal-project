@@ -57,13 +57,17 @@ class Parser:
             None
         """
         
-        def raise_invalid_token_exception(token, expected_token, line = None, col = None):
+        # helper function raise_invalid_token_exception
+        #   :raise an exception with an error message
+        def raise_invalid_token_exception(token, expected_token, line=None, col=None):
             err_msg = "Expected \"" + str(token) + "\" but found " + str(expected_token)
-            if line != None and col != None:
+            if line is not None and col is not None:
                 err_msg = err_msg + "\" at line " + str(line) + ", column " + str(col)
             raise InvalidTokenException(err_msg)
-            
+          
+        # helper function to raise an exception based on the token type and value
         def raise_exception(token:Token, expected_token):
+
             _token_type = [LParenToken, RParenToken, SemiColonToken, CommaToken, KeywordToken]
             _operator_type = ["->", "&", "|", "@", ".", "=", "."]  
             
@@ -81,17 +85,19 @@ class Parser:
             elif token.type not in _token_type:
                 _token = token.getType()
                 
-            raise_invalid_token_exception(_token, _expected_token, _line, _col)  
+            raise_invalid_token_exception(_token, _expected_token, _line, _col)
             
+        # get the next token from the lexer
         _next_token = self.nextToken()
         
+        # raise an exception if the next token is not the expected token
         if _next_token != token:
             raise_exception(token, _next_token)
         
+        # push the token to the stack as an ASTNode and get the next token from the lexer
         if not ignore:
             self.__pushStack(ASTNode(self.nextToken()))
         self.__setNextToken(self.__getTokenFromLexer())
-            
             
 
     def __getTokenFromLexer(self):
