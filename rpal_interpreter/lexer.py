@@ -168,12 +168,15 @@ class Lexer:
             token_val = match.group(0)
             position = match.end()
             
-            # update line number if token is comment or spaces and ignore them
-            if token_type == CommentToken or token_type == SpacesToken:
-                newlines = token_val.count("\n")
-                if newlines > 0:
-                    char_pos = 1 # reset char position to 1
-                    line_no += newlines
+            # update line number if token has newlines - this includes CommentTokens and SpaceTokens with \n
+            if '\n' in token_val:
+                line_no += token_val.count('\n')
+                char_pos = 1 # reset character position
+                break
+            
+            # count spaces and tabs
+            if token_type == SpacesToken:
+                char_pos += len(token_val)
                 break
                             
             # punctions have no arguments in their constructor
@@ -187,12 +190,13 @@ class Lexer:
                     res = KeywordToken(token_val, line_no, char_pos)
                 else:
                     res = token_type(token_val, line_no, char_pos)     
+
+            char_pos += len(token_val)
             break         
             
         if not match:   
             raise InvalidTokenException.fromLine(line_no, char_pos)
                 
-        char_pos += len(token_val)
         
         # update the position, line number and character position
         self.__position = position
