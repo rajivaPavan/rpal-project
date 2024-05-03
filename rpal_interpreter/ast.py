@@ -5,13 +5,13 @@ class ASTNode:
     Each node contains a reference to its node value, left child, and right sibling.
 
     Attributes:
-        node: The value of the node.
+        value: The value of the node.
         left_child: The left child of the node.
         right_sibling: The right sibling of the node.
     """
 
-    def __init__(self, node, left_child=None, right_sibling=None):
-        self.node = node
+    def __init__(self, value, left_child=None, right_sibling=None):
+        self.value = value
         self.left_child = left_child
         self.right_sibling = right_sibling
 
@@ -31,7 +31,7 @@ class ASTNode:
         Returns:
             str: A string representation of the current node and its children.
         """
-        s = str(self.node)
+        s = str(self.value)
         if self.left_child != None:
             child_level = level + 1
             s += "\n" + "." * child_level + self.left_child.__str__(child_level)
