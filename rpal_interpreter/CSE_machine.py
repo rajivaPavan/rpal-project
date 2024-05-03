@@ -1,5 +1,3 @@
-from .ast import ASTNode
-
 class CSEmachine:
     
     def __init__(self, st):
