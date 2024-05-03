@@ -1,6 +1,6 @@
 from .lexer import Lexer
 from .tokens import *
-from .ast import ASTNode
+from .trees import ASTNode
 
 class Parser:
     """
@@ -137,7 +137,7 @@ class Parser:
                 p = c
             self.__pushStack(ASTNode(x, p, None))
         except:
-            raise BuiltTreeException("Error building the tree.")
+            raise BuildTreeException()
         
     def getAST(self)->ASTNode:
         return self.__popStack()

@@ -8,13 +8,13 @@ def main():
 
     # initialize args
     args = sys.argv
-    file_name, ast_switch = init_args(args)
+    file_name, switch = init_args(args)
         
     # Read the file "file_name"
     program = read_file(file_name)
   
-    interpreter = Interpreter()
-    interpreter.interpret(program, ast_switch)
+    interpreter = Interpreter(program, switch)
+    interpreter.interpret()
 
     return
 
