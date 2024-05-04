@@ -14,6 +14,11 @@ class BinaryTreeNode:
         self.__left = left
         self.__right = right
         
+    def valueIs(self, value):
+        if not isinstance(self.__value, type(value)):
+            return False
+        return value == self.__value
+    
     # getters and setters
     def getValue(self):
         return self.__value
@@ -38,22 +43,7 @@ class BinaryTreeNode:
         """
         Creates a new copy of the given node.
         """
-        if node is None:
-            return None
-        return cls(node.getValue(), STNode.copy(node.getLeft()), STNode.copy(node.getRight()))
-
-class TreeFormatter():
-
-    @staticmethod
-    def line_str(node, level):
-        return "\n" + "." * level + node.__str__(level)
-        
-class ASTNode(BinaryTreeNode):
-    """A class representing a node in an Abstract Syntax Tree (AST).
-
-    The ASTNode class uses the left child right sibling representation to store the tree structure.
-    Each node contains a reference to its node value, left child, and right sibling.
-    """
+        return cls(node.getValue(), node.getLeft(), node.getRight())
     
     def __str__(self, level=0):
         """
@@ -75,51 +65,62 @@ class ASTNode(BinaryTreeNode):
         if self.getRight() != None:
             s += _formatter.line_str(self.getRight(), level)
         return s
+
+class TreeFormatter():
+
+    @staticmethod
+    def line_str(node, level):
+        return "\n" + "." * level + node.__str__(level)
     
+    
+        
+class ASTNode(BinaryTreeNode):
+    """A class representing a node in an Abstract Syntax Tree (AST).
+
+    The ASTNode class uses the left child right sibling representation to store the tree structure.
+    Each node contains a reference to its node value, left child, and right sibling.
+    """
+    def __init__(self, value, left=None, right=None):
+        super().__init__(value, left, right)
 
     
 class STNode(BinaryTreeNode):
+    """A class representing a node in a Standardized Tree (ST).
     
-    @staticmethod
-    def gamma_node():
-        """
-        Creates a new gamma node. 
-        """
-        return STNode(Nodes.GAMMA)
-    
-    @staticmethod
-    def lambda_node():
-        """
-        Creates a new lambda node.
-        """
-        return STNode.__create("lambda")
+    The STNode class uses the left child right sibling representation to store the tree structure.
+    Each node contains a reference to its node value, left child, and right sibling.
+    """
 
-    @classmethod
-    def __create(cls, value, left=None, right=None):
-        return STNode(STNode.__create_key,value, left, right)
-    
-    __create_key = object()
-    
-    def __init__(self, key, value, left=None, right=None):
-        assert key == STNode.__create_key
-        super().__init__(value, left, right)
-        
-    def __str__(self, level = 0):
+    @staticmethod
+    def createFCRSNode(value, left:BinaryTreeNode= None, right:BinaryTreeNode = None):
         """
-        Returns a string representation of the tree using pre-order traversal.
+        Create node with left as first child and right as sibling of first child
         """
+        left.setRight(right) 
+        node = STNode(value, left, None)
+        return node
+    
+    @staticmethod
+    def gamma_node(left = None, right = None):
+        """
+        Creates a new gamma node in the form of a FCRS node.
+        """
+        return STNode.createFCRSNode(Nodes.GAMMA, left, right)
+    
+    @staticmethod
+    def lambda_node(left = None, right = None):
+        """
+        Creates a new lambda node in the form of a FCRS node.
+        """
+        return STNode.createFCRSNode(Nodes.LAMBDA, left, right)
+    
+    @staticmethod
+    def assign_node(left = None, right = None):
+        """
+        Creates a new assign node in the form of a FCRS node.
+        """
+        return STNode.createFCRSNode(Nodes.ASSIGN, left, right)
         
-        _formatter = TreeFormatter
-        
-        s = str(self.getValue())
-        _left = self.getLeft()
-        _right = self.getRight()
-        
-        if _left is not None:
-            s += _formatter.line_str(_left, level)
-        if _right is not None:
-            s += _formatter.line_str(_right, level)
-        return s
     
 
             
