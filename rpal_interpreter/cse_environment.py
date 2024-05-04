@@ -8,19 +8,16 @@ class Environment:
     
     """
     
-    def __init__(self, child=None, parent = None, envIndex = None, envData = None):
+    def __init__(self, parent = None, envIndex = None, envData = None):
         """
         Initialize environments.
         envData is represented as a dictionary.
         """
-        
-        self.children = []
         self.parent : Environment = parent
         self.envMarker = EnvMarker(envIndex)
         self.envData = {}      
         
-        if child is not None:
-            self.children.append(child)
+        
         
     def insertEnvData(self, name, value):
         
