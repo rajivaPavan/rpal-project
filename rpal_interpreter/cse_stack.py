@@ -18,26 +18,37 @@ class Stack:
         
         
     #Removes the first occurence of the value
-    def removeElement(self, value):
-        self.remove(value)
+    # def removeElement(self, value):
+    #     self.remove(value)
         
-    def negFunction(self, rator):
-        return -rator
-        
-        
-        
-    def calculate(self, operator, rator, rand = None):
-        match operator:
-            case "neg":
-                self.stack.pushStack(-rator)
-            case "+":
-                self.stack.pushStack(rator + rand)
-            case "-":
-                self.stack.pushStack(rator - rand)
-            case "*":
-                self.stack.pushStack(rator * rand)
-            case "/":
-                self.stack.pushStack(rator / rand)
-            case "**":
-                self.stack.pushStack(rator ** rand)
+    # def negFunction(self, rator):
+    #     return -rator
     
+    # def minusFunction(self, rator, rand):
+    #     return rator - rand
+    
+    # def plusFunction(self, rator, rand):
+    #     return rator + rand
+
+    # def expFunction(self, rator, rand):
+    #     return pow(rator, rand)
+    
+    # def multiFunction(self, rator, rand):
+    #     return rator * rand   
+        
+        
+    def apply(self, operator, rator, rand = None):
+        if operator == "neg":
+            result = -rator
+        elif operator == "+":
+            result = rator + rand
+        elif operator == "-":
+            result = rator - rand
+        elif operator == "*":
+            result = rator * rand
+        elif operator == "/":
+            result = rator / rand
+        elif operator == "**":
+            result = pow(rator, rand)
+                
+        self.stack.pushStack(result)

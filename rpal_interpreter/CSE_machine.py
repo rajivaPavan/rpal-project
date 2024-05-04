@@ -12,9 +12,9 @@ class CSEMachine:
     
     def __init__(self, st):
         
-        #Can only have one control and one stack -> singleton ?
-        self.controlStructs = 
-        self.control = Control(st)
+        #Can only have one control and one stack -> singleton?
+        self.controlStructs = self.generateControlStructs(st)
+        self.control = Control(self.controlStructs)
         self.env = Environment(None, None, 0, None)
         self.stack = Stack()
         
