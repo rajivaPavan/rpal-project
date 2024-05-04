@@ -189,8 +189,7 @@ class RPALParser(Parser):
         _next_token = self.nextToken()
         if _next_token == None:
             return
-        while (_next_token.__class__ == OperatorToken 
-            and (_next_token.isValue("*")) or _next_token.isValue("/")):
+        while ((_next_token.isValue("*")) or _next_token.isValue("/")):
         
             # read the operator token and build the tree using the appropriate transduction rule
             if _next_token.isValue("*"):
@@ -203,6 +202,9 @@ class RPALParser(Parser):
                 self.buildTree("/", 2)
             # update the next token
             _next_token = self.nextToken()
+
+            if _next_token == None:
+                break
 
     def proc_Af(self):
         
