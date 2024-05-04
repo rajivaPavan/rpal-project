@@ -1,6 +1,7 @@
 class Symbol:
     
-    """Represents differnt types of symbols in the CSE machine.
+    """
+    Represents differnt types of symbols in the CSE machine.
     Include both control symbols and stack symbols.
     
     """
@@ -28,13 +29,6 @@ class Name(Symbol):
     def __init__(self, name):
         super().__init__()
         self.name = name  
-        
-class EnvMarker(Symbol):
-    
-    """ Represents an environment marker in the CSE machine. """
-    
-    def __init__(self, envIndex):
-        super().__init__()
         
 class Operator(Symbol):
     def __init__(self, operator):
@@ -71,13 +65,21 @@ class LambdaClosure(Lambda):
     
     def __init__(self, variable, index, envIndex):
         super().__init__(variable, index)
-        self.envIndex = envIndex
-        
-        
+        self.envMarker: EnvMarker = EnvMarker(envIndex)
         
 
+class EnvMarker(Symbol):
+    
+    """ Represents an environment marker in the CSE machine. """
+    
+    def __init__(self, envIndex):
+        super().__init__()
+        self.envIndex = envIndex
+        
+   
+
 ## additional
-class CommaSymbole(Symbol):
+class CommaSymbol(Symbol):
     def __init__(self):
         super().__init__()
         
