@@ -13,10 +13,21 @@ class CSEMachine:
     def __init__(self, st):
         
         #Can only have one control and one stack -> singleton ?
-        
+        self.controlStructs = 
         self.control = Control(st)
         self.env = Environment(None, None, 0, None)
         self.stack = Stack()
+        
+        
+    def generateControlStructs(self, st) -> list:
+        """Calls the preorder traversal of the ST to generate the control structures."""	
+        self.traversePreOrder(st)
+        
+    def traversePreOrder(self, st):
+        """Traverses the ST in preorder to generate the control structures."""
+        # not implemented
+        if st.root == None:
+            return
     
 
     def evaluate(self):
@@ -82,6 +93,8 @@ class CSEMachine:
             self.stack.pushStack(right_most)
             
         self.evaluate()
+        
+        
         
 
 
