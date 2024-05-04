@@ -1,4 +1,4 @@
-class ASTNodes:
+class Nodes:
     # reserved AST node values
     LET = "let"
     LAMBDA = "lambda"

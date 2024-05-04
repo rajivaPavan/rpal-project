@@ -1,3 +1,6 @@
+from rpal_interpreter.nodes import Nodes
+
+
 class BinaryTreeNode:
     """ A class representing a node in a binary tree.
     
@@ -29,6 +32,15 @@ class BinaryTreeNode:
     
     def setRight(self, right):
         self.__right = right
+    
+    @classmethod
+    def copy(cls, node):
+        """
+        Creates a new copy of the given node.
+        """
+        if node is None:
+            return None
+        return cls(node.getValue(), STNode.copy(node.getLeft()), STNode.copy(node.getRight()))
 
 class TreeFormatter():
 
@@ -64,7 +76,33 @@ class ASTNode(BinaryTreeNode):
             s += _formatter.line_str(self.getRight(), level)
         return s
     
+
+    
 class STNode(BinaryTreeNode):
+    
+    @staticmethod
+    def gamma_node():
+        """
+        Creates a new gamma node. 
+        """
+        return STNode(Nodes.GAMMA)
+    
+    @staticmethod
+    def lambda_node():
+        """
+        Creates a new lambda node.
+        """
+        return STNode.__create("lambda")
+
+    @classmethod
+    def __create(cls, value, left=None, right=None):
+        return STNode(STNode.__create_key,value, left, right)
+    
+    __create_key = object()
+    
+    def __init__(self, key, value, left=None, right=None):
+        assert key == STNode.__create_key
+        super().__init__(value, left, right)
         
     def __str__(self, level = 0):
         """
