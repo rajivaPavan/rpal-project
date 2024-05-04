@@ -80,5 +80,39 @@ class Environment:
         else:
             return self.parent.lookUpEnv(name)
         
+class ControlStructArray:
+        
+        def __init__(self, st):
+            """Define the Array of Control Structures as a dictionary."""
+            self.controlStructArray = {}
+            self.generateControlStructArray(st)
             
+        def generateControlStructArray(self,st):
+            #TODO: Implement the generation of control structures
+            st = st
+            pass
             
+        def insertControlStruct(self, controlStruct):
+            self.controlStructArray[controlStruct.index] = controlStruct
+            
+        def getControlStruct(self, index):
+            return self.controlStructArray[index]
+        
+        def getControlStructArray(self):
+            return self.controlStructArray
+                    
+class ControlStruct:
+    
+    def __init__(self, index):
+        
+        """
+        Represents a control structure in the CSE machine.
+        eg: delta1, delta 0
+        """
+        
+        self.index = index
+        self.controlStruct = []
+        
+
+    
+    
