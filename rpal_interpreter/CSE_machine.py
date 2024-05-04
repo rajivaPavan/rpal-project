@@ -151,8 +151,7 @@ class CSEMachine:
                 
             self.addEnvMarker(__env_index)
             
-            
-            self.control.insertControlStructs(self.controlStructArray.getControlStruct(__lambdaClosure.index))
+            self.control.insertControlStruct(self.controlStructArray.getControlStruct(__lambdaClosure.index))
             
     def addEnvMarker(self, env_index):
             
