@@ -27,14 +27,12 @@ class CSEMachine:
 
         if right_most.isType(Name):
             __name = right_most.name
-            self.stackaName(__name)
-              
+            self.stackaName(__name)       
               
         if right_most.isType(Lambda):
             __lambda = right_most
             self.stackLambda(__lambda)
-               
-               
+                   
         if right_most.isType(Operator):
             __operator = right_most.operator
             self.evaluateOperator(__operator)
@@ -46,7 +44,7 @@ class CSEMachine:
             __env_marker = right_most
             self.exitEnv(__env_marker)
             
-        if right_most.isType(FcnForm):
+        if right_most.isType():
             self.conditional()
                
         self.evaluate()
@@ -81,7 +79,7 @@ class CSEMachine:
         """
         
         envIndex = self.env.envMarker.envIndex
-        self.stack.pushStack(LambdaClosure(_lambda.variable, _lambda.index, envIndex)) 
+        self.stack.pushStack(LambdaClosure(_lambda.variables, _lambda.index, envIndex)) 
         
     def evaluateOperator(self, operator):
         
@@ -140,13 +138,18 @@ class CSEMachine:
         """	
         
         __top = self.stack.popStack() 
+        
         if __top.isType(LambdaClosure):
-            __env_index = __top.envMarker.envIndex + 1
+            
+            __lambdaClosure = __top
+            
+            __env_index = __lambdaClosure.envMarker.envIndex + 1
             __new_env = Environment(self.env, __env_index, None )
             self.env = __new_env    
-            self.env.insertEnvData(__top.variable, self.stack.popStack())
+            for var in __lambdaClosure.variables:
+                self.env.insertEnvData(var, self.stack.popStack())
             
-            self.control.insertControlStructs(self.controlStructArray[__top.index])
+            self.control.insertControlStructs(self.controlStructArray[__lambdaClosure.index])
             
     def exitEnv(self, env_marker):
         
@@ -182,13 +185,7 @@ class CSEMachine:
         """
         pass
     
-    def n_aryEunction(self):
-        
-        """
-        Rule 11
-        
-        """
-        pass
+    
     
     
         
