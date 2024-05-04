@@ -1,18 +1,46 @@
 class Symbol:
-    def __init__(self, type):
+    
+    """Represents differnt types of symbols in the CSE machine.
+    Include both control symbols and stack symbols.
+    
+    """
+    
+    def __init__(self):
+        """Implemented in the subclasses."""
         pass
         
     def isType(self, t):
         return self.__class__ == t
+
+class Primitive(Symbol):
+    """
+    Represents primitive data types in the CSE machine.
+    """
     
-class Variable(Symbol):
+    def __init__(self, value):
+        super().__init__()
+        self.value = value
+        
+class Name(Symbol):
+    """
+    Represents a variable in the CSE machine.
+    """
     def __init__(self, name):
         super().__init__()
         self.name = name  
         
 class EnvMarker(Symbol):
+    
+    """ Represents an environment marker in the CSE machine. """
+    
     def __init__(self, envIndex):
         super().__init__()
+        
+class Operator(Symbol):
+    def __init__(self, operator):
+        super().__init()
+        self.operator = operator
+        
         
          
         
@@ -61,11 +89,7 @@ class Tau(Symbol):
     def __init__(self):
         super().__init()
 
-class Operator(Symbol):
-    def __init__(self, operator, value):
-        super().__init()
-        self.operator = operator
-        value = value
+
 
 
         

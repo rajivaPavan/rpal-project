@@ -1,28 +1,49 @@
 from .symbol import *
 class CSEMachine:
-    ## How are we going to define the primitive enviromnment?
-        
+    
+    """
+    The CSE machine for the RPAL interpreter.
+    Evaluates the program when the Standard Tree is given.
+    
+    """
+    
     def __init__(self, st):
         self.control = Control(st)
-        self.env = Environment(None, None, 0)
+        self.env = Environment(None, None, 0, None)
         self.stack = Stack()
     
 
     def evaluate(self):
-        #Only imlemented for binary and unary operators
-        #Only half way done
+        
+        """Evaluates the CSE machine."""
+        
         right_most = self.control.removeRightMost()
         
         if right_most.isType(None):
             return self.stack.popStack()
         
+        if right_most.isType(Primitive):  
+            self.stack.pushStack(right_most.value)
+            
+
+        if right_most.isType(Name):
+            """
+            Looks up the value for the variable in the environment.
+            pushes the respective value to the stack.
+            """
+            __value = self.env.lookUpEnv(right_most.name)
+            self.stack.pushStack(__value)
+            
+        
+        if right_most.isType(Operator):
+            self.stack.pushStack(right_most)
         
         if right_most.isType(Gamma):
-            
-            operator = self.stack.popStack()
+            #only implemented the evaluation of an operator, has to be changed
+            operator = self.stack.popStack().operator
             rator = self.stack.popStack()
             
-            if self.control.lookAheadisType.isType(Gamma):
+            if self.control.peekRightMost.isType(Gamma):
                 self.control.removeRightMost()
                 rand = self.stack.popStack()
                 self.Stack.calculate(operator, rator, rand)
@@ -34,26 +55,41 @@ class CSEMachine:
 
         if right_most.isType(EnvMarker):
             self.stack.removeElement(right_most)
-            pass    
+            
         
         if right_most.isType(Lambda):
             pass
         
         else:
             self.stack.pushStack(right_most)
-        
+            
+        self.evaluate()
         
 
 class Control:
     
-    """Represents a control in the CSE machine."""
+    """The control of the CSE machine."""
     
     def __init__(self, st):
-        self.controlStructs = st.preorderTraverse()
-        self.control = [EnvMarker(0)].insertControlStructs(self.controlStructs[0])
         
-    def preOrderTraverse(self):
-        pass
+        self.controlStructs: ControlStruct = self.generateControlStructs(st)    #an array which contains the control structures
+        self.control = [EnvMarker(0)].insertControlStructs(self.controlStructs[0])  #
+        
+        
+    def generateControlStructs(self, st) -> list:
+        """Calls the preorder traversal of the ST to generate the control structures."""	
+        self.traversePreOrder(st)
+        
+    def traversePreOrder(self, st):
+        """Traverses the ST in preorder to generate the control structures."""
+        # not implemented
+        if st.root == None:
+            return
+
+    
+    def peekRightMost(self):
+        right_most = self.control[-1]
+        return right_most
     
     def removeRightMost(self):
         right_most = self.control.pop(-1)
@@ -63,18 +99,17 @@ class Control:
         for i in controlStruct.controlStruct:
             self.control.append(i)
             
-    #LookAhead into the control structure
-    def lookAhead(self):
-        self.control[-1]
             
             
 class ControlStruct:
-    """
-    Represents a control structure in the CSE machine.
-    eg: delta1, delta 0
-    """
     
     def __init__(self, index):
+        
+        """
+        Represents a control structure in the CSE machine.
+        eg: delta1, delta 0
+        """
+        
         self.index = index
         self.controlStruct = []
     
@@ -101,24 +136,25 @@ class Stack:
     def removeElement(self, value):
         self.remove(value)
         
+    def negFunction(self, rator):
+        return -rator
+        
         
         
     def calculate(self, operator, rator, rand = None):
-        
-        if operator == "neg":
+        match operator:
+            case "neg":
                 self.stack.pushStack(-rator)
-                
-        if operator == "+":
+            case "+":
                 self.stack.pushStack(rator + rand)
-
-        if operator == "-":
+            case "-":
                 self.stack.pushStack(rator - rand)
-        
-        if operator == "*":
+            case "*":
                 self.stack.pushStack(rator * rand)
-                
-        if operator == "/":
-                self.stack.pushStack(rator / rand)    
+            case "/":
+                self.stack.pushStack(rator / rand)
+            case "**":
+                self.stack.pushStack(rator ** rand)
     
     
 class Environment:
@@ -137,7 +173,19 @@ class Environment:
         self.parent : Environment = parent
         self.envData = []
         
-    
+    def lookUpEnv(self, name):
+        
+        """
+        Looks up the value for the variable.
+        Checks the parent environment if not in the current.
+        
+        """
+        
+        if name in self.envData:
+            return self.envData[name]
+        
+        else:
+            return self.parent.lookUpEnv(name)
         
 
     
