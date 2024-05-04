@@ -4,8 +4,10 @@ class Control:
     
     """The control of the CSE machine."""
     
-    def __init__(self, controlStructs):
-        self.control = [EnvMarker(0)].insertControlStructs(controlStructs[0])  
+    def __init__(self, controlStruct):
+        self.control = []
+        self.control.insertEnvMarker(0)
+        self.control.insertControlStruct(controlStruct)  
      
     
     def peekRightMost(self):
@@ -16,9 +18,12 @@ class Control:
         right_most = self.control.pop(-1)
         return right_most
         
-    def insertControlStructs(self, controlStruct):
+    def insertControlStruct(self, controlStruct):
         for i in controlStruct.controlStruct:
             self.control.append(i)
+            
+    def insertEnvMarker(self, env_index):
+        self.control.append(EnvMarker(env_index))
             
 
 class Stack:
@@ -92,7 +97,7 @@ class ControlStructArray:
             st = st
             pass
             
-        def insertControlStruct(self, controlStruct):
+        def addControlStruct(self, controlStruct):
             self.controlStructArray[controlStruct.index] = controlStruct
             
         def getControlStruct(self, index):
@@ -103,7 +108,7 @@ class ControlStructArray:
                     
 class ControlStruct:
     
-    def __init__(self, index):
+    def __init__(self, index = None):
         
         """
         Represents a control structure in the CSE machine.
