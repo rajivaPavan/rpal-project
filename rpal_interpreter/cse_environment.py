@@ -8,14 +8,15 @@ class Environment:
     
     """
     
-    def __init__(self, child=None, parent = None, envMarker = None, envData = None):
+    def __init__(self, child=None, parent = None, envIndex = None, envData = None):
         """
         Initialize environments.
         envData is represented as a dictionary.
         """
-        envMarker: EnvMarker = envMarker
+        
         self.children = []
         self.parent : Environment = parent
+        self.envMarker = EnvMarker(envIndex)
         self.envData = {}      
         
         if child is not None:
