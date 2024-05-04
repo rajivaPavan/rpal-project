@@ -12,7 +12,8 @@ class Symbol:
         
     def isType(self, t):
         return self.__class__ == t
-        
+
+#Subclasses of Symbol
 class Name(Symbol):
     """
     Represents variables and numerics in the CSE machine.
@@ -26,9 +27,7 @@ class Operator(Symbol):
         super().__init()
         self.operator = operator
         
-        
-         
-        
+              
 class Gamma(Symbol):
     """Represents a gamma Node in the CSE machine."""
     
@@ -38,10 +37,13 @@ class Gamma(Symbol):
 class Lambda(Symbol):
     """Represents a lambda Node in the CSE machine."""
     
-    def __init__(self, variable, index):
+    def __init__(self, variables, index):
         super().__init__()
-        self.variable = variable
+        self.variables = []
         self.index = index
+        
+        for var in variables:
+            self.variables.append(var)
 
 
 class LambdaClosure(Lambda):
@@ -67,20 +69,15 @@ class EnvMarker(Symbol):
         super().__init__()
         self.envIndex = envIndex
         
-class Fcn_Form(Symbol):
-    def __init__(self):
-        super().__init()
-        
-
-## additional
-class CommaSymbol(Symbol):
+class Beta(Symbol):
     def __init__(self):
         super().__init__()
         
 
 class Tau(Symbol):
-    def __init__(self):
+    def __init__(self, n):
         super().__init()
+        self.n = n
 
 
 
