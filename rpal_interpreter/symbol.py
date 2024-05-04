@@ -12,19 +12,10 @@ class Symbol:
         
     def isType(self, t):
         return self.__class__ == t
-
-class Primitive(Symbol):
-    """
-    Represents primitive data types in the CSE machine.
-    """
-    
-    def __init__(self, value):
-        super().__init__()
-        self.value = value
         
 class Name(Symbol):
     """
-    Represents a variable in the CSE machine.
+    Represents variables and numerics in the CSE machine.
     """
     def __init__(self, name):
         super().__init__()
@@ -76,17 +67,17 @@ class EnvMarker(Symbol):
         super().__init__()
         self.envIndex = envIndex
         
-   
+class Fcn_Form(Symbol):
+    def __init__(self):
+        super().__init()
+        
 
 ## additional
 class CommaSymbol(Symbol):
     def __init__(self):
         super().__init__()
         
-class Fcn_Form(Symbol):
-    def __init__(self):
-        super().__init()
-        
+
 class Tau(Symbol):
     def __init__(self):
         super().__init()
