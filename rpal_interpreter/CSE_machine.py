@@ -14,7 +14,7 @@ class CSEMachine:
 
         self.controlStructs = self.generateControlStructs(st)
         self.control = Control(self.controlStructs)
-        self.env = Environment(None, None, 0, None)
+        self.env = Environment(None, 0, None)
         self.stack = Stack()
         
 
@@ -40,7 +40,6 @@ class CSEMachine:
             __value = self.env.lookUpEnv(right_most.name)
             self.stack.pushStack(__value)
             
-        
         if right_most.isType(Operator):
             __operator = right_most.operator
             rand_1 = self.stack.popStack()
@@ -55,18 +54,18 @@ class CSEMachine:
                 
         if right_most.isType(Lambda):
             envIndex = self.env.envMarker.envIndex
-            self.stack.pushStack(LambdaClosure(right_most.variable, right_most.index, envIndex))        
+            self.stack.pushStack(LambdaClosure(right_most.variable, right_most.index, envIndex))   
 
         
         if right_most.isType(Gamma):
             
             __top = self.stack.popStack() 
             if __top.isType(LambdaClosure):
-                self.env = Environment(None,  )
-            
-            
-        
-        
+                __env_index = __top.envMarker.envIndex + 1
+                __new_env = Environment(self.env, __env_index, None )
+                self.env = __new_env    
+                self.env.insertEnvData(__top.variable, self.stack.popStack())
+                
         
         if right_most.isType(EnvMarker):
             self.stack.removeElement(right_most)
@@ -85,11 +84,7 @@ class CSEMachine:
         """Calls the preorder traversal of the ST to generate the control structures."""	
         self.traversePreOrder(st)
         
-    def traversePreOrder(self, st):
-        """Traverses the ST in preorder to generate the control structures."""
-        # not implemented
-        if st.root == None:
-            return
+    
         
         
         
