@@ -148,8 +148,21 @@ class CSEMachine:
             self.env = __new_env    
             for var in __lambdaClosure.variables:
                 self.env.insertEnvData(var, self.stack.popStack())
+                
+            self.addEnvMarker(__env_index)
             
-            self.control.insertControlStructs(self.controlStructArray[__lambdaClosure.index])
+            
+            self.control.insertControlStructs(self.controlStructArray.getControlStruct(__lambdaClosure.index))
+            
+    def addEnvMarker(self, env_index):
+            
+        """
+        Adds an environment marker to the stack and the control.
+        
+        """
+        
+        self.stack.pushStack(EnvMarker(env_index))
+        self.control.insertEnvMarker(env_index)
             
     def exitEnv(self, env_marker):
         
