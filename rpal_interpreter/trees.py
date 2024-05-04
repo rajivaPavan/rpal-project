@@ -3,8 +3,8 @@ class BinaryTreeNode:
     
     Attributes:
         value: The value of the node.
-        left_child: The left child of the node.
-        right_sibling: The right sibling of the node.
+        left: The left child of the node.
+        right: The right child of the node.
     """
     def __init__(self, value, left=None, right=None):
         self.__value = value
@@ -42,16 +42,7 @@ class ASTNode(BinaryTreeNode):
     The ASTNode class uses the left child right sibling representation to store the tree structure.
     Each node contains a reference to its node value, left child, and right sibling.
     """
-
-    def ___init___(self, value, left_child=None, right_sibling=None):
-        super().__init__(value, left_child, right_sibling)
     
-    def setLeftChild(self, node):
-        self.setLeft(node)
-
-    def setRightSibling(self, node):
-        self.setRight(node)
-        
     def __str__(self, level=0):
         """
         Returns a string representation of the current node and its children.
@@ -74,8 +65,6 @@ class ASTNode(BinaryTreeNode):
         return s
     
 class STNode(BinaryTreeNode):
-    def __init__(self, value, left=None, right=None):
-        super().__init__(value, left, right)
         
     def __str__(self, level = 0):
         """

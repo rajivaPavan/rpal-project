@@ -139,7 +139,7 @@ class Parser:
             p = None
             for i in range(n):
                 c = self.__popStack()
-                c.setRightSibling(p)
+                c.setRight(p) # set right sibling
                 p = c
             self.__pushStack(ASTNode(x, p, None))
         except:
