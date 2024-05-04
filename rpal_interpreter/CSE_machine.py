@@ -9,7 +9,7 @@ class CSEMachine:
     
     def __init__(self, st):
 
-        self.controlStructArray = self.generateControlStructs(st)
+        self.controlStructArray = ControlStructArray(st)
         self.control = Control(self.controlStructArray)
         self.env = Environment(None, 0, None)
         self.stack = Stack()
@@ -46,7 +46,8 @@ class CSEMachine:
             __env_marker = right_most
             self.exitEnv(__env_marker)
             
-        if right_most.isType()
+        if right_most.isType(FcnForm):
+            self.conditional()
                
         self.evaluate()
         
@@ -145,6 +146,8 @@ class CSEMachine:
             self.env = __new_env    
             self.env.insertEnvData(__top.variable, self.stack.popStack())
             
+            self.control.insertControlStructs(self.controlStructArray[__top.index])
+            
     def exitEnv(self, env_marker):
         
         """
@@ -190,17 +193,13 @@ class CSEMachine:
     
         
         
-    def generateControlStructs(self, st) -> list:
-        """Calls the preorder traversal of the ST to generate the control structures."""	
-        self.traversePreOrder(st)
-        
     
-        
+    
+
         
         
 
 
-    
     
         
 
