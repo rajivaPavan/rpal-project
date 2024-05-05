@@ -237,8 +237,7 @@ class RPALParser(Parser):
             while (self.nextToken() != None 
                 and RPALParser.__isInFirstRn(self.nextToken())):
                 self.proc_Rn()
-                n += 1
-            self.buildTree(Nodes.GAMMA, n)
+                self.buildTree(Nodes.GAMMA, 2)
 
     def __isInFirstRn(token:Token):
         if token.__class__ == KeywordToken:
