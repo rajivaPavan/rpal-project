@@ -22,7 +22,7 @@ class Control:
         return right_most
         
     def insertControlStruct(self, controlStruct) :
-        for i in controlStruct:
+        for i in controlStruct.getArray():
             self.control.append(i)
             
     def insertEnvMarker(self, env_index):
@@ -103,21 +103,24 @@ class ControlStruct:
 
     def getIndex(self):
         return self.__index
+    
+    def getArray(self):
+        return self.__array
 
     def addSymbol(self, symbol: Symbol):
         self.__array.append(symbol)
 
     def __repr__(self):
-        return f"ControlStruct({self.__index}, {self.__array})"
+        return f"delta-{self.__index} = {self.__array}"
         
 class ControlStructures:
         
     def __init__(self, st:STNode):
         """Define the Array of Control Structures as a dictionary."""
-        self.__controlStructureMap = self.__generateControlStructures(st)
+        self.__initializeCS(st)
         
         
-    def __generateControlStructures(self,st) -> dict:
+    def __initializeCS(self,st) -> dict:
         """Generates the control structures for the CSE machine from the Standardized Tree.
         Returns: a dictionary of control structures."""
         
@@ -134,7 +137,9 @@ class ControlStructures:
                 return
             
             visit(node, deltaIndex)
-            traverse(node.getLeft(), deltaIndex)
+            # if node is lambda dont traverse left instead traverse right of left
+            if not node.is_lambda():
+                traverse(node.getLeft(), deltaIndex)
             traverse(node.getRight(), deltaIndex)
 
         def visit(node:STNode, deltaIndex: int):
@@ -142,21 +147,22 @@ class ControlStructures:
             Visit the node and add the symbol to the control structure.
             """
             currentCS:ControlStruct = self.get(deltaIndex)
-
-            if node.is_name():
-                value = node.parseValueInToken()
-                currentCS.addSymbol(NameSymbol(value))
-            elif node.is_gamma():
-                currentCS.addSymbol(GammaSymbol())
-            elif node.is_lambda():
+            symbol = None
+            if node.is_lambda():
                 deltaIndex += 1
-                self.__put(ControlStruct(deltaIndex))
+                self.__newControlStruct(deltaIndex)
+
+                # add x to the control structure
                 x:STNode = node.getLeft()
                 x_value = x.parseValueInToken()
-                currentCS.addSymbol(LambdaSymbol(deltaIndex, [x_value]))
-                print(currentCS)
+                symbol = LambdaSymbol(deltaIndex, [x_value])
+                currentCS.addSymbol(symbol)
+                traverse(x.getRight(), deltaIndex)
             else:
-                raise Exception("Invalid node type")
+                # add to current CS 
+                symbol = SymbolFactory.createSymbol(node)
+                currentCS.addSymbol(symbol)
+            return deltaIndex
 
         # Initialize the control structure map
         self.__controlStructureMap = {}   
@@ -167,6 +173,11 @@ class ControlStructures:
 
         # start the traversal from the root of the tree
         traverse(st, deltaIndex)
+
+        return self.__controlStructureMap
+
+    def __newControlStruct(self, deltaIndex: int):
+        self.__controlStructureMap[deltaIndex] = ControlStruct(deltaIndex)
         
     def __put(self, controlStruct: ControlStruct):
         """Adds a control struct to the control structure map with the control struct index as the key."""

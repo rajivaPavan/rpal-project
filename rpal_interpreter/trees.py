@@ -79,6 +79,9 @@ class BinaryTreeNode:
     def is_name(self):
         node_value = str(self.getValue())
         return str.startswith(node_value, "<ID:") or str.startswith(node_value, "<INT:") or str.startswith(node_value, "<STR:")
+    
+    def __repr__(self):
+        return f"{self.getValue()}"
 
 class TreeFormatter():
 
