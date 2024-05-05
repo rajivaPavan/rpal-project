@@ -156,7 +156,7 @@ class ASTStandardizer:
         assign_node: STNode = p.getRight()
         x:STNode = assign_node.getLeft()
         e:STNode = x.getRight()
-
+        p.setRight(None) # remove the assign node from p
         lambda_ = STNode.lambda_node(x, p)
         gamma = STNode.gamma_node(lambda_, e)
         return gamma
