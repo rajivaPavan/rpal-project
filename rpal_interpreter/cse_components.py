@@ -75,7 +75,7 @@ class Environment:
         return self.envData[name]
     
         
-    def lookUpEnv(self, name):
+    def lookUpEnv(self, name: str):
         
         """
         Looks up the value for the variable.
@@ -88,6 +88,18 @@ class Environment:
         
         else:
             return self.parent.lookUpEnv(name)
+        
+class ControlStruct:
+    
+    def __init__(self, index = None):
+        
+        """
+        Represents a control structure in the CSE machine.
+        eg: delta1, delta 0
+        """
+        
+        self.index = index
+        self.controlStruct: List[Symbol] = []
         
 class ControlStructArray:
         
@@ -102,7 +114,7 @@ class ControlStructArray:
             st = st
             pass
             
-        def addControlStruct(self, controlStruct):
+        def addControlStruct(self, controlStruct: ControlStruct):
             self.controlStructArray[controlStruct.index] = controlStruct
             
         def getControlStruct(self, index):
@@ -111,18 +123,7 @@ class ControlStructArray:
         def getControlStructArray(self):
             return self.controlStructArray
                     
-class ControlStruct:
-    
-    def __init__(self, index = None):
-        
-        """
-        Represents a control structure in the CSE machine.
-        eg: delta1, delta 0
-        """
-        
-        self.index = index
-        self.controlStruct: List[Symbol] = []
-        
+
 
     
     
