@@ -1,17 +1,23 @@
+from rpal_interpreter.trees import STNode
 from .symbol import *
 from .cse_components import *
 
 class CSEMachine:
-    
     """
-    Evaluates the program when the Standard Tree is given.
-    
+    The CSEMachine class is responsible for simulating the Control Structure Execution (CSE) machine
+    used in the RPAL language interpreter. It manages the control structures, environment, and stack
+    to execute RPAL code. The class provides methods to evaluate expressions based on the cse machine rules
     """
     
-    def __init__(self, st):
-
-        self.controlStructArray = ControlStructArray(st)
-        self.control = Control(self.controlStructArray.getControlStruct(0))
+    def __init__(self, st:STNode):
+        """
+        Initializes the CSE machine with the given standardized tree.
+        
+        Args:
+        st (STNode): The standardized tree which is used to generate control structures.
+        """
+        self.csMap = ControlStructures(st)
+        self.control = Control(self.csMap.get(0))
         self.env = Environment(None, 0)
         self.stack = Stack()
         
@@ -131,7 +137,7 @@ class CSEMachine:
                 self.env.insertEnvData(env_variables[i], env_values[i])
                 
             self.addEnvMarker(env_index)
-            self.control.insertControlStruct(self.controlStructArray.getControlStruct(_lambdaClosure.index))
+            self.control.insertControlStruct(self.csMap.get(_lambdaClosure.index))
             
             
     def addEnvMarker(self, env_index):
@@ -230,11 +236,11 @@ class CSEMachine:
         if true_or_false.name == True:
             self.control.removeRightMost()
             _then: DeltaSymbol = self.control.removeRightMost()
-            self.control.insertControlStruct(self.controlStructArray.getControlStruct(_then.index))
+            self.control.insertControlStruct(self.csMap.get(_then.index))
         else:
             _else: DeltaSymbol = self.control.removeRightMost()
             self.control.removeRightMost()
-            self.control.insertControlStruct(self.controlStructArray.getControlStruct(_else.index))
+            self.control.insertControlStruct(self.csMap.get(_else.index))
         
         
     

@@ -1,3 +1,4 @@
+from rpal_interpreter.trees import STNode
 from .symbol import *
 from typing import List
 
@@ -101,34 +102,27 @@ class ControlStruct:
         self.index = index
         self.controlStruct: List[Symbol] = []
         
-class ControlStructArray:
+class ControlStructures:
         
-        def __init__(self, st):
+        def __init__(self, st:STNode):
             """Define the Array of Control Structures as a dictionary."""
-            self.controlStructArray = {}
-            self.controlStructArray = self.generateControlStructArray(st)
+            self.__controlStructureMap = self.__generateControlStructures(st)
             
             
-        def generateControlStructArray(self,st) -> dict:
-            """Generates the control structures for the CSE machine."""	
+        def __generateControlStructures(self,st) -> dict:
+            """Generates the control structures for the CSE machine from the Standardized Tree.
+            Returns: a dictionary of control structures."""	
             #TODO: Implement the generation of control structures
             st = st
             pass
             
         def addControlStruct(self, controlStruct: ControlStruct):
+            """Adds a control struct to the control structure map with the control struct index as the key."""
+            self.__controlStructureMap[controlStruct.index] = controlStruct
             
-            """Adds a control struct to the ControlStructArray."""
-            self.controlStructArray[controlStruct.index] = controlStruct
-            
-        def getControlStruct(self, index) -> ControlStruct:
-            
-            """Returns the control struct when the given index."""	
-            return self.controlStructArray[index]
-        
-        def getControlStructArray(self) -> dict:
-            
-            """Returns the control struct array of the cse machine."""	
-            return self.controlStructArray
+        def get(self, key) -> ControlStruct:
+            """Returns the control struct for the given key."""	
+            return self.__controlStructureMap[key]
                     
 
 
