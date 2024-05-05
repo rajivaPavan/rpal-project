@@ -7,7 +7,7 @@ where
 ....<ID:Order>
 ....<ID:A>
 .rec
-..function_form
+..fcn_form
 ...<ID:Psum>
 ...,
 ....<ID:T>

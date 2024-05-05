@@ -1,3 +1,4 @@
+from rpal_interpreter.nodes import Nodes
 from .parser import Parser
 from .tokens import *
 class RPALParser(Parser):
@@ -17,12 +18,12 @@ class RPALParser(Parser):
         return self.getAST()
     
     def proc_E(self):
-        if self.nextToken() != None and self.nextToken().isValue("let"):
-            self.read(KeywordToken.fromValue("let"))
+        if self.nextToken() != None and self.nextToken().isValue(Nodes.LET):
+            self.read(KeywordToken.fromValue(Nodes.LET))
             self.proc_D()
             self.read(KeywordToken.fromValue("in"))
             self.proc_E()
-            self.buildTree("let", 2)
+            self.buildTree(Nodes.LET, 2)
         elif self.nextToken() != None and self.nextToken().isValue("fn"):
             self.read(KeywordToken.fromValue("fn"))
             N = 1
@@ -35,16 +36,16 @@ class RPALParser(Parser):
                         break
             self.read(OperatorToken.fromValue("."))
             self.proc_E()
-            self.buildTree("lambda", N+1)
+            self.buildTree(Nodes.LAMBDA, N+1)
         else: 
             self.proc_Ew()
                             
     def proc_Ew(self):
         self.proc_T()
-        if self.nextToken() != None and self.nextToken().isValue("where"):
-            self.read(KeywordToken.fromValue("where"))
+        if self.nextToken() != None and self.nextToken().isValue(Nodes.WHERE):
+            self.read(KeywordToken.fromValue(Nodes.WHERE))
             self.proc_Dr()
-            self.buildTree("where", 2)
+            self.buildTree(Nodes.WHERE, 2)
         
     def proc_T(self):
         self.proc_Ta()
@@ -56,50 +57,50 @@ class RPALParser(Parser):
                 n+=1
                 if self.nextToken == None:
                     break
-            self.buildTree("tau", n)
+            self.buildTree(Nodes.TAU, n)
             
 
     def proc_Ta(self):
         self.proc_Tc()
         if self.nextToken() == None:
             return
-        while self.nextToken() != None and self.nextToken().isValue("aug"):
-            self.read(KeywordToken.fromValue("aug"))
+        while self.nextToken() != None and self.nextToken().isValue(Nodes.AUG):
+            self.read(KeywordToken.fromValue(Nodes.AUG))
             self.proc_Tc()
-            self.buildTree("aug", 2)        
+            self.buildTree(Nodes.AUG, 2)        
         
     def proc_Tc(self):
         self.proc_B()
-        if self.nextToken() != None and self.nextToken().isValue("->"):
-            self.read(OperatorToken.fromValue("->"))
+        if self.nextToken() != None and self.nextToken().isValue(Nodes.ARROW):
+            self.read(OperatorToken.fromValue(Nodes.ARROW))
             self.proc_Tc()
             self.read(OperatorToken.fromValue("|"))
             self.proc_Tc()
-            self.buildTree("->", 3)
+            self.buildTree(Nodes.ARROW, 3)
 
     def proc_B(self):
         self.proc_Bt()
         if self.nextToken() == None:
             return
-        while self.nextToken() != None and self.nextToken().isValue("or"):
-            self.read(KeywordToken.fromValue("or"))
+        while self.nextToken() != None and self.nextToken().isValue(Nodes.OR):
+            self.read(KeywordToken.fromValue(Nodes.OR))
             self.proc_Bt()
-            self.buildTree("or", 2)
+            self.buildTree(Nodes.OR, 2)
 
     def proc_Bt(self):
         self.proc_Bs()
         if self.nextToken() == None:
             return
-        while self.nextToken() != None and self.nextToken().isValue("&"):
-            self.read(OperatorToken.fromValue("&"))
+        while self.nextToken() != None and self.nextToken().isValue(Nodes.AND_OP):
+            self.read(OperatorToken.fromValue(Nodes.AND_OP))
             self.proc_Bs()
-            self.buildTree("&", 2)
+            self.buildTree(Nodes.AND_OP, 2)
 
     def proc_Bs(self):
-        if self.nextToken() != None and self.nextToken().isValue("not"):
-            self.read(KeywordToken.fromValue("not"))
+        if self.nextToken() != None and self.nextToken().isValue(Nodes.NOT):
+            self.read(KeywordToken.fromValue(Nodes.NOT))
             self.proc_Bp()
-            self.buildTree("not", 1)
+            self.buildTree(Nodes.NOT, 1)
         else:
             self.proc_Bp()
     
@@ -188,8 +189,7 @@ class RPALParser(Parser):
         _next_token = self.nextToken()
         if _next_token == None:
             return
-        while (_next_token.__class__ == OperatorToken 
-            and (_next_token.isValue("*")) or _next_token.isValue("/")):
+        while ((_next_token.isValue("*")) or _next_token.isValue("/")):
         
             # read the operator token and build the tree using the appropriate transduction rule
             if _next_token.isValue("*"):
@@ -202,6 +202,9 @@ class RPALParser(Parser):
                 self.buildTree("/", 2)
             # update the next token
             _next_token = self.nextToken()
+
+            if _next_token == None:
+                break
 
     def proc_Af(self):
         
@@ -225,7 +228,7 @@ class RPALParser(Parser):
             self.read(IdentifierToken.fromValue(self.nextToken().value), ignore=False)
             
             self.proc_R()
-            self.buildTree("@", 3)
+            self.buildTree(Nodes.AT, 3)
 
     def proc_R(self):
         self.proc_Rn()
@@ -235,7 +238,7 @@ class RPALParser(Parser):
                 and RPALParser.__isInFirstRn(self.nextToken())):
                 self.proc_Rn()
                 n += 1
-            self.buildTree("gamma", n)
+            self.buildTree(Nodes.GAMMA, n)
 
     def __isInFirstRn(token:Token):
         if token.__class__ == KeywordToken:
@@ -250,7 +253,8 @@ class RPALParser(Parser):
             # read the identifier token
             self.read(token, ignore=False)
         elif(token.__class__ == KeywordToken 
-             and token.value in ["true", "false", "nil", "dummy"]):
+             and token.value in [Nodes.TRUE, Nodes.FALSE, 
+                                 Nodes.NIL, Nodes.DUMMY]):
                 # build the tree with the token value
                 self.read(token)
                 self.buildTree(token.value, 0)
@@ -270,17 +274,17 @@ class RPALParser(Parser):
 
     def proc_D(self):
         self.proc_Da()
-        if self.nextToken() != None and self.nextToken().isValue("within"):
-            self.read(IdentifierToken.fromValue("within"))
+        if self.nextToken() != None and self.nextToken().isValue(Nodes.WITHIN):
+            self.read(IdentifierToken.fromValue(Nodes.WITHIN))
             self.proc_D()
-            self.buildTree("within", 2)
+            self.buildTree(Nodes.WITHIN, 2)
         
     def proc_Da(self):
         self.proc_Dr()
-        while self.nextToken() != None and self.nextToken().isValue("and"):
-            self.read(KeywordToken.fromValue("and"))      
+        while self.nextToken() != None and self.nextToken().isValue(Nodes.AND):
+            self.read(KeywordToken.fromValue(Nodes.AND))      
             self.proc_Dr()
-            self.buildTree("and", 2)
+            self.buildTree(Nodes.AND, 2)
         
     
     def proc_Dr(self):
@@ -288,10 +292,10 @@ class RPALParser(Parser):
         Dr -> 'rec' Db          => 'rec'
            -> Db ;
         """
-        if self.nextToken().isValue("rec"):
-            self.read(KeywordToken.fromValue("rec"))
+        if self.nextToken().isValue(Nodes.REC):
+            self.read(KeywordToken.fromValue(Nodes.REC))
             self.proc_Db()
-            self.buildTree("rec", 1)
+            self.buildTree(Nodes.REC, 1)
         else:
             self.proc_Db()
         
@@ -316,7 +320,7 @@ class RPALParser(Parser):
                     N += 1
                 self.read(OperatorToken.fromValue("="))
                 self.proc_E()
-                self.buildTree("function_form", N+2)
+                self.buildTree(Nodes.FCN_FORM, N+2)
             elif (look_ahead != None 
                   and look_ahead.isType(OperatorToken) 
                   and look_ahead.isValue("=")):
@@ -324,7 +328,7 @@ class RPALParser(Parser):
                     self.proc_Vl()
                     self.read(OperatorToken.fromValue("="))
                     self.proc_E()
-                    self.buildTree("=", 2)
+                    self.buildTree(Nodes.ASSIGN, 2)
             else:
                 raise InvalidTokenException.fromToken(look_ahead)
         else:
@@ -342,7 +346,7 @@ class RPALParser(Parser):
             self.read(LParenToken.instance())
             if(self.nextToken().__class__ == RParenToken):
                 self.read(RParenToken.instance())
-                self.buildTree("()", 0)
+                self.buildTree(Nodes.PARENS, 0)
             else:
                 self.proc_Vl()
                 self.read(RParenToken.instance())
@@ -357,5 +361,5 @@ class RPALParser(Parser):
                 self.read(CommaToken.instance())
                 self.read(IdentifierToken.fromValue(self.nextToken().value), ignore = False)
                 N += 1
-            self.buildTree(",", N)
+            self.buildTree(Nodes.COMMA, N)
     

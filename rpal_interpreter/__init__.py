@@ -28,6 +28,8 @@ class Interpreter:
         try: 
             # Parse the program to get the ast
             self.__parse()
+            if self.__switch == Interpreter.__AST_SWITCH:
+                return
             # Get the st from the ast
             self.__standardize_ast()
         
@@ -63,7 +65,7 @@ class Interpreter:
         Standardize the ast. Also print the ST if the switch is -st
         """
         standardizer = ASTStandardizer()
-        self._st = standardizer.standardize(self.__ast)
+        self.__st = standardizer.standardize(self.__ast)
         
         if self.__switch == Interpreter.__ST_SWITCH:
             print(self.__st)
