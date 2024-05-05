@@ -26,8 +26,8 @@ class CSEMachine:
             return final_result
 
         if right_most.isType(NameSymbol):
-            __name = right_most.name
-            self.stackaName(__name)       
+            __nameSymbol = right_most
+            self.stackaName(__nameSymbol)       
               
         if right_most.isType(LambdaSymbol):
             __lambda = right_most
@@ -55,7 +55,7 @@ class CSEMachine:
         
         
           
-    def stackaName(self, name):
+    def stackaName(self, nameSymbol: NameSymbol):
         
         """
         CSE Rule 1
@@ -63,17 +63,17 @@ class CSEMachine:
         
         """
         
-        if name.isnumeric():
-            __value = name
+        if nameSymbol.checkNameSymbolType(int):
+            __value = nameSymbol.name
             self.stack.pushStack(__value)
         
-        else:
-            __value = self.env.lookUpEnv(name)
+        elif nameSymbol.checkNameSymbolType(str):
+            __value = self.env.lookUpEnv(nameSymbol.name)
             self.stack.pushStack(__value)
             
             
             
-    def stackLambda(self, _lambda):
+    def stackLambda(self, _lambda: LambdaSymbol):
         
         """
         
@@ -99,7 +99,7 @@ class CSEMachine:
         
         if __top.isType(LambdaClosureSymbol):
             
-            __lambdaClosure = __top
+            __lambdaClosure: LambdaClosureSymbol = __top
             
             __env_index = __lambdaClosure.envMarker.envIndex + 1
             __new_env = Environment(self.env, __env_index, None )

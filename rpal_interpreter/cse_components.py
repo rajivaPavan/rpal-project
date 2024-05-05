@@ -1,16 +1,17 @@
 from .symbol import *
+from typing import List
 
 class Control:
     
     """The control of the CSE machine."""
     
     def __init__(self, controlStruct):
-        self.control = []
-        self.control.insertEnvMarker(0)
-        self.control.insertControlStruct(controlStruct)  
-     
+        self.control: List[Symbol] = []
+        self.insertEnvMarker(0)
+        self.insertControlStruct(controlStruct)  
     
     def peekRightMost(self):
+        #Not used yet.
         right_most = self.control[-1]
         return right_most
     
@@ -18,8 +19,8 @@ class Control:
         right_most = self.control.pop(-1)
         return right_most
         
-    def insertControlStruct(self, controlStruct):
-        for i in controlStruct.controlStruct:
+    def insertControlStruct(self, controlStruct) :
+        for i in controlStruct:
             self.control.append(i)
             
     def insertEnvMarker(self, env_index):
@@ -93,7 +94,8 @@ class ControlStructArray:
         def __init__(self, st):
             """Define the Array of Control Structures as a dictionary."""
             self.controlStructArray = {}
-            self.generateControlStructArray(st)
+            self.controlStructArray = self.generateControlStructArray(st)
+            
             
         def generateControlStructArray(self,st):
             #TODO: Implement the generation of control structures
@@ -119,7 +121,7 @@ class ControlStruct:
         """
         
         self.index = index
-        self.controlStruct = []
+        self.controlStruct: List[Symbol] = []
         
 
     
