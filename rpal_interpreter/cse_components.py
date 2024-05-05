@@ -120,12 +120,12 @@ class ControlStructArray:
             """Adds a control struct to the ControlStructArray."""
             self.controlStructArray[controlStruct.index] = controlStruct
             
-        def getControlStruct(self, index):
+        def getControlStruct(self, index) -> ControlStruct:
             
             """Returns the control struct when the given index."""	
             return self.controlStructArray[index]
         
-        def getControlStructArray(self):
+        def getControlStructArray(self) -> dict:
             
             """Returns the control struct array of the cse machine."""	
             return self.controlStructArray
