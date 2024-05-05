@@ -25,31 +25,35 @@ class CSEMachine:
             final_result = self.stack.popStack()
             return final_result
 
-        if right_most.isType(NameSymbol):
-            __nameSymbol = right_most
-            self.stackaName(__nameSymbol)       
+        elif right_most.isType(NameSymbol):
+            _nameSymbol = right_most
+            self.stackaName(_nameSymbol)       
               
-        if right_most.isType(LambdaSymbol):
-            __lambda = right_most
-            self.stackLambda(__lambda)
+        elif right_most.isType(LambdaSymbol):
+            _lambda = right_most
+            self.stackLambda(_lambda)
                    
-        if right_most.isType(BinaryOperatorSymbol):
-            __binop = right_most.operator
-            self.binop(__binop)
+        elif right_most.isType(BinaryOperatorSymbol):
+            _binop = right_most.operator
+            self.binop(_binop)
             
-        if right_most.isType(UnaryOperatorSymbol):
-            __unop = right_most.operator
-            self.unop(__unop)
+        elif right_most.isType(UnaryOperatorSymbol):
+            _unop = right_most.operator
+            self.unop(_unop)
             
-        if right_most.isType(GammaSymbol):
+        elif right_most.isType(GammaSymbol):
             self.applyLambda()
             
-        if right_most.isType(EnvMarkerSymbol):
-            __env_marker = right_most
-            self.exitEnv(__env_marker)
+        elif right_most.isType(EnvMarkerSymbol):
+            env_marker = right_most
+            self.exitEnv(env_marker)
             
-        if right_most.isType():
+        elif right_most.isType():
             self.conditional()
+            
+        else:
+            pass
+            #Should throw an exception
                
         self.evaluate()
         
@@ -59,18 +63,19 @@ class CSEMachine:
         
         """
         CSE Rule 1
+        
         Pushes the value of the name symbol into the stack.
         
         """
         
         if nameSymbol.checkNameSymbolType(int):
             __value = nameSymbol.name
-            self.stack.pushStack(__value)
         
         elif nameSymbol.checkNameSymbolType(str):
             __value = self.env.lookUpEnv(nameSymbol.name)
-            self.stack.pushStack(__value)
             
+        self.stack.pushStack(__value)
+        
             
             
     def stackLambda(self, _lambda: LambdaSymbol):
@@ -78,6 +83,7 @@ class CSEMachine:
         """
         
         CSE Rule 2
+        
         Pushes a lambda closure into the stack.
         
         """
@@ -95,11 +101,11 @@ class CSEMachine:
         
         """	
         
-        __top = self.stack.popStack() 
+        top = self.stack.popStack() 
         
-        if __top.isType(LambdaClosureSymbol):
+        if top.isType(LambdaClosureSymbol):
             
-            __lambdaClosure: LambdaClosureSymbol = __top
+            __lambdaClosure: LambdaClosureSymbol = top
             
             __env_index = __lambdaClosure.envMarker.envIndex + 1
             __new_env = Environment(self.env, __env_index, None )
