@@ -45,6 +45,15 @@ class BinaryTreeNode:
         """
         return cls(node.getValue(), node.getLeft(), node.getRight())
     
+    @classmethod
+    def deep_copy(cls, node):
+        """
+        Creates a new deep copy of the given node.
+        """
+        if node is None:
+            return None
+        return cls(node.getValue(), STNode.deep_copy(node.getLeft()), STNode.deep_copy(node.getRight()))
+
     def __str__(self, level=0):
         """
         Returns a string representation of the current node and its children.
@@ -57,13 +66,14 @@ class BinaryTreeNode:
         """
         
         _formatter = TreeFormatter
-        
         s = str(self.getValue())
         if self.getLeft() != None:
             child_level = level + 1
-            s += _formatter.line_str(self.getLeft(), child_level)
+            line = _formatter.line_str(self.getLeft(), child_level)
+            s += line
         if self.getRight() != None:
-            s += _formatter.line_str(self.getRight(), level)
+            line = _formatter.line_str(self.getRight(), level)
+            s += line
         return s
 
 class TreeFormatter():

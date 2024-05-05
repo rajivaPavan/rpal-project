@@ -25,17 +25,22 @@ class ASTStandardizer:
         
     # list of values of nodes that do not need to be standardized
     NON_STANDARDIZE = Nodes.UOP + Nodes.BOP + [
-        Nodes.TAU, Nodes.ARROW, Nodes.COMMA,
+        Nodes.GAMMA, Nodes.TAU, Nodes.ARROW, Nodes.COMMA,
         Nodes.TRUE,Nodes.FALSE, Nodes.DUMMY, Nodes.NIL
     ]
 
     @staticmethod
+    def is_name(node:BinaryTreeNode):
+        node_value = str(node.getValue())
+        return str.startswith(node_value, "<ID:") or str.startswith(node_value, "<INT:") or str.startswith(node_value, "<STR:")
+
+    @staticmethod
     def check_to_standardize(node:BinaryTreeNode):
         
-        node_value = str(node.getValue())
+        node_value = node.getValue()
 
         # false if the node_value is a name <ID:...> or an integer <INT:...>
-        if str.startswith(node_value, "<ID:") or str.startswith(node_value, "<INT:") or str.startswith(node_value, "<STR:"):
+        if ASTStandardizer.is_name(node):
             return False
         
         if node_value in ASTStandardizer.NON_STANDARDIZE:
@@ -50,28 +55,27 @@ class ASTStandardizer:
         if node is None:
             return None
         
-        # standardize the left subtree
         left = self.__standardize(node.getLeft())
-        node.setLeft(left)
-
-        # standardize the right subtree
         right = self.__standardize(node.getRight())
-        node.setRight(right)
-
+        node.setLeft(left)
+        
+        transformed_node = None
         # if the node is a non standardize node, return a copy of it
         if not ASTStandardizer.check_to_standardize(node):
-            return STNode.copy(node)
+            transformed_node = STNode.copy(node)
+        else:
+            # apply the relevent subtree transformation based on the node
+            transformed_node = self.__apply_transformation(node)
         
-        # apply the relevent subtree transformation based on the node
-        return self.__apply_transformation(node)
+        transformed_node.setRight(right)
+        
+        return transformed_node
         
     def __apply_transformation(self, node:BinaryTreeNode) -> STNode:
         node_value = node.getValue()
         res = None
         
-        if node_value == Nodes.GAMMA:
-            res = STNode.copy(node)
-        elif node_value == Nodes.LET:
+        if node_value == Nodes.LET:
             res = self.__transform_let(node)
         elif node_value == Nodes.WITHIN:
             res = self.__transform_within(node)
@@ -118,33 +122,31 @@ class ASTStandardizer:
         assign_node = STNode.assign_node(x2, gamma)
         return assign_node
 
-
     def __transform_fcn_form(self, node:BinaryTreeNode):
         p:STNode = node.getLeft()
-        lamda_like = STNode.lambda_node(p.getRight(), None)
-        lambda_ = self.__transform_lambda(lamda_like)
-        return STNode.assign_node(p, lambda_)
+        v_node = p.getRight()
+        lambda_ = ASTStandardizer.__transform_lambda_helper(v_node)
+        transformed_node = STNode.assign_node(p, lambda_)
+        return transformed_node
+
+    @staticmethod
+    def __transform_lambda_helper(v_node:BinaryTreeNode)->STNode:
+        if v_node.getRight() is None:
+            return v_node
         
+        subtree = ASTStandardizer.__transform_lambda_helper(v_node.getRight())
+        lambda_node = STNode.lambda_node(v_node, subtree)
+        return lambda_node
 
     def __transform_lambda(self, node:BinaryTreeNode):
         lambda_left:STNode = node.getLeft()
 
-        # handle the second lambtra transform that has ,
+        # handle the second lambda transform that has ,
         if lambda_left.valueIs(Nodes.COMMA):
             return STNode.copy(node)
         
-        def __transform_lambda_helper(node:BinaryTreeNode):
-            if node.getRight() is None:
-                return node
-            
-            v = node
-            subtree = __transform_lambda_helper(node.getRight())
-            lambda_node = STNode.lambda_node(v, subtree)
-            return lambda_node
-        
-        lambda_left = __transform_lambda_helper(lambda_left)
-        lambda_left.setRight(node.getRight())
-        return lambda_left
+        lambda_ = ASTStandardizer.__transform_lambda_helper(lambda_left)
+        return lambda_
 
     def __transform_and(self, node:BinaryTreeNode):
         raise Exception("transform_and() Not implemented")
@@ -160,7 +162,17 @@ class ASTStandardizer:
         return gamma
 
     def __transform_rec(self, node:BinaryTreeNode):
-        raise Exception("transform_rec() Not implemented")
+        assign_node:STNode = node.getLeft() # only child
+        original_x:STNode = assign_node.getLeft()
+        x1 = STNode.deep_copy(original_x)
+        x2 = STNode.deep_copy(original_x)
+        e:STNode = original_x.getRight()
+
+        y_star = STNode.ystar_node()
+        lambda_ = STNode.lambda_node(x1, e)
+        gamma = STNode.gamma_node(y_star, lambda_)
+        assign_node = STNode.assign_node(x2, gamma)
+        return assign_node
 
     def __transform_at(self, node:BinaryTreeNode):
         e1:STNode = node.getLeft()
