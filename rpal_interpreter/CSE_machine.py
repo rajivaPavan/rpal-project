@@ -17,7 +17,7 @@ class CSEMachine:
 
     def evaluate(self):
         
-        """Evaluates the CSE machine."""
+        """Evaluates the Control."""
         
         right_most = self.control.removeRightMost()
         
@@ -48,12 +48,12 @@ class CSEMachine:
             env_marker = right_most
             self.exitEnv(env_marker)
             
-        elif right_most.isType():
+        elif right_most.isType(BetaSymbol):
             self.conditional()
             
         else:
             pass
-            #Should throw an exception
+            #TODO: throw an exception
                
         self.evaluate()
         
@@ -147,7 +147,7 @@ class CSEMachine:
         "/": lambda rator, rand: rator / rand,
         "or": lambda rator, rand: rator or rand,
         "and": lambda rator, rand: rator and rand,
-        ".gr": lambda rator, rand: rator > rand,
+        "gr": lambda rator, rand: rator > rand,
         "ge": lambda rator, rand: rator >= rand,
         "ls": lambda rator, rand: rator < rand,
         "le": lambda rator, rand: rator <= rand,
@@ -202,8 +202,22 @@ class CSEMachine:
         """
         CSE Rule 8
         
+        This evaluates the conditional expression.
+        Conditional functions are defined in the control in the form of delta_then, delta_else, beta, B.
+        
+        
         """
-        pass
+        then_or_else: str = self.stack.popStack()
+        if then_or_else == "true":
+            self.control.removeRightMost()
+            _then: DeltaSymbol = self.control.removeRightMost()
+            self.control.insertControlStruct(_then.index)
+        else:
+            _else: DeltaSymbol = self.control.removeRightMost()
+            self.control.removeRightMost()
+            self.control.insertControlStruct(self.controlStructArrat.getControlStruct(_else.index))
+        
+        
     
     def tupleFormation(self):
         """
