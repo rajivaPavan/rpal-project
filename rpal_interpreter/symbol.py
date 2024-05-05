@@ -23,6 +23,7 @@ class NameSymbol(Symbol):
         self.type = name.__class__
         
     def checkNameSymbolType(self, dataType):
+        assert dataType == str or dataType == int
         return self.type == dataType
         
 class OperatorSymbol(Symbol):
@@ -73,7 +74,7 @@ class LambdaClosureSymbol(LambdaSymbol):
 
 class EnvMarkerSymbol(Symbol):
     
-    """ Represents an environment marker in the CSE machine. """
+    """ Represents an environment marker in the control and the stack. """
     
     def __init__(self, envIndex):
         super().__init__()
