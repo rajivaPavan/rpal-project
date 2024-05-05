@@ -42,7 +42,7 @@ class SymbolFactory:
         elif value is Nodes.TAU:
             return TauSymbol(value)
         else:
-            raise Exception("Invalid node type")
+            raise Exception(f"Invalid node type:{value}")
 
 #Subclasses of Symbol
 class NameSymbol(Symbol):
@@ -128,6 +128,17 @@ class EnvMarkerSymbol(Symbol):
     def __repr__(self) -> str:
         return f"e{self.envIndex}"
         
+class DeltaSymbol(Symbol):
+    
+    """
+    Represents a control structure as a Symbol in the control.
+    Has an index which points to relevant control structure in the control structure array.
+
+    """
+    
+    def __init__(self, index):
+        super().__init()
+        self.index = index
 
 class BetaSymbol(Symbol):
     
