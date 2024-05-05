@@ -20,6 +20,10 @@ class NameSymbol(Symbol):
     def __init__(self, name):
         super().__init__()
         self.name = name  
+        self.type = name.__class__
+        
+    def checkNameSymbolType(self, dataType):
+        return self.type == dataType
         
 class OperatorSymbol(Symbol):
     def __init__(self, operator):
@@ -62,8 +66,8 @@ class LambdaClosureSymbol(LambdaSymbol):
     """
     
     
-    def __init__(self, variable, index, envIndex):
-        super().__init__(variable, index)
+    def __init__(self, variables, index, envIndex):
+        super().__init__(variables, index)
         self.envMarker: EnvMarkerSymbol = EnvMarkerSymbol(envIndex)
         
 
