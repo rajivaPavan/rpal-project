@@ -75,6 +75,10 @@ class BinaryTreeNode:
             line = _formatter.line_str(self.getRight(), level)
             s += line
         return s
+    
+    def is_name(self):
+        node_value = str(self.getValue())
+        return str.startswith(node_value, "<ID:") or str.startswith(node_value, "<INT:") or str.startswith(node_value, "<STR:")
 
 class TreeFormatter():
 
@@ -137,6 +141,8 @@ class STNode(BinaryTreeNode):
         Creates a new ystar node in the form of a FCRS node.
         """
         return STNode(Nodes.YSTAR)
+    
+    
     
 
             
