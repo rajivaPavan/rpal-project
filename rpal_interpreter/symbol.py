@@ -1,4 +1,7 @@
 from typing import Iterable
+from rpal_interpreter.nodes import Nodes
+
+from rpal_interpreter.trees import STNode
 
 
 class Symbol:
@@ -15,15 +18,33 @@ class Symbol:
     def isType(self, t):
         return self.__class__ == t
     
-    def __repr__(self):
-        # print class name and all attributes and their values
-        return f"{self.__class__.__name__}({', '.join(f'{k}={getattr(self, k)}' for k in self.__dict__.keys())})"
+class SymbolFactory:
+
+    @staticmethod
+    def createSymbol(node:STNode):
+        value = node.getValue()
+        if node.is_gamma():
+            return GammaSymbol()
+        elif node.is_name():
+            value = node.parseValueInToken()
+            return NameSymbol(value)
+        elif value in Nodes.BOP:
+            return BinaryOperatorSymbol(value)
+        elif value in Nodes.UOP:
+            return UnaryOperatorSymbol(value)
+        elif value is Nodes.TAU:
+            return TauSymbol(value)
+        else:
+            raise Exception("Invalid node type")
 
 #Subclasses of Symbol
 class NameSymbol(Symbol):
     """
     Represents variables and numerics in the CSE machine.
     """
+    def __repr__(self):
+        return f"{self.name}"
+    
     def __init__(self, name):
         super().__init__()
         self.name = name  
@@ -35,12 +56,16 @@ class NameSymbol(Symbol):
         
 class OperatorSymbol(Symbol):
     def __init__(self, operator):
-        super().__init()
+        super().__init__()
         self.operator = operator
         
+    def __repr__(self):
+        return f"{self.operator}"
+    
 class BinaryOperatorSymbol(OperatorSymbol):
     def __init__(self, operator):
         super().__init__(operator)
+
         
 class UnaryOperatorSymbol(OperatorSymbol):
     def __init__(self, operator):
@@ -53,6 +78,9 @@ class GammaSymbol(Symbol):
     def __init__(self):
         super().__init__()
         
+    def __repr__(self):
+        return f"gamma"
+    
 class LambdaSymbol(Symbol):
     """Represents a lambda Symbol in the CSE machine.
     
@@ -63,6 +91,9 @@ class LambdaSymbol(Symbol):
         super().__init__()
         self.index = index
         self.variables = tuple(variables)
+
+    def __repr__(self):
+        return f"<lambda, ({', '.join(self.variables)}), {self.index}>"
         
 class LambdaClosureSymbol(LambdaSymbol):
     
@@ -117,8 +148,11 @@ class TauSymbol(Symbol):
     Used when representing a tau node in the control.	
     """
     def __init__(self, n):
-        super().__init()
+        super().__init__()
         self.n = n
+
+    def __repr__(self):
+        return f"tau:{self.n}"
         
 class TupleSymbol(TauSymbol):
     """
@@ -126,7 +160,7 @@ class TupleSymbol(TauSymbol):
         Used in standardizing the tau node in the st.
     """
     def __init__(self, n, tupleList):
-        super().__init()
+        super().__init__(n)
         self.tuple = tuple(tupleList)
 
 
