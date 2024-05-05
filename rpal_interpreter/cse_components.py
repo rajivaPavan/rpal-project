@@ -55,7 +55,7 @@ class Environment:
     
     """
     
-    def __init__(self, parent = None, envIndex = None, envData = None):
+    def __init__(self, parent = None, envIndex = None):
         """
         Initialize environments.
         envData is represented as a dictionary.
@@ -68,7 +68,7 @@ class Environment:
         
     def insertEnvData(self, name, value):
         
-        """Inserts the value for the variable in the environment."""  
+        """Inserts the values for the variables in the environment."""  
         self.envData[name] = value
         
     def getEnvData(self,name):
