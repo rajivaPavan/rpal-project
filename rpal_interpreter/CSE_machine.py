@@ -69,12 +69,12 @@ class CSEMachine:
         """
         
         if nameSymbol.checkNameSymbolType(int):
-            __value = nameSymbol.name
+            _value = nameSymbol.name
         
         elif nameSymbol.checkNameSymbolType(str):
-            __value = self.env.lookUpEnv(nameSymbol.name)
+            _value = self.env.lookUpEnv(nameSymbol.name)
             
-        self.stack.pushStack(__value)
+        self.stack.pushStack(_value)
         
             
             
@@ -105,17 +105,17 @@ class CSEMachine:
         
         if top.isType(LambdaClosureSymbol):
             
-            __lambdaClosure: LambdaClosureSymbol = top
+            _lambdaClosure: LambdaClosureSymbol = top
             
-            __env_index = __lambdaClosure.envMarker.envIndex + 1
-            __new_env = Environment(self.env, __env_index, None )
-            self.env = __new_env    
-            for var in __lambdaClosure.variables:
+            env_index = _lambdaClosure.envMarker.envIndex + 1
+            new_env = Environment(self.env, env_index, None )
+            self.env = new_env    
+            for var in _lambdaClosure.variables:
                 self.env.insertEnvData(var, self.stack.popStack())
                 
-            self.addEnvMarker(__env_index)
+            self.addEnvMarker(env_index)
             
-            self.control.insertControlStruct(self.controlStructArray.getControlStruct(__lambdaClosure.index))
+            self.control.insertControlStruct(self.controlStructArray.getControlStruct(_lambdaClosure.index))
             
     def addEnvMarker(self, env_index):
             
@@ -138,6 +138,24 @@ class CSEMachine:
         
         self.stack.removeElement(env_marker)
         self.env = self.env.parent
+        
+    operator_map = {
+        
+        "+": lambda rator, rand: rator + rand,
+        "-": lambda rator, rand: rator - rand,
+        "*": lambda rator, rand: rator * rand,
+        "/": lambda rator, rand: rator / rand,
+        "or": lambda rator, rand: rator or rand,
+        "and": lambda rator, rand: rator and rand,
+        ".gr": lambda rator, rand: rator > rand,
+        "ge": lambda rator, rand: rator >= rand,
+        "ls": lambda rator, rand: rator < rand,
+        "le": lambda rator, rand: rator <= rand,
+        "eq": lambda rator, rand: rator == rand,
+        "neg": lambda rator: -rator,
+        "not": lambda rator: not rator
+        
+    }
         
         
     def binop(self, operator):
@@ -162,6 +180,8 @@ class CSEMachine:
         """
         rand = self.stack.popStack()
         self.stack.pushStack(self.apply(operator, rand))
+        
+    
             
     def apply(self, operator, rator, rand = None):
         
@@ -169,47 +189,12 @@ class CSEMachine:
         
         Applies the operator to the operands.
         
-        """
-        if self.isOperator(operator, "+"):
-            result = rator + rand
-        elif self.isOperator(operator, "-"):
-            result = rator - rand
-        elif self.isOperator(operator, "*"):
-            result = rator * rand
-        elif self.isOperator(operator, "/"):
-            result = rator / rand
-        elif self.isOperator(operator, "or"):
-            result = rator or rand
-        elif self.isOperator(operator, "and"):
-            result = rator and rand
-        elif self.isOperator(operator, ".gr"):
-            result = rator > rand
-        elif self.isOperator(operator, "ge"):
-            result = rator >= rand
-        elif self.isOperator(operator, "ls"):
-            result = rator < rand
-        elif self.isOperator(operator, "le"):
-            result = rator <= rand
-        elif self.isOperator(operator, "eq"):
-            result = rator == rand
-        elif self.isOperator(operator, "neg"):
-            result = -rator
-        elif self.isOperator(operator, "not"):
-            result = not rator
-        
-            
-        return result    
-        
-        
-    def isOperator(operator, type):
-        
-        """
-        
-        Takes an operator as an argument and returns whether its of the given type
-        
-        """
-        
-        return operator == type
+        """ 
+        if rand is None:
+            return self.operator_map[operator](rator)
+        else:
+            return self.operator_map[operator](rator, rand)
+    
     
     
     
