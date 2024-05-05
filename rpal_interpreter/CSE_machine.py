@@ -59,7 +59,7 @@ class CSEMachine:
         
         """
         CSE Rule 1
-        Pushes the value of the name symbol onto the stack.
+        Pushes the value of the name symbol into the stack.
         
         """
         
@@ -78,71 +78,12 @@ class CSEMachine:
         """
         
         CSE Rule 2
-        Pushes a lambda closure onto the stack.
+        Pushes a lambda closure into the stack.
         
         """
         
         __currentEnvIndex = self.env.envMarker.envIndex
-        self.stack.pushStack(LambdaClosureSymbol(_lambda.variables, _lambda.index, __currentEnvIndex)) 
-        
-    def evaluateOperator(self, operator):
-        
-        """
-        CSE Rule number 6 and 7 
-        as the minimally sufficient conditions for the rule 3
-        
-        Evaluates binary and unary operators.
-        Calls the apply method to apply the operator accordingly.
-        
-        """
-        
-        
-        rand_1 = self.stack.popStack()
-        __unop = {'neg', 'not'}                 #Have to define these correctly
-        
-        if operator in __unop:
-            result = self.unop(operator, rand_1)
-        else:
-            rand_2 = self.stack.popStack()
-            result = self.binop(operator, rand_1, rand_2)
-            
-        self.stack.pushStack(result)
-        
-            
-    def unop(self, operator):
-        rand = self.stack.popStack()
-        return self.apply(operator, rand)
-        
-        
-    def binop(self, operator):
-        rand_1 = self.stack.popStack()
-        rand_2 = self.stack.popStack()
-        return self.apply(operator, rand_1, rand_2)
-            
-            
-    def apply(self, operator, rator, rand = None):
-        
-        """
-        
-        Applies the operator to the operands.
-        
-        """
-        
-        if operator == "neg":
-            result = -rator
-        elif operator == "+":
-            result = rator + rand
-        elif operator == "-":
-            result = rator - rand
-        elif operator == "*":
-            result = rator * rand
-        elif operator == "/":
-            result = rator / rand
-        elif operator == "**":
-            result = pow(rator, rand)
-                
-        return result
-            
+        self.stack.pushStack(LambdaClosureSymbol(_lambda.variables, _lambda.index, __currentEnvIndex))         
             
     def applyLambda(self):
         
@@ -192,6 +133,74 @@ class CSEMachine:
         self.stack.removeElement(env_marker)
         self.env = self.env.parent
         
+        
+    def binop(self, operator):
+        
+        """
+        CSE Rule 6
+        
+        Evaluates Binary Operators and pushes the computed result into the stack.
+        
+        """
+        rand_1 = self.stack.popStack()
+        rand_2 = self.stack.popStack()
+        self.stack.pushStack(self.apply(operator, rand_1, rand_2))
+        
+    def unop(self, operator):
+        
+        """"
+        CSE Rule 7
+        
+        Evaluates Unary Operators and pushes the computed result into the stack.
+        
+        """
+        rand = self.stack.popStack()
+        self.stack.pushStack(self.apply(operator, rand))
+            
+    def apply(self, operator, rator, rand = None):
+        
+        """
+        
+        Applies the operator to the operands.
+        
+        """
+        if self.isOperator(operator, "+"):
+            result = rator + rand
+        elif self.isOperator(operator, "-"):
+            result = rator - rand
+        elif self.isOperator(operator, "*"):
+            result = rator * rand
+        elif self.isOperator(operator, "/"):
+            result = rator / rand
+        elif self.isOperator(operator, "or"):
+            result = rator or rand
+        elif self.isOperator(operator, "and"):
+            result = rator and rand
+        elif self.isOperator(operator, "gr"):
+            result = rator > rand
+        elif self.isOperator(operator, "ge"):
+            result = rator >= rand
+        elif self.isOperator(operator, "ls"):
+            result = rator <= rand
+        elif self.isOperator(operator, "neg")
+            result = -rator
+        elif self.isOperator(operator, "not")
+            result = not rator
+        return result    
+        
+        
+    def isOperator(operator, type):
+        
+        """
+        
+        Takes an operator as an argument and returns whether its of the given type
+        
+        """
+        
+        return operator == type
+    
+    
+    
     def conditional(self):
         """
         CSE Rule 8

@@ -26,6 +26,14 @@ class OperatorSymbol(Symbol):
         super().__init()
         self.operator = operator
         
+class BinaryOperatorSymbol(OperatorSymbol):
+    def __init__(self, operator):
+        super().__init__(operator)
+        
+class UnaryOperatorSymbol(OperatorSymbol):
+    def __init__(self, operator):
+        super().__init__(operator)
+        
               
 class GammaSymbol(Symbol):
     """Represents a gamma Symbol in the CSE machine."""
@@ -34,17 +42,16 @@ class GammaSymbol(Symbol):
         super().__init__()
         
 class LambdaSymbol(Symbol):
-    """Represents a lambda Symbol in the CSE machine."""
+    """Represents a lambda Symbol in the CSE machine.
+    
+       attribute variables can either be a list or a single variable.
+    """
     
     def __init__(self, variables, index):
         super().__init__()
-        self.variables = []
+        self.variables = variables
         self.index = index
         
-        for var in variables:
-            self.variables.append(var)
-
-
 class LambdaClosureSymbol(LambdaSymbol):
     
     """Represents a lambda closure (lambda in the stack) in the CSE machine.
