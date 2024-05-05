@@ -121,6 +121,12 @@ class STNode(BinaryTreeNode):
         """
         return STNode.createFCRSNode(Nodes.ASSIGN, left, right)
         
+    @staticmethod
+    def ystar_node():
+        """
+        Creates a new ystar node in the form of a FCRS node.
+        """
+        return STNode(Nodes.YSTAR)
     
 
             

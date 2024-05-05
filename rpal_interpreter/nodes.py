@@ -34,6 +34,7 @@ class Nodes:
     FCN_FORM = "fcn_form"
     PARENS = "()"
     COMMA = ","
+    YSTAR = "<Y*>"
 
     UOP = [NEG, NOT]
     BOP = [AUG, OR, AND_OP, GR, GE, LS, LE, EQ, NE, PLUS, MINUS, MULTIPLY, DIVIDE, POWER]
