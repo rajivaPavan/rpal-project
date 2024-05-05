@@ -176,16 +176,22 @@ class CSEMachine:
             result = rator or rand
         elif self.isOperator(operator, "and"):
             result = rator and rand
-        elif self.isOperator(operator, "gr"):
+        elif self.isOperator(operator, ".gr"):
             result = rator > rand
         elif self.isOperator(operator, "ge"):
             result = rator >= rand
         elif self.isOperator(operator, "ls"):
+            result = rator < rand
+        elif self.isOperator(operator, "le"):
             result = rator <= rand
-        elif self.isOperator(operator, "neg")
+        elif self.isOperator(operator, "eq"):
+            result = rator == rand
+        elif self.isOperator(operator, "neg"):
             result = -rator
-        elif self.isOperator(operator, "not")
+        elif self.isOperator(operator, "not"):
             result = not rator
+        
+            
         return result    
         
         
