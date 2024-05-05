@@ -129,10 +129,16 @@ class STNode(BinaryTreeNode):
         return STNode.createFCRSNode(Nodes.LAMBDA, left, right)
     
     def is_lambda(self):
-        return self.getValue() == Nodes.LAMBDA
+        value = self.getValue()
+        if not isinstance(value, str):
+            return False
+        return value == Nodes.LAMBDA
     
     def is_gamma(self):
-        return self.getValue() == Nodes.GAMMA
+        value = self.getValue()
+        if not isinstance(value, str):
+            return False
+        return value == Nodes.GAMMA
     
     @staticmethod
     def assign_node(left = None, right = None):
