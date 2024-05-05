@@ -23,7 +23,7 @@ class NameSymbol(Symbol):
         self.type = name.__class__
         
     def checkNameSymbolType(self, dataType):
-        assert dataType == str or dataType == int
+        assert dataType == str or dataType == int or dataType == bool
         return self.type == dataType
         
 class OperatorSymbol(Symbol):

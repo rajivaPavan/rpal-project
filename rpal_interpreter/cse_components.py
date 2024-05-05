@@ -36,14 +36,14 @@ class Stack:
     def __init__(self):
         self.stack = [EnvMarkerSymbol(0)]
     
-    def popStack(self):
+    def popStack(self) -> Symbol:
         popElement = self.stack.pop(0)
         return popElement
     
-    def pushStack(self, value):
-        self.stack.append(value)
+    def pushStack(self, symbol: Symbol):
+        self.stack.append(symbol)
     
-    def removeElement(self, envMarker):
+    def removeElement(self, envMarker: EnvMarkerSymbol):
         self.stack.remove(envMarker)
         
         
