@@ -54,7 +54,7 @@ class LambdaSymbol(Symbol):
     
     def __init__(self, variables, index):
         super().__init__()
-        self.variables = variables
+        self.variables = tuple(variables)
         self.index = index
         
 class LambdaClosureSymbol(LambdaSymbol):
@@ -107,12 +107,20 @@ class TauSymbol(Symbol):
     
     """
     Represents a tau symbol.
-    Used when representing a tau node in the control after standardizing.	
+    Used when representing a tau node in the control.	
     """
     def __init__(self, n):
         super().__init()
         self.n = n
-
+        
+class TupleSymbol(TauSymbol):
+    """
+        Represents a Tuple in the stack as an object.
+        Used in standardizing the tau node in the st.
+    """
+    def __init__(self, n, tupleList):
+        super().__init()
+        self.tuple = tuple(tupleList)
 
 
 

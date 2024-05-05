@@ -43,7 +43,7 @@ class Stack:
     def pushStack(self, symbol: Symbol):
         self.stack.append(symbol)
     
-    def removeElement(self, envMarker: EnvMarkerSymbol):
+    def removeEnvironment(self, envMarker: EnvMarkerSymbol):
         self.stack.remove(envMarker)
         
         

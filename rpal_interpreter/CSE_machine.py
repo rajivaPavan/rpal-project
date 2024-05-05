@@ -10,8 +10,8 @@ class CSEMachine:
     def __init__(self, st):
 
         self.controlStructArray = ControlStructArray(st)
-        self.control = Control(self.controlStructArray)
-        self.env = Environment(None, 0, None)
+        self.control = Control(self.controlStructArray.getControlStruct(0))
+        self.env = Environment(None, 0)
         self.stack = Stack()
         
 
@@ -22,7 +22,7 @@ class CSEMachine:
         right_most = self.control.removeRightMost()
         
         if right_most.isType(None):
-            final_result = self.stack.popStack()
+            final_result = self.stack.popStack().name
             return final_result
 
         elif right_most.isType(NameSymbol):
@@ -32,7 +32,14 @@ class CSEMachine:
         elif right_most.isType(LambdaSymbol):
             _lambda = right_most
             self.stackLambda(_lambda)
+            
+        elif right_most.isType(GammaSymbol):
+            self.applyLambda()
                    
+        elif right_most.isType(EnvMarkerSymbol):
+            env_marker = right_most
+            self.exitEnv(env_marker)
+            
         elif right_most.isType(BinaryOperatorSymbol):
             _binop = right_most.operator
             self.binop(_binop)
@@ -41,15 +48,12 @@ class CSEMachine:
             _unop = right_most.operator
             self.unop(_unop)
             
-        elif right_most.isType(GammaSymbol):
-            self.applyLambda()
-            
-        elif right_most.isType(EnvMarkerSymbol):
-            env_marker = right_most
-            self.exitEnv(env_marker)
-            
         elif right_most.isType(BetaSymbol):
             self.conditional()
+            
+        elif right_most.isType(TauSymbol):
+            _tau = right_most
+            self.tupleFormation(_tau)
             
         else:
             pass
@@ -67,14 +71,13 @@ class CSEMachine:
         Pushes the value of the name symbol into the stack.
         
         """
-        
-        if nameSymbol.checkNameSymbolType(int):
-            _value = nameSymbol.name
-        
-        elif nameSymbol.checkNameSymbolType(str):
-            _value = self.env.lookUpEnv(nameSymbol.name)
             
-        self.stack.pushStack(NameSymbol(_value))
+        if nameSymbol.checkNameSymbolType(str):
+            _value = self.env.lookUpEnv(nameSymbol.name)
+            nameSymbol = NameSymbol(_value)
+            
+        
+        self.stack.pushStack(NameSymbol(nameSymbol))
         
             
             
@@ -108,10 +111,13 @@ class CSEMachine:
             _lambdaClosure: LambdaClosureSymbol = top
             
             env_index = _lambdaClosure.envMarker.envIndex + 1
-            new_env = Environment(self.env, env_index, None )
+            new_env = Environment(self.env, env_index)
             self.env = new_env    
-            for var in _lambdaClosure.variables:
-                self.env.insertEnvData(var, self.stack.popStack())
+            _env_values = self.stack.popStack()
+            _variables_tuple = _lambdaClosure.variables
+            
+            for i in range(len(_variables_tuple)):
+                self.env.insertEnvData(_variables_tuple[i], _env_values[i])
                 
             self.addEnvMarker(env_index)
             
@@ -136,7 +142,7 @@ class CSEMachine:
         
         """
         
-        self.stack.removeElement(env_marker)
+        self.stack.removeEnvironment(env_marker)
         self.env = self.env.parent
         
     operator_map = {
@@ -205,15 +211,15 @@ class CSEMachine:
         CSE Rule 8
         
         This evaluates the conditional expression.
-        Conditional functions are defined in the control in the form of delta_then, delta_else, beta, B.
+        Conditional functions are defined in the control structure in the form of delta_then, delta_else, beta, B.
         
         
         """
-        then_or_else = self.stack.popStack()
-        if then_or_else.name == True:
+        true_or_false = self.stack.popStack()
+        if true_or_false.name == True:
             self.control.removeRightMost()
             _then: DeltaSymbol = self.control.removeRightMost()
-            self.control.insertControlStruct(_then.index)
+            self.control.insertControlStruct(self.controlStructArray.getControlStruct(_then.index))
         else:
             _else: DeltaSymbol = self.control.removeRightMost()
             self.control.removeRightMost()
@@ -221,12 +227,19 @@ class CSEMachine:
         
         
     
-    def tupleFormation(self):
+    def tupleFormation(self, _tau: TauSymbol):
         """
         CSE Rule 9
         
         """
-        pass
+        i = 0
+        n: int = _tau.n
+        tupleList = []
+        for i in range (n):
+            tupleList.append(self.stack.popStack())
+            
+        new_n_tuple = TauSymbol(n, tupleList)
+        self.stack.pushStack(new_n_tuple)
     
     def tupleSelection(self):
         
@@ -235,6 +248,7 @@ class CSEMachine:
         CSE Rule 10
         """
         pass
+    
     
     
     
