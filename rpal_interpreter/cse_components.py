@@ -19,6 +19,8 @@ class Control:
         return right_most
     
     def removeRightMost(self):
+        if len(self.control)== 0:
+            return None
         right_most = self.control.pop(-1)
         return right_most
         
@@ -37,17 +39,20 @@ class Stack:
     """    
     
     def __init__(self):
-        self.stack = [EnvMarkerSymbol(0)]
-    
+        self.__arr: List[Symbol] = []
+
     def popStack(self) -> Symbol:
-        popElement = self.stack.pop(0)
+        popElement = self.__arr.pop(0)
         return popElement
     
     def pushStack(self, symbol: Symbol):
-        self.stack.append(symbol)
+        self.__arr.insert(0,symbol)
     
     def removeEnvironment(self, envMarker: EnvMarkerSymbol):
-        self.stack.remove(envMarker)
+        for i in range(len(self.__arr)):
+            if isinstance(self.__arr[i], EnvMarkerSymbol) and self.__arr[i].envIndex == envMarker.envIndex:
+                self.__arr.pop(i)
+                break
         
         
 class Environment:
@@ -58,13 +63,13 @@ class Environment:
     
     """
     
-    def __init__(self, parent = None, envIndex = None):
+    def __init__(self, envIndex, parent = None):
         """
         Initialize environments.
         envData is represented as a dictionary.
         """
-        self.parent : Environment = parent
         self.envMarker = EnvMarkerSymbol(envIndex)
+        self.parent : Environment = parent
         self.envData = {}      
         
         
@@ -73,9 +78,6 @@ class Environment:
         
         """Inserts the values for the variables in the environment."""  
         self.envData[name] = value
-        
-    def getEnvData(self,name):
-        return self.envData[name]
     
         
     def lookUpEnv(self, name: str):

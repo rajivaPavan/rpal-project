@@ -36,7 +36,8 @@ class Interpreter:
         
             # Print the ast or st
             if self.__switch is None:
-                self.__compute()
+                res = self.__compute()
+                print(res)
             
         except Exception as e:
             print(e)

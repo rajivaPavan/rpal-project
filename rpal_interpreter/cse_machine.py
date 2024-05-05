@@ -18,8 +18,10 @@ class CSEMachine:
         """
         self.csMap = ControlStructures(st)
         self.control = Control(self.csMap.get(0))
-        self.env = Environment(None, 0)
+        self.envIndexCounter = 0
+        self.env = Environment(self.envIndexCounter)
         self.stack = Stack()
+        self.stack.pushStack(EnvMarkerSymbol(0)) # e0 is the first in the stack
         
 
     def evaluate(self):
@@ -28,7 +30,7 @@ class CSEMachine:
         
         right_most = self.control.removeRightMost()
         
-        if right_most.isType(None):
+        if right_most is None:
             final_result = self.stack.popStack().name
             return final_result
 
@@ -66,10 +68,9 @@ class CSEMachine:
             pass
             #TODO: throw an exception
                
-        self.evaluate()
+        return self.evaluate()
         
-        
-          
+
     def stackaName(self, nameSymbol: NameSymbol):
         
         """
@@ -83,11 +84,9 @@ class CSEMachine:
             _value = self.env.lookUpEnv(nameSymbol.name)
             nameSymbol = NameSymbol(_value)
             
+        self.stack.pushStack(nameSymbol)
         
-        self.stack.pushStack(NameSymbol(nameSymbol))
-        
-            
-            
+
     def stackLambda(self, _lambda: LambdaSymbol):
         
         """
@@ -119,22 +118,18 @@ class CSEMachine:
             
             _lambdaClosure: LambdaClosureSymbol = top
             
-            env_index = _lambdaClosure.envMarker.envIndex + 1
-            new_env = Environment(self.env, env_index)
+            self.envIndexCounter = self.envIndexCounter + 1
+            env_index = self.envIndexCounter
+            new_env = Environment(env_index, self.env)
             self.env = new_env
             
             #Add environment data to the environment   
-            env_values = self.stack.popStack()
-            
-            if env_values.isType(NameSymbol):
-                env_values_temp = [env_values.name]
-                env_values = tuple(env_values_temp)
-                
+            #                 
             env_variables = _lambdaClosure.variables
             
             #Here an error can occur if number of variables != number of values
             for i in range(len(env_variables)):
-                self.env.insertEnvData(env_variables[i], env_values[i])
+                self.env.insertEnvData(env_variables[i], self.stack.popStack().name)
                 
             self.addEnvMarker(env_index)
             self.control.insertControlStruct(self.csMap.get(_lambdaClosure.index))
@@ -191,6 +186,7 @@ class CSEMachine:
         """
         rand_1 = self.stack.popStack().name
         rand_2 = self.stack.popStack().name
+
         _value = self.apply(operator, rand_1, rand_2)
         self.stack.pushStack(NameSymbol(_value))
         
@@ -203,7 +199,7 @@ class CSEMachine:
         
         """
         rand = self.stack.popStack().name
-        _value = NameSymbol(self.apply(operator, rand))
+        _value = self.apply(operator, rand)
         self.stack.pushStack(NameSymbol(_value))
         
     

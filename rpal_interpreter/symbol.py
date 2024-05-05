@@ -27,6 +27,13 @@ class SymbolFactory:
             return GammaSymbol()
         elif node.is_name():
             value = node.parseValueInToken()
+            if str.isnumeric(value):
+                value = int(value)
+            elif value in [Nodes.TRUE, Nodes.FALSE]:
+                value = value == Nodes.TRUE
+            elif value in [Nodes.DUMMY, Nodes.NIL]:
+                raise NotImplementedError()
+
             return NameSymbol(value)
         elif value in Nodes.BOP:
             return BinaryOperatorSymbol(value)
@@ -106,7 +113,7 @@ class LambdaClosureSymbol(LambdaSymbol):
     
     
     def __init__(self, variables, index, envIndex):
-        super().__init__(variables, index)
+        super().__init__(index, variables)
         self.envMarker: EnvMarkerSymbol = EnvMarkerSymbol(envIndex)
         
 
@@ -117,19 +124,11 @@ class EnvMarkerSymbol(Symbol):
     def __init__(self, envIndex):
         super().__init__()
         self.envIndex = envIndex
+
+    def __repr__(self) -> str:
+        return f"e{self.envIndex}"
         
-class DeltaSymbol(Symbol):
-    
-    """
-    Represents a control structure as a Symbol in the control.
-    Has an index which points to relevant control structure in the control structure array.
-    
-    """
-    
-    def __init__(self, index):
-        super().__init()
-        self.index = index
-        
+
 class BetaSymbol(Symbol):
     
     """ 
