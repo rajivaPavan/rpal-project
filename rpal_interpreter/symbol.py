@@ -80,12 +80,35 @@ class EnvMarkerSymbol(Symbol):
         super().__init__()
         self.envIndex = envIndex
         
+class DeltaSymbol(Symbol):
+    
+    """
+    Represents a control structure as a Symbol in the control.
+    Has an index which points to relevant control structure in the control structure array.
+    
+    """
+    
+    def __init__(self, index):
+        super().__init()
+        self.index = index
+        
 class BetaSymbol(Symbol):
+    
+    """ 
+    Represents a beta symbol.
+    Used when representing a conditonal operator in the control without standardizing.
+    
+    """
     def __init__(self):
         super().__init__()
         
 
 class TauSymbol(Symbol):
+    
+    """
+    Represents a tau symbol.
+    Used when representing a tau node in the control after standardizing.	
+    """
     def __init__(self, n):
         super().__init()
         self.n = n
