@@ -23,7 +23,7 @@ class Control:
             self.control.append(i)
             
     def insertEnvMarker(self, env_index):
-        self.control.append(EnvMarker(env_index))
+        self.control.append(EnvMarkerSymbol(env_index))
             
 
 class Stack:
@@ -33,7 +33,7 @@ class Stack:
     """    
     
     def __init__(self):
-        self.stack = [EnvMarker(0)]
+        self.stack = [EnvMarkerSymbol(0)]
     
     def popStack(self):
         popElement = self.stack.pop(0)
@@ -57,7 +57,7 @@ class Environment:
         envData is represented as a dictionary.
         """
         self.parent : Environment = parent
-        self.envMarker = EnvMarker(envIndex)
+        self.envMarker = EnvMarkerSymbol(envIndex)
         self.envData = {}      
         
         

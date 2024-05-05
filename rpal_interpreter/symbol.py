@@ -7,14 +7,13 @@ class Symbol:
     """
     
     def __init__(self):
-        """Implemented in the subclasses."""
         pass
         
     def isType(self, t):
         return self.__class__ == t
 
 #Subclasses of Symbol
-class Name(Symbol):
+class NameSymbol(Symbol):
     """
     Represents variables and numerics in the CSE machine.
     """
@@ -22,20 +21,20 @@ class Name(Symbol):
         super().__init__()
         self.name = name  
         
-class Operator(Symbol):
+class OperatorSymbol(Symbol):
     def __init__(self, operator):
         super().__init()
         self.operator = operator
         
               
-class Gamma(Symbol):
-    """Represents a gamma Node in the CSE machine."""
+class GammaSymbol(Symbol):
+    """Represents a gamma Symbol in the CSE machine."""
     
     def __init__(self):
         super().__init__()
         
-class Lambda(Symbol):
-    """Represents a lambda Node in the CSE machine."""
+class LambdaSymbol(Symbol):
+    """Represents a lambda Symbol in the CSE machine."""
     
     def __init__(self, variables, index):
         super().__init__()
@@ -46,7 +45,7 @@ class Lambda(Symbol):
             self.variables.append(var)
 
 
-class LambdaClosure(Lambda):
+class LambdaClosureSymbol(LambdaSymbol):
     
     """Represents a lambda closure (lambda in the stack) in the CSE machine.
     
@@ -58,10 +57,10 @@ class LambdaClosure(Lambda):
     
     def __init__(self, variable, index, envIndex):
         super().__init__(variable, index)
-        self.envMarker: EnvMarker = EnvMarker(envIndex)
+        self.envMarker: EnvMarkerSymbol = EnvMarkerSymbol(envIndex)
         
 
-class EnvMarker(Symbol):
+class EnvMarkerSymbol(Symbol):
     
     """ Represents an environment marker in the CSE machine. """
     
@@ -69,12 +68,12 @@ class EnvMarker(Symbol):
         super().__init__()
         self.envIndex = envIndex
         
-class Beta(Symbol):
+class BetaSymbol(Symbol):
     def __init__(self):
         super().__init__()
         
 
-class Tau(Symbol):
+class TauSymbol(Symbol):
     def __init__(self, n):
         super().__init()
         self.n = n

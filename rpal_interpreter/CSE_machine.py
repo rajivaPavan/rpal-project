@@ -25,22 +25,22 @@ class CSEMachine:
             final_result = self.stack.popStack()
             return final_result
 
-        if right_most.isType(Name):
+        if right_most.isType(NameSymbol):
             __name = right_most.name
             self.stackaName(__name)       
               
-        if right_most.isType(Lambda):
+        if right_most.isType(LambdaSymbol):
             __lambda = right_most
             self.stackLambda(__lambda)
                    
-        if right_most.isType(Operator):
+        if right_most.isType(OperatorSymbol):
             __operator = right_most.operator
             self.evaluateOperator(__operator)
             
-        if right_most.isType(Gamma):
+        if right_most.isType(GammaSymbol):
             self.applyLambda()
             
-        if right_most.isType(EnvMarker):
+        if right_most.isType(EnvMarkerSymbol):
             __env_marker = right_most
             self.exitEnv(__env_marker)
             
@@ -79,7 +79,7 @@ class CSEMachine:
         """
         
         envIndex = self.env.envMarker.envIndex
-        self.stack.pushStack(LambdaClosure(_lambda.variables, _lambda.index, envIndex)) 
+        self.stack.pushStack(LambdaClosureSymbol(_lambda.variables, _lambda.index, envIndex)) 
         
     def evaluateOperator(self, operator):
         
@@ -139,7 +139,7 @@ class CSEMachine:
         
         __top = self.stack.popStack() 
         
-        if __top.isType(LambdaClosure):
+        if __top.isType(LambdaClosureSymbol):
             
             __lambdaClosure = __top
             
@@ -160,7 +160,7 @@ class CSEMachine:
         
         """
         
-        self.stack.pushStack(EnvMarker(env_index))
+        self.stack.pushStack(EnvMarkerSymbol(env_index))
         self.control.insertEnvMarker(env_index)
             
     def exitEnv(self, env_marker):
