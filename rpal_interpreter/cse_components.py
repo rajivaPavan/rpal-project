@@ -11,7 +11,7 @@ class Control:
         self.insertControlStruct(controlStruct)  
     
     def peekRightMost(self):
-        #Not used yet.
+        #Not used yet. Can remove if needed
         right_most = self.control[-1]
         return right_most
     
@@ -109,18 +109,25 @@ class ControlStructArray:
             self.controlStructArray = self.generateControlStructArray(st)
             
             
-        def generateControlStructArray(self,st):
+        def generateControlStructArray(self,st) -> dict:
+            """Generates the control structures for the CSE machine."""	
             #TODO: Implement the generation of control structures
             st = st
             pass
             
         def addControlStruct(self, controlStruct: ControlStruct):
+            
+            """Adds a control struct to the ControlStructArray."""
             self.controlStructArray[controlStruct.index] = controlStruct
             
         def getControlStruct(self, index):
+            
+            """Returns the control struct when the given index."""	
             return self.controlStructArray[index]
         
         def getControlStructArray(self):
+            
+            """Returns the control struct array of the cse machine."""	
             return self.controlStructArray
                     
 
