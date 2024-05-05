@@ -1,3 +1,4 @@
+import pprint
 from rpal_interpreter.nodes import Nodes
 from rpal_interpreter.trees import STNode
 from .symbol import *
@@ -150,7 +151,7 @@ class ControlStructures:
             symbol = None
             if node.is_lambda():
                 deltaIndex += 1
-                self.__newControlStruct(deltaIndex)
+                deltaIndex = self.__addNewControlStruct(deltaIndex)
 
                 # add x to the control structure
                 x:STNode = node.getLeft()
@@ -168,21 +169,19 @@ class ControlStructures:
         self.__controlStructureMap = {}   
         # create the control structure for delta 0
         deltaIndex = 0
-        delta0 = ControlStruct(deltaIndex)
-        self.__put(delta0)
+        self.__addNewControlStruct(deltaIndex)
 
         # start the traversal from the root of the tree
         traverse(st, deltaIndex)
-
+        pprint.pp(self.__controlStructureMap)
         return self.__controlStructureMap
 
-    def __newControlStruct(self, deltaIndex: int):
+    def __addNewControlStruct(self, deltaIndex: int):
+        while deltaIndex in self.__controlStructureMap.keys():
+            deltaIndex+=1
         self.__controlStructureMap[deltaIndex] = ControlStruct(deltaIndex)
-        
-    def __put(self, controlStruct: ControlStruct):
-        """Adds a control struct to the control structure map with the control struct index as the key."""
-        self.__controlStructureMap[controlStruct.getIndex()] = controlStruct
-        
+        return deltaIndex
+
     def get(self, deltaIndex) -> ControlStruct:
         """Returns the control struct for the given key."""	
         return self.__controlStructureMap[deltaIndex]
