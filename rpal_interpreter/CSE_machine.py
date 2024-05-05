@@ -74,7 +74,7 @@ class CSEMachine:
         elif nameSymbol.checkNameSymbolType(str):
             _value = self.env.lookUpEnv(nameSymbol.name)
             
-        self.stack.pushStack(_value)
+        self.stack.pushStack(NameSymbol(_value))
         
             
             
@@ -166,9 +166,10 @@ class CSEMachine:
         Evaluates Binary Operators and pushes the computed result into the stack.
         
         """
-        rand_1 = self.stack.popStack()
-        rand_2 = self.stack.popStack()
-        self.stack.pushStack(self.apply(operator, rand_1, rand_2))
+        rand_1 = self.stack.popStack().name
+        rand_2 = self.stack.popStack().name
+        _value = self.apply(operator, rand_1, rand_2)
+        self.stack.pushStack(NameSymbol(_value))
         
     def unop(self, operator):
         
@@ -178,8 +179,9 @@ class CSEMachine:
         Evaluates Unary Operators and pushes the computed result into the stack.
         
         """
-        rand = self.stack.popStack()
-        self.stack.pushStack(self.apply(operator, rand))
+        rand = self.stack.popStack().name
+        _value = NameSymbol(self.apply(operator, rand))
+        self.stack.pushStack(NameSymbol(_value))
         
     
             
@@ -207,15 +209,15 @@ class CSEMachine:
         
         
         """
-        then_or_else: str = self.stack.popStack()
-        if then_or_else == "true":
+        then_or_else = self.stack.popStack()
+        if then_or_else.name == True:
             self.control.removeRightMost()
             _then: DeltaSymbol = self.control.removeRightMost()
             self.control.insertControlStruct(_then.index)
         else:
             _else: DeltaSymbol = self.control.removeRightMost()
             self.control.removeRightMost()
-            self.control.insertControlStruct(self.controlStructArrat.getControlStruct(_else.index))
+            self.control.insertControlStruct(self.controlStructArray.getControlStruct(_else.index))
         
         
     
