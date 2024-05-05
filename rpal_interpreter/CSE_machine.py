@@ -33,9 +33,13 @@ class CSEMachine:
             __lambda = right_most
             self.stackLambda(__lambda)
                    
-        if right_most.isType(OperatorSymbol):
-            __operator = right_most.operator
-            self.evaluateOperator(__operator)
+        if right_most.isType(BinaryOperatorSymbol):
+            __binop = right_most.operator
+            self.binop(__binop)
+            
+        if right_most.isType(UnaryOperatorSymbol):
+            __unop = right_most.operator
+            self.unop(__unop)
             
         if right_most.isType(GammaSymbol):
             self.applyLambda()
@@ -54,14 +58,14 @@ class CSEMachine:
     def stackaName(self, name):
         
         """
-        Rule 1
-        Pushes the value of the symbol onto the stack.
+        CSE Rule 1
+        Pushes the value of the name symbol onto the stack.
         
         """
         
         if name.isnumeric():
             __value = name
-            self.stack.pushStack(int(__value))
+            self.stack.pushStack(__value)
         
         else:
             __value = self.env.lookUpEnv(name)
@@ -73,18 +77,18 @@ class CSEMachine:
         
         """
         
-        Rule 2
+        CSE Rule 2
         Pushes a lambda closure onto the stack.
         
         """
         
-        envIndex = self.env.envMarker.envIndex
-        self.stack.pushStack(LambdaClosureSymbol(_lambda.variables, _lambda.index, envIndex)) 
+        __currentEnvIndex = self.env.envMarker.envIndex
+        self.stack.pushStack(LambdaClosureSymbol(_lambda.variables, _lambda.index, __currentEnvIndex)) 
         
     def evaluateOperator(self, operator):
         
         """
-        Rule number 6 and 7 
+        CSE Rule number 6 and 7 
         as the minimally sufficient conditions for the rule 3
         
         Evaluates binary and unary operators.
@@ -97,10 +101,23 @@ class CSEMachine:
         __unop = {'neg', 'not'}                 #Have to define these correctly
         
         if operator in __unop:
-            self.apply(operator, rand_1)
+            result = self.unop(operator, rand_1)
         else:
             rand_2 = self.stack.popStack()
-            self.apply(operator, rand_1, rand_2)
+            result = self.binop(operator, rand_1, rand_2)
+            
+        self.stack.pushStack(result)
+        
+            
+    def unop(self, operator):
+        rand = self.stack.popStack()
+        return self.apply(operator, rand)
+        
+        
+    def binop(self, operator):
+        rand_1 = self.stack.popStack()
+        rand_2 = self.stack.popStack()
+        return self.apply(operator, rand_1, rand_2)
             
             
     def apply(self, operator, rator, rand = None):
@@ -124,14 +141,14 @@ class CSEMachine:
         elif operator == "**":
             result = pow(rator, rand)
                 
-        self.stack.pushStack(result)
+        return result
             
             
     def applyLambda(self):
         
         """
         
-        Rule 4
+        CSE Rule 4
         
         creates a new environment.
         
@@ -166,7 +183,7 @@ class CSEMachine:
     def exitEnv(self, env_marker):
         
         """
-        Rule 5
+        CSE Rule 5
         
         Exits from the current environment.
         
@@ -177,14 +194,14 @@ class CSEMachine:
         
     def conditional(self):
         """
-        Rule 8
+        CSE Rule 8
         
         """
         pass
     
     def tupleFormation(self):
         """
-        Rule 9
+        CSE Rule 9
         
         """
         pass
@@ -193,7 +210,7 @@ class CSEMachine:
         
         """
         
-        Rule 10
+        CSE Rule 10
         """
         pass
     
