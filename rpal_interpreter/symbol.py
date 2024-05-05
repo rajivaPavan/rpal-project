@@ -1,3 +1,6 @@
+from typing import Iterable
+
+
 class Symbol:
     
     """
@@ -11,6 +14,10 @@ class Symbol:
         
     def isType(self, t):
         return self.__class__ == t
+    
+    def __repr__(self):
+        # print class name and all attributes and their values
+        return f"{self.__class__.__name__}({', '.join(f'{k}={getattr(self, k)}' for k in self.__dict__.keys())})"
 
 #Subclasses of Symbol
 class NameSymbol(Symbol):
@@ -52,10 +59,10 @@ class LambdaSymbol(Symbol):
        attribute variables can either be a list or a single variable.
     """
     
-    def __init__(self, variables, index):
+    def __init__(self, index, variables:Iterable):
         super().__init__()
-        self.variables = tuple(variables)
         self.index = index
+        self.variables = tuple(variables)
         
 class LambdaClosureSymbol(LambdaSymbol):
     

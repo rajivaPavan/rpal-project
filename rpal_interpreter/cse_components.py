@@ -1,3 +1,4 @@
+from rpal_interpreter.nodes import Nodes
 from rpal_interpreter.trees import STNode
 from .symbol import *
 from typing import List
@@ -92,39 +93,89 @@ class Environment:
         
 class ControlStruct:
     
-    def __init__(self, index = None):
-        
+    def __init__(self, index):
         """
         Represents a control structure in the CSE machine.
         eg: delta1, delta 0
         """
-        
-        self.index = index
-        self.controlStruct: List[Symbol] = []
+        self.__index = index
+        self.__array: List[Symbol] = []
+
+    def getIndex(self):
+        return self.__index
+
+    def addSymbol(self, symbol: Symbol):
+        self.__array.append(symbol)
+
+    def __repr__(self):
+        return f"ControlStruct({self.__index}, {self.__array})"
         
 class ControlStructures:
         
-        def __init__(self, st:STNode):
-            """Define the Array of Control Structures as a dictionary."""
-            self.__controlStructureMap = self.__generateControlStructures(st)
+    def __init__(self, st:STNode):
+        """Define the Array of Control Structures as a dictionary."""
+        self.__controlStructureMap = self.__generateControlStructures(st)
+        
+        
+    def __generateControlStructures(self,st) -> dict:
+        """Generates the control structures for the CSE machine from the Standardized Tree.
+        Returns: a dictionary of control structures."""
+        
+        def traverse(node: STNode, deltaIndex: int):
+            """
+            Traverse the tree using pre-order traversal.
             
+            Args:
+            node (STNode): The node to traverse.
+            csIndex (int): The index of the control structure.
+            """
+
+            if node is None:
+                return
             
-        def __generateControlStructures(self,st) -> dict:
-            """Generates the control structures for the CSE machine from the Standardized Tree.
-            Returns: a dictionary of control structures."""	
-            #TODO: Implement the generation of control structures
-            st = st
-            pass
-            
-        def addControlStruct(self, controlStruct: ControlStruct):
-            """Adds a control struct to the control structure map with the control struct index as the key."""
-            self.__controlStructureMap[controlStruct.index] = controlStruct
-            
-        def get(self, key) -> ControlStruct:
-            """Returns the control struct for the given key."""	
-            return self.__controlStructureMap[key]
-                    
+            visit(node, deltaIndex)
+            traverse(node.getLeft(), deltaIndex)
+            traverse(node.getRight(), deltaIndex)
+
+        def visit(node:STNode, deltaIndex: int):
+            """
+            Visit the node and add the symbol to the control structure.
+            """
+            currentCS:ControlStruct = self.get(deltaIndex)
+
+            if node.is_name():
+                value = node.parseValueInToken()
+                currentCS.addSymbol(NameSymbol(value))
+            elif node.is_gamma():
+                currentCS.addSymbol(GammaSymbol())
+            elif node.is_lambda():
+                deltaIndex += 1
+                self.__put(ControlStruct(deltaIndex))
+                x:STNode = node.getLeft()
+                x_value = x.parseValueInToken()
+                currentCS.addSymbol(LambdaSymbol(deltaIndex, [x_value]))
+                print(currentCS)
+            else:
+                raise Exception("Invalid node type")
+
+        # Initialize the control structure map
+        self.__controlStructureMap = {}   
+        # create the control structure for delta 0
+        deltaIndex = 0
+        delta0 = ControlStruct(deltaIndex)
+        self.__put(delta0)
+
+        # start the traversal from the root of the tree
+        traverse(st, deltaIndex)
+        
+    def __put(self, controlStruct: ControlStruct):
+        """Adds a control struct to the control structure map with the control struct index as the key."""
+        self.__controlStructureMap[controlStruct.getIndex()] = controlStruct
+        
+    def get(self, deltaIndex) -> ControlStruct:
+        """Returns the control struct for the given key."""	
+        return self.__controlStructureMap[deltaIndex]
+                
 
 
-    
-    
+

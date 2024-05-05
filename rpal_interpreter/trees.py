@@ -1,5 +1,5 @@
 from rpal_interpreter.nodes import Nodes
-
+from rpal_interpreter.tokens import Token
 
 class BinaryTreeNode:
     """ A class representing a node in a binary tree.
@@ -128,6 +128,12 @@ class STNode(BinaryTreeNode):
         """
         return STNode.createFCRSNode(Nodes.LAMBDA, left, right)
     
+    def is_lambda(self):
+        return self.getValue() == Nodes.LAMBDA
+    
+    def is_gamma(self):
+        return self.getValue() == Nodes.GAMMA
+    
     @staticmethod
     def assign_node(left = None, right = None):
         """
@@ -142,6 +148,11 @@ class STNode(BinaryTreeNode):
         """
         return STNode(Nodes.YSTAR)
     
+    def parseValueInToken(self):
+        assert isinstance(self.getValue(), Token)
+
+        token: Token = self.getValue()
+        return token.getValue()
     
     
 
