@@ -98,9 +98,11 @@ class CSEMachine:
         
         """
         
-        CSE Rule 4
+        CSE Rule 4 and CSE Rule 11
         
-        creates a new environment.
+        This function evaluates n-ary functions as well.
+        Creates a new environment and make it the current environment.
+        Also Insert environment data for env_variables with the respective env_values.
         
         """	
         
@@ -112,16 +114,24 @@ class CSEMachine:
             
             env_index = _lambdaClosure.envMarker.envIndex + 1
             new_env = Environment(self.env, env_index)
-            self.env = new_env    
-            _env_values = self.stack.popStack()
-            _variables_tuple = _lambdaClosure.variables
+            self.env = new_env
             
-            for i in range(len(_variables_tuple)):
-                self.env.insertEnvData(_variables_tuple[i], _env_values[i])
+            #Add environment data to the environment   
+            env_values = self.stack.popStack()
+            
+            if env_values.isType(NameSymbol):
+                env_values_temp = [env_values.name]
+                env_values = tuple(env_values_temp)
+                
+            env_variables = _lambdaClosure.variables
+            
+            #Here an error can occur if number of variables != number of values
+            for i in range(len(env_variables)):
+                self.env.insertEnvData(env_variables[i], env_values[i])
                 
             self.addEnvMarker(env_index)
-            
             self.control.insertControlStruct(self.controlStructArray.getControlStruct(_lambdaClosure.index))
+            
             
     def addEnvMarker(self, env_index):
             
@@ -241,13 +251,6 @@ class CSEMachine:
         new_n_tuple = TauSymbol(n, tupleList)
         self.stack.pushStack(new_n_tuple)
     
-    def tupleSelection(self):
-        
-        """
-        
-        CSE Rule 10
-        """
-        pass
     
     
     
