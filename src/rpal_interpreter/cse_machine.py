@@ -7,9 +7,9 @@ import logging
 
 class CSEMachine:
     """
-    The CSEMachine class is responsible for simulating the Control Structure Execution (CSE) machine
+    The CSEMachine class is responsible for simulating the Control Structure Environment (CSE) machine
     used in the RPAL language interpreter. It manages the control structures, environment, and stack
-    to execute RPAL code. The class provides methods to evaluate expressions based on the cse machine rules
+    to intepret the RPAL code. The class provides methods to evaluate expressions based on the cse machine rules
     """
     
     
@@ -64,7 +64,7 @@ class CSEMachine:
 
         elif right_most.isType(NameSymbol):
             _nameSymbol = right_most
-            self.stackaName(_nameSymbol)       
+            self.stackName(_nameSymbol)       
               
         elif right_most.isType(LambdaSymbol):
             _lambda = right_most
@@ -99,14 +99,13 @@ class CSEMachine:
         return self.evaluate()
         
 
-    def stackaName(self, nameSymbol: NameSymbol):
-        
+    def stackName(self, nameSymbol: NameSymbol):
         """
         CSE Rule 1
         
         Pushes the value of the name symbol into the stack.
-        
         """
+
         self.logger.debug("rule 1")
         if nameSymbol.checkNameSymbolType(str):
             _value = self.env.lookUpEnv(nameSymbol.name)
@@ -115,29 +114,25 @@ class CSEMachine:
         self.stack.pushStack(nameSymbol)
         
     def stackLambda(self, _lambda: LambdaSymbol):
-        
         """
-        
         CSE Rule 2
         
         Pushes a lambda closure into the stack.
-        
         """
+
         self.logger.debug("rule 2")
         __currentEnvIndex = self.env.envMarker.envIndex
         self.stack.pushStack(LambdaClosureSymbol(_lambda.variables, _lambda.index, __currentEnvIndex))         
             
     def applyLambda(self):
-        
         """
-        
         CSE Rule 4 and CSE Rule 11
         
         This function evaluates n-ary functions as well.
         Creates a new environment and make it the current environment.
         Also Insert environment data for env_variables with the respective env_values.
-        
         """	
+
         self.logger.debug("rule 4/11")
         top = self.stack.popStack() 
         
@@ -171,12 +166,10 @@ class CSEMachine:
         self.control.insertEnvMarker(env_index)
             
     def exitEnv(self, env_marker):
-        
         """
         CSE Rule 5
         
         Exits from the current environment.
-        
         """
         
         self.stack.removeEnvironment(env_marker)
@@ -201,12 +194,10 @@ class CSEMachine:
     }
           
     def binop(self, operator):
-        
         """
         CSE Rule 6
         
         Evaluates Binary Operators and pushes the computed result into the stack.
-        
         """
         rand_1 = self.stack.popStack().name
         rand_2 = self.stack.popStack().name
@@ -215,12 +206,10 @@ class CSEMachine:
         self.stack.pushStack(NameSymbol(_value))
         
     def unop(self, operator):
-        
         """"
         CSE Rule 7
         
         Evaluates Unary Operators and pushes the computed result into the stack.
-        
         """
         rand = self.stack.popStack().name
         _value = self.__applyOp(operator, rand)
@@ -244,9 +233,8 @@ class CSEMachine:
         
         This evaluates the conditional expression.
         Conditional functions are defined in the control structure in the form of delta_then, delta_else, beta, B.
-        
-        
         """
+
         true_or_false = self.stack.popStack()
         if true_or_false.name == True:
             self.control.removeRightMost()
@@ -260,7 +248,6 @@ class CSEMachine:
     def tupleFormation(self, _tau: TauSymbol):
         """
         CSE Rule 9
-        
         """
         i = 0
         n: int = _tau.n
