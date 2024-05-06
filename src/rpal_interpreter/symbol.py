@@ -140,8 +140,11 @@ class DeltaSymbol(Symbol):
     """
     
     def __init__(self, index):
-        super().__init()
+        super().__init__()
         self.index = index
+
+    def __repr__(self) -> str:
+        return f"delta-{self.index}"
 
 class BetaSymbol(Symbol):
     
@@ -152,6 +155,9 @@ class BetaSymbol(Symbol):
     """
     def __init__(self):
         super().__init__()
+
+    def __repr__(self):
+        return f"beta"
         
 
 class TauSymbol(Symbol):

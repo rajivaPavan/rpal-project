@@ -15,6 +15,7 @@ class TestRPALSTGeneration(unittest.TestCase):
             ("tests/machine/ex1", "tests/machine/ex1.out"),
             ("tests/machine/ex2", "tests/machine/ex2.out"),
             ("tests/machine/ex3", "tests/machine/ex3.out"),
+            ("tests/machine/ex4", "tests/machine/ex4.out")
         ]
 
         for input_file, expected_file in test_files:

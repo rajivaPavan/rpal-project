@@ -25,7 +25,7 @@ class ASTStandardizer:
         
     # list of values of nodes that do not need to be standardized
     NON_STANDARDIZE = Nodes.UOP + Nodes.BOP + [
-        Nodes.GAMMA, Nodes.TAU, Nodes.ARROW, Nodes.COMMA,
+        Nodes.GAMMA, Nodes.TAU, Nodes.COND, Nodes.COMMA,
         Nodes.TRUE,Nodes.FALSE, Nodes.DUMMY, Nodes.NIL
     ]
 

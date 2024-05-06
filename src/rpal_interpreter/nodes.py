@@ -4,7 +4,7 @@ class Nodes:
     LAMBDA = "lambda"
     TAU = "tau"
     AUG = "aug"
-    ARROW = "->"
+    COND = "->"
     WHERE = "where"
     OR = "or"
     AND_OP = "&"

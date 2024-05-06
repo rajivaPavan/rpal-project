@@ -36,11 +36,11 @@ class CSEMachine:
         
         # setup logging
         self.logger:Logger = logging.getLogger("CSEMachine")
-        self.logger.setLevel(logging.CRITICAL + 1)
+        self.logger.setLevel(logging.CRITICAL+1)
         logging.basicConfig(stream=sys.stdout, level=logging.DEBUG, format='%(levelname)s - %(message)s')
 
         # log the initial cs map
-        self.logger.debug(f"csMap: \n{self.csMap}")
+        self.logger.info(f"csMap: \n{self.csMap}")
 
     def __create_env(self, index, parent_index = None):
         """Creates new env and sets it as current env and adds to env to envMap"""

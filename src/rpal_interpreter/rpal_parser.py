@@ -71,12 +71,12 @@ class RPALParser(Parser):
         
     def proc_Tc(self):
         self.proc_B()
-        if self.nextToken() != None and self.nextToken().isValue(Nodes.ARROW):
-            self.read(OperatorToken.fromValue(Nodes.ARROW))
+        if self.nextToken() != None and self.nextToken().isValue(Nodes.COND):
+            self.read(OperatorToken.fromValue(Nodes.COND))
             self.proc_Tc()
             self.read(OperatorToken.fromValue("|"))
             self.proc_Tc()
-            self.buildTree(Nodes.ARROW, 3)
+            self.buildTree(Nodes.COND, 3)
 
     def proc_B(self):
         self.proc_Bt()

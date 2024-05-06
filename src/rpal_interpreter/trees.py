@@ -143,6 +143,12 @@ class STNode(BinaryTreeNode):
             return False
         return value == Nodes.GAMMA
     
+    def is_conditional(self):
+        value = self.getValue()
+        if not isinstance(value, str):
+            return False
+        return value == Nodes.COND
+    
     @staticmethod
     def assign_node(left = None, right = None):
         """

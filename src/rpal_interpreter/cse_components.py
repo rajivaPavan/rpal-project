@@ -153,8 +153,7 @@ class ControlStructures:
             
             visit(node, deltaIndex)
             # if node is lambda dont traverse left instead traverse right of left
-            if not node.is_lambda():
-                traverse(node.getLeft(), deltaIndex)
+            traverse(node.getLeft(), deltaIndex)
             traverse(node.getRight(), deltaIndex)
 
         def visit(node:STNode, deltaIndex: int):
@@ -164,20 +163,43 @@ class ControlStructures:
             currentCS:ControlStruct = self.get(deltaIndex)
             symbol = None
             if node.is_lambda():
-                deltaIndex += 1
                 deltaIndex = self.__addNewControlStruct(deltaIndex)
-
                 # add x to the control structure
                 x:STNode = node.getLeft()
                 x_value = x.parseValueInToken()
                 symbol = LambdaSymbol(deltaIndex, [x_value])
                 currentCS.addSymbol(symbol)
+                # don't traverse left of lambda
+                node.setLeft(None)
                 traverse(x.getRight(), deltaIndex)
+            elif node.is_conditional():
+                # add beta to the control structure
+                _handleConditional(node, deltaIndex, currentCS)
             else:
                 # add to current CS 
                 symbol = SymbolFactory.createSymbol(node)
                 currentCS.addSymbol(symbol)
             return deltaIndex
+
+        def _handleConditional(node:STNode, deltaIndex:int, currentCS:ControlStruct):
+            symbol = BetaSymbol()
+            delta_then = self.__addNewControlStruct(deltaIndex)
+            delta_else = self.__addNewControlStruct(delta_then)
+            delta_then_symbol = DeltaSymbol(delta_then)
+            delta_else_symbol = DeltaSymbol(delta_else)
+            currentCS.addSymbol(delta_then_symbol)
+            currentCS.addSymbol(delta_else_symbol)
+            currentCS.addSymbol(symbol)
+            boolean_exp:STNode = node.getLeft()
+            # dont traverse left of node
+            node.setLeft(None)
+            then_exp:STNode = boolean_exp.getRight()
+            boolean_exp.setRight(None)
+            else_exp:STNode = then_exp.getRight() 
+            then_exp.setRight(None)
+            traverse(boolean_exp, deltaIndex)
+            traverse(then_exp, delta_then)
+            traverse(else_exp, delta_else)
 
         # Initialize the control structure map
         self.__controlStructureMap = {}   
@@ -190,6 +212,7 @@ class ControlStructures:
         return self.__controlStructureMap
 
     def __addNewControlStruct(self, deltaIndex: int):
+        """Adds a new control structure to the Control Structure Map by linear probing"""
         while deltaIndex in self.__controlStructureMap.keys():
             deltaIndex+=1
         self.__controlStructureMap[deltaIndex] = ControlStruct(deltaIndex)
