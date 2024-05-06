@@ -1,0 +1,5 @@
+// missing in before let keyword
+let Sum(A) = Psum (A,Order A )
+where rec Psum (T,N) = N eq 0 -> 0
+ | Psum(T,N-1)+T N
+let Print ( Sum (1,2,3,4,5) )

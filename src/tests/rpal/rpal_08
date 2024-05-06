@@ -1,0 +1,2 @@
+let rec firstNSum(N) = N eq 1 -> 1 | N + firstNSum(N-1)
+in Print( firstNSum(10) )

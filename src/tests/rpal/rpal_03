@@ -1,0 +1,6 @@
+let S = (0,1) and start = 1 and end = 10
+in
+  let rec fib (nums) =
+let N = nums 1 + nums 2 in
+N < end -> ( N aug fib((nums 2, N)) ) | nil
+in Print (fib (S))
