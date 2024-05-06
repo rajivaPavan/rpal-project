@@ -1,5 +1,7 @@
+import pprint
 import sys
 from joblib import Logger
+from rpal_interpreter.cse_control_structures import CSInitializer
 from rpal_interpreter.trees import STNode
 from .symbol import *
 from .cse_components import *
@@ -22,7 +24,7 @@ class CSEMachine:
         st (STNode): The standardized tree which is used to generate control structures.
         """
         # inti control
-        self.csMap = ControlStructures(st)
+        self.csMap  = CSInitializer(st).init()
         self.control = Control(self.csMap.get(0))
         
         # init env
