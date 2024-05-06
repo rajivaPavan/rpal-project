@@ -8,4 +8,6 @@ jobs:
       - name: Set up Python3
         uses: actions/setup-python@v3
       - name: Run Test
+        # navigate to src directory
+        run: cd src
         run: python3 -m unittest discover -s tests -p 'test_*.py'
