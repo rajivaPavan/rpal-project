@@ -4,7 +4,12 @@ from rpal_interpreter import Interpreter
 from helpers import *
 
 def main():
-    """Entry point for the RPAL lexical analyzer and parser."""
+    """Entry point for the RPAL lexical analyzer and parser.
+
+    The main function reads the file name from the command line arguments and reads the file.
+
+    Returns: None
+    """
 
     # initialize args
     args = sys.argv

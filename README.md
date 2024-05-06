@@ -40,12 +40,23 @@ python -m unittest discover -s tests -p 'test_*.py'
 
 To build the documentation,
 enable the virtual environment
-```
+```powershell
 python -m venv venv ; .\venv\Scripts\Activate
 ```
 
 install the required packages
-```
+```powershell
 pip install -r requirements.txt
 ```
 
+
+From the root directory of the project, run the following commands:
+```bash
+sphinx-apidoc -o docs src
+cd docs
+./make html # or whatever format you want
+```
+to find list of available formats, run
+```bash
+./make
+```

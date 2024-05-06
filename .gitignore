@@ -32,3 +32,5 @@ egg-info/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+docs/_build
