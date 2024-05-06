@@ -1,5 +1,5 @@
 from rpal_interpreter.nodes import Nodes
-
+from rpal_interpreter.tokens import Token
 
 class BinaryTreeNode:
     """ A class representing a node in a binary tree.
@@ -75,6 +75,13 @@ class BinaryTreeNode:
             line = _formatter.line_str(self.getRight(), level)
             s += line
         return s
+    
+    def is_name(self):
+        node_value = str(self.getValue())
+        return str.startswith(node_value, "<ID:") or str.startswith(node_value, "<INT:") or str.startswith(node_value, "<STR:")
+    
+    def __repr__(self):
+        return f"{self.getValue()}"
 
 class TreeFormatter():
 
@@ -124,6 +131,18 @@ class STNode(BinaryTreeNode):
         """
         return STNode.createFCRSNode(Nodes.LAMBDA, left, right)
     
+    def is_lambda(self):
+        value = self.getValue()
+        if not isinstance(value, str):
+            return False
+        return value == Nodes.LAMBDA
+    
+    def is_gamma(self):
+        value = self.getValue()
+        if not isinstance(value, str):
+            return False
+        return value == Nodes.GAMMA
+    
     @staticmethod
     def assign_node(left = None, right = None):
         """
@@ -137,6 +156,13 @@ class STNode(BinaryTreeNode):
         Creates a new ystar node in the form of a FCRS node.
         """
         return STNode(Nodes.YSTAR)
+    
+    def parseValueInToken(self):
+        assert isinstance(self.getValue(), Token)
+
+        token: Token = self.getValue()
+        return token.getValue()
+    
     
 
             

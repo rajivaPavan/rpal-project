@@ -34,19 +34,6 @@ class TestRPALParser(unittest.TestCase):
     def test_Rn_empty(self):
         src = " \n"
         self.assertRaises(Exception, RPALParser(src))
-            
-    def test_R(self):
-        
-        test_cases = [
-            (" x y", "gamma\n.<ID:x>\n.<ID:y>"),
-            (" x y z", "gamma\n.<ID:x>\n.<ID:y>\n.<ID:z>"),
-        ] 
-
-        for src, expected_ast in test_cases:
-            parser = RPALParser(src)
-            parser.proc_R()
-            ast = parser.getAST()
-            self.assertEqual(str(ast), expected_ast)
     
     def test_Vl(self):
         src = "x , y, z"

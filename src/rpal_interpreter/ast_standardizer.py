@@ -30,17 +30,12 @@ class ASTStandardizer:
     ]
 
     @staticmethod
-    def is_name(node:BinaryTreeNode):
-        node_value = str(node.getValue())
-        return str.startswith(node_value, "<ID:") or str.startswith(node_value, "<INT:") or str.startswith(node_value, "<STR:")
-
-    @staticmethod
     def check_to_standardize(node:BinaryTreeNode):
         
         node_value = node.getValue()
 
         # false if the node_value is a name <ID:...> or an integer <INT:...>
-        if ASTStandardizer.is_name(node):
+        if node.is_name():
             return False
         
         if node_value in ASTStandardizer.NON_STANDARDIZE:
