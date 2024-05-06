@@ -30,6 +30,9 @@ class Control:
             
     def insertEnvMarker(self, env_index):
         self.control.append(EnvMarkerSymbol(env_index))
+
+    def __repr__(self):
+        return f"{self.control}"
             
 
 class Stack:
@@ -53,6 +56,9 @@ class Stack:
             if isinstance(self.__arr[i], EnvMarkerSymbol) and self.__arr[i].envIndex == envMarker.envIndex:
                 self.__arr.pop(i)
                 break
+
+    def __repr__(self) -> str:
+        return f"{self.__arr}"
         
         
 class Environment:
@@ -94,6 +100,12 @@ class Environment:
         else:
             return self.parent.lookUpEnv(name)
         
+    def __repr__(self) -> str:
+        p = "None"
+        if self.parent is not None:
+            p = self.parent.envMarker
+        return f"{self.envMarker}: {self.envData}, p - {p}"
+            
 class ControlStruct:
     
     def __init__(self, index):
