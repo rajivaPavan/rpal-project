@@ -5,7 +5,7 @@ import unittest
 class TestRPALSTGeneration(unittest.TestCase):
     def run_rpal(self, filename):
         """ Helper function to run the RPAL parser with the -st flag """
-        result = subprocess.run(['python', './myrpal.py', filename], capture_output=True, text=True)
+        result = subprocess.run(['python3', './myrpal.py', filename], capture_output=True, text=True)
         return result.stdout.strip()
 
     def test_cse_machine(self):
