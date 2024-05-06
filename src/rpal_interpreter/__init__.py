@@ -1,4 +1,5 @@
 from rpal_interpreter.ast_standardizer import ASTStandardizer
+from rpal_interpreter.cse_machine import CSEMachine
 from rpal_interpreter.trees import ASTNode, STNode
 from .lexer import *
 from .rpal_parser import RPALParser
@@ -35,7 +36,8 @@ class Interpreter:
         
             # Print the ast or st
             if self.__switch is None:
-                self.__compute()
+                res = self.__compute()
+                print(res)
             
         except Exception as e:
             print(e)
@@ -75,8 +77,7 @@ class Interpreter:
             Computes the result by inputting the standardized tree (ST) to the CSE machine.
             """
             st = self.__st
-            
-            # input the ST to a CSE machine and get the result
-
-            print("computed result")
+            cse = CSEMachine(st)
+            result = cse.evaluate()
+            return result
 
