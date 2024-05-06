@@ -1,8 +1,0 @@
-let greatest(a,b,c) = 
-// Compare a and b
-a > b -> 
-// Compare a and c
-(a > c -> a | c) |
-// Compare b and c
-(b > c -> b | c) 
-in Print(greatest(3,5,1))

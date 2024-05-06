@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>src &#8212; RPAL Interpreter  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="src">
+<h1>src<a class="headerlink" href="#src" title="Permalink to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="helpers.html">helpers module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="helpers.html#helpers.init_args"><code class="docutils literal notranslate"><span class="pre">init_args()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="helpers.html#helpers.read_file"><code class="docutils literal notranslate"><span class="pre">read_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="myrpal.html">myrpal module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="myrpal.html#myrpal.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rpal_interpreter.html">rpal_interpreter package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rpal_interpreter.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpal_interpreter.html#module-rpal_interpreter.ast_standardizer">rpal_interpreter.ast_standardizer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.ast_standardizer.ASTStandardizer"><code class="docutils literal notranslate"><span class="pre">ASTStandardizer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.ast_standardizer.ASTStandardizer.NON_STANDARDIZE"><code class="docutils literal notranslate"><span class="pre">ASTStandardizer.NON_STANDARDIZE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.ast_standardizer.ASTStandardizer.check_to_standardize"><code class="docutils literal notranslate"><span class="pre">ASTStandardizer.check_to_standardize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.ast_standardizer.ASTStandardizer.standardize"><code class="docutils literal notranslate"><span class="pre">ASTStandardizer.standardize()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rpal_interpreter.html#module-rpal_interpreter.cse_components">rpal_interpreter.cse_components module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.Control"><code class="docutils literal notranslate"><span class="pre">Control</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.Control.insertControlStruct"><code class="docutils literal notranslate"><span class="pre">Control.insertControlStruct()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.Control.insertEnvMarker"><code class="docutils literal notranslate"><span class="pre">Control.insertEnvMarker()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.Control.peekRightMost"><code class="docutils literal notranslate"><span class="pre">Control.peekRightMost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.Control.removeRightMost"><code class="docutils literal notranslate"><span class="pre">Control.removeRightMost()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.ControlStruct"><code class="docutils literal notranslate"><span class="pre">ControlStruct</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.ControlStruct.addSymbol"><code class="docutils literal notranslate"><span class="pre">ControlStruct.addSymbol()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.ControlStruct.getArray"><code class="docutils literal notranslate"><span class="pre">ControlStruct.getArray()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.ControlStruct.getIndex"><code class="docutils literal notranslate"><span class="pre">ControlStruct.getIndex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.ControlStructures"><code class="docutils literal notranslate"><span class="pre">ControlStructures</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.ControlStructures.get"><code class="docutils literal notranslate"><span class="pre">ControlStructures.get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.Environment.insertEnvData"><code class="docutils literal notranslate"><span class="pre">Environment.insertEnvData()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.Environment.lookUpEnv"><code class="docutils literal notranslate"><span class="pre">Environment.lookUpEnv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.Stack"><code class="docutils literal notranslate"><span class="pre">Stack</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.Stack.popStack"><code class="docutils literal notranslate"><span class="pre">Stack.popStack()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.Stack.pushStack"><code class="docutils literal notranslate"><span class="pre">Stack.pushStack()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_components.Stack.removeEnvironment"><code class="docutils literal notranslate"><span class="pre">Stack.removeEnvironment()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rpal_interpreter.html#module-rpal_interpreter.cse_machine">rpal_interpreter.cse_machine module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_machine.CSEMachine"><code class="docutils literal notranslate"><span class="pre">CSEMachine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_machine.CSEMachine.applyLambda"><code class="docutils literal notranslate"><span class="pre">CSEMachine.applyLambda()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_machine.CSEMachine.binop"><code class="docutils literal notranslate"><span class="pre">CSEMachine.binop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_machine.CSEMachine.conditional"><code class="docutils literal notranslate"><span class="pre">CSEMachine.conditional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_machine.CSEMachine.evaluate"><code class="docutils literal notranslate"><span class="pre">CSEMachine.evaluate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_machine.CSEMachine.exitEnv"><code class="docutils literal notranslate"><span class="pre">CSEMachine.exitEnv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_machine.CSEMachine.stackLambda"><code class="docutils literal notranslate"><span class="pre">CSEMachine.stackLambda()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_machine.CSEMachine.stackaName"><code class="docutils literal notranslate"><span class="pre">CSEMachine.stackaName()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_machine.CSEMachine.tupleFormation"><code class="docutils literal notranslate"><span class="pre">CSEMachine.tupleFormation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.cse_machine.CSEMachine.unop"><code class="docutils literal notranslate"><span class="pre">CSEMachine.unop()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rpal_interpreter.html#module-rpal_interpreter.lexer">rpal_interpreter.lexer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.lexer.Lexer"><code class="docutils literal notranslate"><span class="pre">Lexer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.lexer.Lexer.lookAhead"><code class="docutils literal notranslate"><span class="pre">Lexer.lookAhead()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.lexer.Lexer.nextToken"><code class="docutils literal notranslate"><span class="pre">Lexer.nextToken()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.lexer.Lexer.reset"><code class="docutils literal notranslate"><span class="pre">Lexer.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.lexer.Lexer.tokenize"><code class="docutils literal notranslate"><span class="pre">Lexer.tokenize()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rpal_interpreter.html#module-rpal_interpreter.nodes">rpal_interpreter.nodes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes"><code class="docutils literal notranslate"><span class="pre">Nodes</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.AND"><code class="docutils literal notranslate"><span class="pre">Nodes.AND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.AND_OP"><code class="docutils literal notranslate"><span class="pre">Nodes.AND_OP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.ARROW"><code class="docutils literal notranslate"><span class="pre">Nodes.ARROW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.ASSIGN"><code class="docutils literal notranslate"><span class="pre">Nodes.ASSIGN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.AT"><code class="docutils literal notranslate"><span class="pre">Nodes.AT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.AUG"><code class="docutils literal notranslate"><span class="pre">Nodes.AUG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.BOP"><code class="docutils literal notranslate"><span class="pre">Nodes.BOP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.COMMA"><code class="docutils literal notranslate"><span class="pre">Nodes.COMMA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.DIVIDE"><code class="docutils literal notranslate"><span class="pre">Nodes.DIVIDE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.DUMMY"><code class="docutils literal notranslate"><span class="pre">Nodes.DUMMY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.EQ"><code class="docutils literal notranslate"><span class="pre">Nodes.EQ</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.FALSE"><code class="docutils literal notranslate"><span class="pre">Nodes.FALSE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.FCN_FORM"><code class="docutils literal notranslate"><span class="pre">Nodes.FCN_FORM</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.GAMMA"><code class="docutils literal notranslate"><span class="pre">Nodes.GAMMA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.GE"><code class="docutils literal notranslate"><span class="pre">Nodes.GE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.GR"><code class="docutils literal notranslate"><span class="pre">Nodes.GR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.LAMBDA"><code class="docutils literal notranslate"><span class="pre">Nodes.LAMBDA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.LE"><code class="docutils literal notranslate"><span class="pre">Nodes.LE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.LET"><code class="docutils literal notranslate"><span class="pre">Nodes.LET</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.LS"><code class="docutils literal notranslate"><span class="pre">Nodes.LS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.MINUS"><code class="docutils literal notranslate"><span class="pre">Nodes.MINUS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.MULTIPLY"><code class="docutils literal notranslate"><span class="pre">Nodes.MULTIPLY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.NE"><code class="docutils literal notranslate"><span class="pre">Nodes.NE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.NEG"><code class="docutils literal notranslate"><span class="pre">Nodes.NEG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.NIL"><code class="docutils literal notranslate"><span class="pre">Nodes.NIL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.NOT"><code class="docutils literal notranslate"><span class="pre">Nodes.NOT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.OR"><code class="docutils literal notranslate"><span class="pre">Nodes.OR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.PARENS"><code class="docutils literal notranslate"><span class="pre">Nodes.PARENS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.PLUS"><code class="docutils literal notranslate"><span class="pre">Nodes.PLUS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.POWER"><code class="docutils literal notranslate"><span class="pre">Nodes.POWER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.REC"><code class="docutils literal notranslate"><span class="pre">Nodes.REC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.TAU"><code class="docutils literal notranslate"><span class="pre">Nodes.TAU</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.TRUE"><code class="docutils literal notranslate"><span class="pre">Nodes.TRUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.UOP"><code class="docutils literal notranslate"><span class="pre">Nodes.UOP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.WHERE"><code class="docutils literal notranslate"><span class="pre">Nodes.WHERE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.WITHIN"><code class="docutils literal notranslate"><span class="pre">Nodes.WITHIN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.nodes.Nodes.YSTAR"><code class="docutils literal notranslate"><span class="pre">Nodes.YSTAR</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rpal_interpreter.html#module-rpal_interpreter.parser">rpal_interpreter.parser module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.parser.Parser"><code class="docutils literal notranslate"><span class="pre">Parser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.parser.Parser.buildTree"><code class="docutils literal notranslate"><span class="pre">Parser.buildTree()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.parser.Parser.getAST"><code class="docutils literal notranslate"><span class="pre">Parser.getAST()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.parser.Parser.lookahead"><code class="docutils literal notranslate"><span class="pre">Parser.lookahead()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.parser.Parser.nextToken"><code class="docutils literal notranslate"><span class="pre">Parser.nextToken()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.parser.Parser.parse"><code class="docutils literal notranslate"><span class="pre">Parser.parse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.parser.Parser.read"><code class="docutils literal notranslate"><span class="pre">Parser.read()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.parser.ParserStack"><code class="docutils literal notranslate"><span class="pre">ParserStack</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.parser.ParserStack.pop"><code class="docutils literal notranslate"><span class="pre">ParserStack.pop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.parser.ParserStack.push"><code class="docutils literal notranslate"><span class="pre">ParserStack.push()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.parser.ParserStack.top"><code class="docutils literal notranslate"><span class="pre">ParserStack.top()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rpal_interpreter.html#module-rpal_interpreter.rpal_parser">rpal_interpreter.rpal_parser module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser"><code class="docutils literal notranslate"><span class="pre">RPALParser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.parse"><code class="docutils literal notranslate"><span class="pre">RPALParser.parse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_A"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_A()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_Af"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Af()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_Ap"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Ap()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_At"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_At()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_B"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_B()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_Bp"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Bp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_Bs"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Bs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_Bt"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Bt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_D"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_D()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_Da"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Da()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_Db"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Db()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_Dr"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Dr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_E"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_E()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_Ew"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Ew()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_R"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_R()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_Rn"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Rn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_T"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_T()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_Ta"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Ta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_Tc"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Tc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_Vb"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Vb()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.rpal_parser.RPALParser.proc_Vl"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Vl()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rpal_interpreter.html#module-rpal_interpreter.symbol">rpal_interpreter.symbol module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.BetaSymbol"><code class="docutils literal notranslate"><span class="pre">BetaSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.BinaryOperatorSymbol"><code class="docutils literal notranslate"><span class="pre">BinaryOperatorSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.DeltaSymbol"><code class="docutils literal notranslate"><span class="pre">DeltaSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.EnvMarkerSymbol"><code class="docutils literal notranslate"><span class="pre">EnvMarkerSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.GammaSymbol"><code class="docutils literal notranslate"><span class="pre">GammaSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.LambdaClosureSymbol"><code class="docutils literal notranslate"><span class="pre">LambdaClosureSymbol</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.LambdaClosureSymbol.getEnvMarkerIndex"><code class="docutils literal notranslate"><span class="pre">LambdaClosureSymbol.getEnvMarkerIndex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.LambdaSymbol"><code class="docutils literal notranslate"><span class="pre">LambdaSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.NameSymbol"><code class="docutils literal notranslate"><span class="pre">NameSymbol</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.NameSymbol.checkNameSymbolType"><code class="docutils literal notranslate"><span class="pre">NameSymbol.checkNameSymbolType()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.OperatorSymbol"><code class="docutils literal notranslate"><span class="pre">OperatorSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.Symbol"><code class="docutils literal notranslate"><span class="pre">Symbol</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.Symbol.isType"><code class="docutils literal notranslate"><span class="pre">Symbol.isType()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.SymbolFactory"><code class="docutils literal notranslate"><span class="pre">SymbolFactory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.SymbolFactory.createSymbol"><code class="docutils literal notranslate"><span class="pre">SymbolFactory.createSymbol()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.TauSymbol"><code class="docutils literal notranslate"><span class="pre">TauSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.TupleSymbol"><code class="docutils literal notranslate"><span class="pre">TupleSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.symbol.UnaryOperatorSymbol"><code class="docutils literal notranslate"><span class="pre">UnaryOperatorSymbol</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rpal_interpreter.html#module-rpal_interpreter.tokens">rpal_interpreter.tokens module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.BuildTreeException"><code class="docutils literal notranslate"><span class="pre">BuildTreeException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.BuiltTreeException"><code class="docutils literal notranslate"><span class="pre">BuiltTreeException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.CommaToken"><code class="docutils literal notranslate"><span class="pre">CommaToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.CommaToken.regex"><code class="docutils literal notranslate"><span class="pre">CommaToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.CommentToken"><code class="docutils literal notranslate"><span class="pre">CommentToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.CommentToken.regex"><code class="docutils literal notranslate"><span class="pre">CommentToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.IdentifierToken"><code class="docutils literal notranslate"><span class="pre">IdentifierToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.IdentifierToken.regex"><code class="docutils literal notranslate"><span class="pre">IdentifierToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.IntegerToken"><code class="docutils literal notranslate"><span class="pre">IntegerToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.IntegerToken.regex"><code class="docutils literal notranslate"><span class="pre">IntegerToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.InvalidTokenException"><code class="docutils literal notranslate"><span class="pre">InvalidTokenException</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.InvalidTokenException.fromLine"><code class="docutils literal notranslate"><span class="pre">InvalidTokenException.fromLine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.InvalidTokenException.fromToken"><code class="docutils literal notranslate"><span class="pre">InvalidTokenException.fromToken()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.KeywordToken"><code class="docutils literal notranslate"><span class="pre">KeywordToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.KeywordToken.values"><code class="docutils literal notranslate"><span class="pre">KeywordToken.values()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.LParenToken"><code class="docutils literal notranslate"><span class="pre">LParenToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.LParenToken.regex"><code class="docutils literal notranslate"><span class="pre">LParenToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.OperatorToken"><code class="docutils literal notranslate"><span class="pre">OperatorToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.OperatorToken.regex"><code class="docutils literal notranslate"><span class="pre">OperatorToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.RParenToken"><code class="docutils literal notranslate"><span class="pre">RParenToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.RParenToken.regex"><code class="docutils literal notranslate"><span class="pre">RParenToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.SemiColonToken"><code class="docutils literal notranslate"><span class="pre">SemiColonToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.SemiColonToken.regex"><code class="docutils literal notranslate"><span class="pre">SemiColonToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.SpacesToken"><code class="docutils literal notranslate"><span class="pre">SpacesToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.SpacesToken.regex"><code class="docutils literal notranslate"><span class="pre">SpacesToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.StringToken"><code class="docutils literal notranslate"><span class="pre">StringToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.StringToken.regex"><code class="docutils literal notranslate"><span class="pre">StringToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.Token"><code class="docutils literal notranslate"><span class="pre">Token</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.Token.fromValue"><code class="docutils literal notranslate"><span class="pre">Token.fromValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.Token.getType"><code class="docutils literal notranslate"><span class="pre">Token.getType()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.Token.getValue"><code class="docutils literal notranslate"><span class="pre">Token.getValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.Token.instance"><code class="docutils literal notranslate"><span class="pre">Token.instance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.Token.isType"><code class="docutils literal notranslate"><span class="pre">Token.isType()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.Token.isValue"><code class="docutils literal notranslate"><span class="pre">Token.isValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.Token.regex"><code class="docutils literal notranslate"><span class="pre">Token.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.TokenRegex"><code class="docutils literal notranslate"><span class="pre">TokenRegex</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.TokenRegex.CloseParen"><code class="docutils literal notranslate"><span class="pre">TokenRegex.CloseParen</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.TokenRegex.Comma"><code class="docutils literal notranslate"><span class="pre">TokenRegex.Comma</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.TokenRegex.Comment"><code class="docutils literal notranslate"><span class="pre">TokenRegex.Comment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.TokenRegex.Identifier"><code class="docutils literal notranslate"><span class="pre">TokenRegex.Identifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.TokenRegex.Integer"><code class="docutils literal notranslate"><span class="pre">TokenRegex.Integer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.TokenRegex.OPERATOR_SYMBOL"><code class="docutils literal notranslate"><span class="pre">TokenRegex.OPERATOR_SYMBOL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.TokenRegex.OpenParen"><code class="docutils literal notranslate"><span class="pre">TokenRegex.OpenParen</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.TokenRegex.Operator"><code class="docutils literal notranslate"><span class="pre">TokenRegex.Operator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.TokenRegex.SemiColon"><code class="docutils literal notranslate"><span class="pre">TokenRegex.SemiColon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.TokenRegex.Spaces"><code class="docutils literal notranslate"><span class="pre">TokenRegex.Spaces</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.tokens.TokenRegex.String"><code class="docutils literal notranslate"><span class="pre">TokenRegex.String</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rpal_interpreter.html#module-rpal_interpreter.trees">rpal_interpreter.trees module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.ASTNode"><code class="docutils literal notranslate"><span class="pre">ASTNode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.BinaryTreeNode"><code class="docutils literal notranslate"><span class="pre">BinaryTreeNode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.BinaryTreeNode.copy"><code class="docutils literal notranslate"><span class="pre">BinaryTreeNode.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.BinaryTreeNode.deep_copy"><code class="docutils literal notranslate"><span class="pre">BinaryTreeNode.deep_copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.BinaryTreeNode.getLeft"><code class="docutils literal notranslate"><span class="pre">BinaryTreeNode.getLeft()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.BinaryTreeNode.getRight"><code class="docutils literal notranslate"><span class="pre">BinaryTreeNode.getRight()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.BinaryTreeNode.getValue"><code class="docutils literal notranslate"><span class="pre">BinaryTreeNode.getValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.BinaryTreeNode.is_name"><code class="docutils literal notranslate"><span class="pre">BinaryTreeNode.is_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.BinaryTreeNode.setLeft"><code class="docutils literal notranslate"><span class="pre">BinaryTreeNode.setLeft()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.BinaryTreeNode.setRight"><code class="docutils literal notranslate"><span class="pre">BinaryTreeNode.setRight()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.BinaryTreeNode.setValue"><code class="docutils literal notranslate"><span class="pre">BinaryTreeNode.setValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.BinaryTreeNode.valueIs"><code class="docutils literal notranslate"><span class="pre">BinaryTreeNode.valueIs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.STNode"><code class="docutils literal notranslate"><span class="pre">STNode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.STNode.assign_node"><code class="docutils literal notranslate"><span class="pre">STNode.assign_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.STNode.createFCRSNode"><code class="docutils literal notranslate"><span class="pre">STNode.createFCRSNode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.STNode.gamma_node"><code class="docutils literal notranslate"><span class="pre">STNode.gamma_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.STNode.is_gamma"><code class="docutils literal notranslate"><span class="pre">STNode.is_gamma()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.STNode.is_lambda"><code class="docutils literal notranslate"><span class="pre">STNode.is_lambda()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.STNode.lambda_node"><code class="docutils literal notranslate"><span class="pre">STNode.lambda_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.STNode.parseValueInToken"><code class="docutils literal notranslate"><span class="pre">STNode.parseValueInToken()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.STNode.ystar_node"><code class="docutils literal notranslate"><span class="pre">STNode.ystar_node()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.TreeFormatter"><code class="docutils literal notranslate"><span class="pre">TreeFormatter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.trees.TreeFormatter.line_str"><code class="docutils literal notranslate"><span class="pre">TreeFormatter.line_str()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rpal_interpreter.html#module-rpal_interpreter">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.Interpreter"><code class="docutils literal notranslate"><span class="pre">Interpreter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rpal_interpreter.html#rpal_interpreter.Interpreter.interpret"><code class="docutils literal notranslate"><span class="pre">Interpreter.interpret()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tests.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html#module-tests.test_cse_machine">tests.test_cse_machine module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.html#tests.test_cse_machine.TestRPALSTGeneration"><code class="docutils literal notranslate"><span class="pre">TestRPALSTGeneration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_cse_machine.TestRPALSTGeneration.run_rpal"><code class="docutils literal notranslate"><span class="pre">TestRPALSTGeneration.run_rpal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_cse_machine.TestRPALSTGeneration.test_cse_machine"><code class="docutils literal notranslate"><span class="pre">TestRPALSTGeneration.test_cse_machine()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html#module-tests.test_lexer">tests.test_lexer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer"><code class="docutils literal notranslate"><span class="pre">TestLexer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_integer_token"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_integer_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lex"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lex()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lex_comma"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lex_comma()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lex_comment"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lex_comment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lex_comment_2"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lex_comment_2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lex_empty"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lex_empty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lex_invalid_token"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lex_invalid_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lex_one_token"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lex_one_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lex_paren"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lex_paren()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lex_semicolon"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lex_semicolon()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lex_simple"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lex_simple()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lex_spaces"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lex_spaces()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lex_two_tokens"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lex_two_tokens()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lookAhead_after_nextToken"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lookAhead_after_nextToken()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lookAhead_comment"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lookAhead_comment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lookAhead_comment_2"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lookAhead_comment_2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lookAhead_default"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lookAhead_default()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lookAhead_empty"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lookAhead_empty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lookAhead_multiple_calls"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lookAhead_multiple_calls()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_lookAhead_simple"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_lookAhead_simple()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_nextToken"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_nextToken()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_operator_token"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_operator_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_string_token"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_string_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_lexer.TestLexer.test_strings"><code class="docutils literal notranslate"><span class="pre">TestLexer.test_strings()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html#module-tests.test_parser">tests.test_parser module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.html#tests.test_parser.TestParser"><code class="docutils literal notranslate"><span class="pre">TestParser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_parser.TestParser.test_ast_str"><code class="docutils literal notranslate"><span class="pre">TestParser.test_ast_str()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html#module-tests.test_rpal_parser">tests.test_rpal_parser module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.html#tests.test_rpal_parser.TestRPALParser"><code class="docutils literal notranslate"><span class="pre">TestRPALParser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_rpal_parser.TestRPALParser.test"><code class="docutils literal notranslate"><span class="pre">TestRPALParser.test()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_rpal_parser.TestRPALParser.test_D"><code class="docutils literal notranslate"><span class="pre">TestRPALParser.test_D()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_rpal_parser.TestRPALParser.test_E"><code class="docutils literal notranslate"><span class="pre">TestRPALParser.test_E()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_rpal_parser.TestRPALParser.test_E_1"><code class="docutils literal notranslate"><span class="pre">TestRPALParser.test_E_1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_rpal_parser.TestRPALParser.test_E_empty"><code class="docutils literal notranslate"><span class="pre">TestRPALParser.test_E_empty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_rpal_parser.TestRPALParser.test_Rn"><code class="docutils literal notranslate"><span class="pre">TestRPALParser.test_Rn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_rpal_parser.TestRPALParser.test_Rn_empty"><code class="docutils literal notranslate"><span class="pre">TestRPALParser.test_Rn_empty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_rpal_parser.TestRPALParser.test_Tc"><code class="docutils literal notranslate"><span class="pre">TestRPALParser.test_Tc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_rpal_parser.TestRPALParser.test_Vb"><code class="docutils literal notranslate"><span class="pre">TestRPALParser.test_Vb()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_rpal_parser.TestRPALParser.test_Vl"><code class="docutils literal notranslate"><span class="pre">TestRPALParser.test_Vl()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html#module-tests.test_st">tests.test_st module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.html#tests.test_st.TestRPALSTGeneration"><code class="docutils literal notranslate"><span class="pre">TestRPALSTGeneration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_st.TestRPALSTGeneration.get_rpal_st"><code class="docutils literal notranslate"><span class="pre">TestRPALSTGeneration.get_rpal_st()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.html#tests.test_st.TestRPALSTGeneration.test_st_generation"><code class="docutils literal notranslate"><span class="pre">TestRPALSTGeneration.test_st_generation()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html#module-tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">RPAL Interpreter</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2024, Pavan Pitiwaduge & Sandali Liyanage.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
