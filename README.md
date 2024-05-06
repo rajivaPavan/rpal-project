@@ -40,6 +40,7 @@ python -m unittest discover -s tests -p 'test_*.py'
 
 To build the documentation,
 enable the virtual environment
+
 ```powershell
 python -m venv venv ; .\venv\Scripts\Activate
 ```
