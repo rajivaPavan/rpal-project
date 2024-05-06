@@ -182,7 +182,7 @@ class CSEMachine:
         self.stack.removeEnvironment(env_marker)
         self.env = self.env.parent
         
-    operator_map = {
+    __operator_map = {
         
         "+": lambda rator, rand: rator + rand,
         "-": lambda rator, rand: rator - rand,
@@ -211,7 +211,7 @@ class CSEMachine:
         rand_1 = self.stack.popStack().name
         rand_2 = self.stack.popStack().name
 
-        _value = self.apply(operator, rand_1, rand_2)
+        _value = self.__applyOp(operator, rand_1, rand_2)
         self.stack.pushStack(NameSymbol(_value))
         
     def unop(self, operator):
@@ -223,10 +223,10 @@ class CSEMachine:
         
         """
         rand = self.stack.popStack().name
-        _value = self.apply(operator, rand)
+        _value = self.__applyOp(operator, rand)
         self.stack.pushStack(NameSymbol(_value))
             
-    def apply(self, operator, rator, rand = None):
+    def __applyOp(self, operator, rator, rand = None):
         
         """
         
@@ -234,9 +234,9 @@ class CSEMachine:
         
         """ 
         if rand is None:
-            return self.operator_map[operator](rator)
+            return self.__operator_map[operator](rator)
         else:
-            return self.operator_map[operator](rator, rand)
+            return self.__operator_map[operator](rator, rand)
     
     def conditional(self):
         """
