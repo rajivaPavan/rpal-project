@@ -115,6 +115,9 @@ class LambdaClosureSymbol(LambdaSymbol):
     def __init__(self, variables, index, envIndex):
         super().__init__(index, variables)
         self.envMarker: EnvMarkerSymbol = EnvMarkerSymbol(envIndex)
+    
+    def getEnvMarkerIndex(self):
+        return self.envMarker.envIndex
         
 
 class EnvMarkerSymbol(Symbol):
