@@ -32,6 +32,20 @@ python -m unittest tests/test_parser.py
 python -m unittest tests/test_rpal_parser.py
 
 # all
-python3 -m unittest discover -s tests -p 'test_*.py'
+python -m unittest discover -s tests -p 'test_*.py'
 
 ```
+
+# Documentation
+
+To build the documentation,
+enable the virtual environment
+```
+python -m venv venv ; .\venv\Scripts\Activate
+```
+
+install the required packages
+```
+pip install -r requirements.txt
+```
+
