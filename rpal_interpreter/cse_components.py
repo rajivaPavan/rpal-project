@@ -187,7 +187,6 @@ class ControlStructures:
 
         # start the traversal from the root of the tree
         traverse(st, deltaIndex)
-        pprint.pp(self.__controlStructureMap)
         return self.__controlStructureMap
 
     def __addNewControlStruct(self, deltaIndex: int):
@@ -200,6 +199,8 @@ class ControlStructures:
         """Returns the control struct for the given key."""	
         return self.__controlStructureMap[deltaIndex]
                 
+    def __repr__(self):
+        return pprint.pformat(self.__controlStructureMap)
 
 
 
