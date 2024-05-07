@@ -76,6 +76,10 @@ class Environment:
         self.parent : Environment = parent
         self.envData = {}      
         
+    def getIndex(self):
+        return self.envMarker.envIndex
+        
+        
     def insertEnvData(self, name, value):
         """Inserts the values for the variables in the environment."""  
         self.envData[name] = value
