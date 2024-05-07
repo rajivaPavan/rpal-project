@@ -34,3 +34,7 @@ egg-info/
 Thumbs.db
 
 docs/_build
+
+# rst files except index.rst inside docs directory
+docs/*.rst
+!docs/index.rst
