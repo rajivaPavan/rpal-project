@@ -1,7 +1,8 @@
 from typing import Iterable
 from interpreter.ast.nodes import Nodes
+from interpreter.cse_machine.functions import DefinedFunctions
 from .st import STNode
-
+from logger import logger
 
 class Symbol:
     
@@ -35,6 +36,8 @@ class SymbolFactory:
                 value = value == Nodes.TRUE
             elif value in [Nodes.DUMMY, Nodes.NIL]:
                 raise NotImplementedError()
+            # elif value in DefinedFunctions.PREDFINED:
+            #     return FunctionSymbol(node.getN(), [])
 
             return NameSymbol(value)
         elif value in Nodes.BOP:
@@ -46,6 +49,7 @@ class SymbolFactory:
         elif value is Nodes.YSTAR:
             return YStarSymbol()
         else:
+            logger.error(f"Invalid node type:{value}")
             raise Exception(f"Invalid node type:{value}")
 
 #Subclasses of Symbol
@@ -62,7 +66,8 @@ class NameSymbol(Symbol):
         self.type = name.__class__
         
     def checkNameSymbolType(self, dataType):
-        assert dataType == str or dataType == int or dataType == bool
+        if not(dataType == str or dataType == int or dataType == bool):
+            raise Exception(f"Invalid type for NameSymbol:{dataType}")
         return self.type == dataType
         
 class OperatorSymbol(Symbol):
@@ -72,6 +77,13 @@ class OperatorSymbol(Symbol):
         
     def __repr__(self):
         return f"{self.operator}"
+    
+class FunctionSymbol(Symbol):
+
+    def __init__(self):
+        super().__init__()
+
+    
     
 class BinaryOperatorSymbol(OperatorSymbol):
     def __init__(self, operator):
@@ -213,6 +225,9 @@ class TupleSymbol(TauSymbol):
     def __init__(self, n, tupleList):
         super().__init__(n)
         self.tuple = tuple(tupleList)
+
+    def __repr__(self):
+        return f"({', '.join([str(tup_el) for tup_el in self.tuple])})"
 
 
 class YStarSymbol(Symbol):

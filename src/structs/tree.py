@@ -11,7 +11,7 @@ class BinaryTreeNode:
         self.__left = left
         self.__right = right
         
-    def valueIs(self, value):
+    def isValue(self, value):
         if not isinstance(self.__value, type(value)):
             return False
         return value == self.__value

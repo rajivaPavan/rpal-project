@@ -139,7 +139,7 @@ class ASTStandardizer:
         lambda_left:STNode = node.getLeft()
 
         # handle the second lambda transform that has ,
-        if lambda_left.valueIs(Nodes.COMMA):
+        if lambda_left.isValue(Nodes.COMMA):
             return STNode.copy(node)
         
         lambda_ = ASTStandardizer.__transform_lambda_helper(lambda_left)

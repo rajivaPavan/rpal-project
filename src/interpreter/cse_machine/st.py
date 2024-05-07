@@ -34,22 +34,16 @@ class STNode(BinaryTreeNode):
         return STNode.createFCRSNode(Nodes.LAMBDA, left, right)
     
     def is_lambda(self):
-        value = self.getValue()
-        if not isinstance(value, str):
-            return False
-        return value == Nodes.LAMBDA
+        return self.isValue(Nodes.LAMBDA)
     
     def is_gamma(self):
-        value = self.getValue()
-        if not isinstance(value, str):
-            return False
-        return value == Nodes.GAMMA
+        return self.isValue(Nodes.GAMMA)
     
     def is_conditional(self):
-        value = self.getValue()
-        if not isinstance(value, str):
-            return False
-        return value == Nodes.COND
+        return self.isValue(Nodes.COND)
+    
+    def is_tau(self):
+        return self.isValue(Nodes.TAU)
     
     @staticmethod
     def assign_node(left = None, right = None):
@@ -66,10 +60,26 @@ class STNode(BinaryTreeNode):
         return STNode(Nodes.YSTAR)
     
     def parseValueInToken(self):
-        assert isinstance(self.getValue(), Token)
-
-        token: Token = self.getValue()
+        token = self.getValue()
+        if not isinstance(token, Token):
+            return token
         return token.getValue()
+    
+    def getSibilingCount(self):
+        count = 0
+        right = self.getRight()
+        while right is not None:
+            count += 1
+            right = right.getRight()
+        return count
+    
+    def getChildrenCount(self):
+        count = 0
+        left = self.getLeft()
+        while left is not None:
+            count += 1
+            left = left.getRight()
+        return count
     
     
 
