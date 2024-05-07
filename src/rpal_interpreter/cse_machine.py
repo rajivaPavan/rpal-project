@@ -4,6 +4,7 @@ from rpal_interpreter.trees import STNode
 from .symbol import *
 from .cse_components import *
 import logger
+import rpal_interpreter.__stack as ds
 
 class CSEMachine:
     """
@@ -26,7 +27,9 @@ class CSEMachine:
         # init env
         self.envIndexCounter = 0
         self.envMap = dict()
+        self.__envStack: ds.Stack[Environment] = ds.Stack()
         self.__create_env(self.envIndexCounter)
+
 
         # init stack
         self.stack = Stack()
@@ -42,9 +45,10 @@ class CSEMachine:
         parent = None
         if parent_index is not None:
             parent = self.envMap[parent_index]
-        self.env = Environment(index,parent)
-        self.envMap[index] = self.env
-        
+
+        new_env = Environment(index,parent)
+        self.envMap[index] = new_env
+        self.__envStack.push(new_env)        
 
     def evaluate(self):
         
@@ -93,6 +97,12 @@ class CSEMachine:
                
         return self.evaluate()
         
+    def currentEnv(self)->Environment:
+        """
+        Returns the current environment.
+        """
+        return self.__envStack.peek()
+    
 
     def stackName(self, symbol: Symbol):
         """
@@ -110,7 +120,7 @@ class CSEMachine:
         symbol:NameSymbol = symbol
         if symbol.checkNameSymbolType(str):
             try:
-                _value = self.env.lookUpEnv(symbol.name)
+                _value = self.currentEnv().lookUpEnv(symbol.name)
             except Exception as e:
                 map = pprint.pformat(self.envMap)
                 self.logger.info(f"envMap: {map}")
@@ -133,7 +143,7 @@ class CSEMachine:
         """
 
         self.logger.debug("rule 2")
-        __currentEnvIndex = self.env.getIndex()
+        __currentEnvIndex = self.currentEnv().getIndex()
         self.stack.pushStack(LambdaClosureSymbol(_lambda.variables, _lambda.index, __currentEnvIndex))         
             
     def applyLambda(self):
@@ -175,7 +185,7 @@ class CSEMachine:
                 if stack_top.isType(NameSymbol):
                     stack_top = stack_top.name
                 # else if stack_top is a eta closure, just add it as it is 
-                self.env.insertEnvData(env_variables[i], stack_top)
+                self.currentEnv().insertEnvData(env_variables[i], stack_top)
                 
             self.__addEnvMarker(env_index)
             self.control.insertControlStruct(self.csMap.get(_lambdaClosure.index))         
@@ -223,7 +233,7 @@ class CSEMachine:
         self.logger.debug("rule 5")
 
         self.stack.removeEnvironment(env_marker)
-        self.env = self.env.parent
+        self.__envStack.pop()
         
     __operator_map = {
         
