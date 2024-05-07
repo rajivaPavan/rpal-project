@@ -36,9 +36,6 @@ class SymbolFactory:
                 value = value == Nodes.TRUE
             elif value in [Nodes.DUMMY, Nodes.NIL]:
                 raise NotImplementedError()
-            # elif value in DefinedFunctions.PREDFINED:
-            #     return FunctionSymbol(node.getN(), [])
-
             return NameSymbol(value)
         elif value in Nodes.BOP:
             return BinaryOperatorSymbol(value)
@@ -56,24 +53,29 @@ class NameSymbol(Symbol):
     Represents variables and numerics in the CSE machine.
     """
     def __repr__(self):
-        return f"{self.name}"
+        if NameSymbol.isValidType(self.nameType):
+            return f"`{self.name}`"
+        return f"`{self}`"
     
     def __init__(self, name):
         super().__init__()
         self.name = name  
         self.nameType = name.__class__
-        
-    def checkNameSymbolType(self, dataType):
-        if not(self.isPrimitive() or self.isTupleSymbol()):
-            raise Exception(f"Invalid type for NameSymbol:{dataType}")
-        return self.nameType == dataType
+
+    def isString(self):
+        return self.nameType == str
     
-    def isPrimitive(self):
-        return self.nameType == str or self.nameType == int or self.nameType == bool
+    @staticmethod
+    def isPrimitive(nameType):
+        return nameType == str or nameType == int or nameType == bool
     
-    def isTupleSymbol(self):
-        return self.nameType == TupleSymbol
+    @staticmethod
+    def isTupleSymbol(nameType):
+        return nameType == TupleSymbol
     
+    @staticmethod
+    def isValidType(nameType):
+        return NameSymbol.isPrimitive(nameType) or NameSymbol.isTupleSymbol(nameType)
             
 class OperatorSymbol(Symbol):
     def __init__(self, operator):

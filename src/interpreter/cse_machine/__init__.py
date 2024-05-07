@@ -84,7 +84,8 @@ class CSEMachine:
                 self.applyFP(top)
             elif top.isType(NameSymbol):
                 # Rule 10
-                self.tupleSelection(top)
+                tuple_symbol:TupleSymbol = top.name
+                self.tupleSelection(tuple_symbol)
             elif top.isType(LambdaClosureSymbol):
                 # Rule 4, 11
                 self.applyLambda(top)
@@ -138,7 +139,7 @@ class CSEMachine:
             return  
         
         symbol:NameSymbol = symbol
-        if symbol.checkNameSymbolType(str):
+        if symbol.isString():
             try:
                 _value = self.currentEnv().lookUpEnv(symbol.name)
             except Exception as e:
@@ -344,18 +345,16 @@ class CSEMachine:
         new_n_tuple = TupleSymbol(n, tupleList)
         self.stack.pushStack(new_n_tuple)
 
-    def tupleSelection(self, _tau: TauSymbol):
+    def tupleSelection(self, tuple:TupleSymbol):
         """
         CSE Rule 10
         """
         self.logger.debug("rule 10")
-
-        tuple_symbol:TupleSymbol = self.stack.popStack()
-        tuple = tuple_symbol.tuple
-        logger.debug(f"tuple: {tuple}")
         name_symbol:NameSymbol = self.stack.popStack()
         n = name_symbol.name
-        self.stack.pushStack(NameSymbol(tuple[n]))
+
+        self.logger.debug(f"tuple: {tuple}, access n: {n}")
+        self.stack.pushStack(NameSymbol(tuple.tuple[n-1]))
 
     def applyFunction(self, top: FunctionSymbol):
         """
@@ -374,13 +373,18 @@ class CSEMachine:
             self.applyLambda(lambda_closure)
             return 
         else:
-            symbol:NameSymbol = symbol
-            if symbol.isTupleSymbol():
-                value:TupleSymbol = symbol.name
-                arg = value.tuple
+            if isinstance(symbol, TupleSymbol):
+                arg = symbol.tuple
+            elif isinstance(symbol, NameSymbol):
+                value = symbol.name
+                if isinstance(value, TupleSymbol):
+                    arg = value.tuple
+                else:
+                    arg = value
             else:
                 # for primitive data types
                 arg = symbol.name
+
         function_result = function.run(arg)
 
         if function_result is not None:
