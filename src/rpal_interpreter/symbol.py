@@ -17,6 +17,9 @@ class Symbol:
         
     def isType(self, t):
         return self.__class__ == t
+
+    def __eq__(self, other):
+        return id(self) == id(other)
     
 class SymbolFactory:
 
@@ -155,6 +158,11 @@ class EnvMarkerSymbol(Symbol):
 
     def __repr__(self) -> str:
         return f"e{self.envIndex}"
+    
+    def __eq__(self, other):
+        if not isinstance(other, EnvMarkerSymbol):
+            return False
+        return self.envIndex == other.envIndex
         
 class DeltaSymbol(Symbol):
     

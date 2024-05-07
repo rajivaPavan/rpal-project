@@ -1,11 +1,10 @@
-import pprint
 import sys
-from joblib import Logger
 from rpal_interpreter.cse_control_structures import CSInitializer
 from rpal_interpreter.trees import STNode
 from .symbol import *
 from .cse_components import *
 import logging
+from logging import Logger
 
 class CSEMachine:
     """
@@ -38,7 +37,7 @@ class CSEMachine:
         
         # setup logging
         self.logger:Logger = logging.getLogger("CSEMachine")
-        self.logger.setLevel(logging.DEBUG)
+        self.logger.setLevel(logging.CRITICAL+1)
         logging.basicConfig(stream=sys.stdout, level=logging.DEBUG, format='%(levelname)s - %(message)s')
 
         # log the initial cs map
