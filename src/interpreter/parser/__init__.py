@@ -1,6 +1,7 @@
-from rpal_interpreter.nodes import Nodes
-from .parser import Parser
-from .tokens import *
+from interpreter.ast.nodes import Nodes
+from .__parser import Parser
+from interpreter.lexer.tokens import *
+
 class RPALParser(Parser):
     def __init__(self,src):
         super().__init__(src)

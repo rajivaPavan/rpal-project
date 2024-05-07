@@ -1,10 +1,12 @@
 import pprint
-from rpal_interpreter.cse_control_structures import CSInitializer
-from rpal_interpreter.trees import STNode
+from .control_structures import CSInitializer
+from .st import STNode
 from .symbol import *
-from .cse_components import *
+from .stack import Stack
+from .environment import Environment
+from .control import Control
 import logger
-import rpal_interpreter.__stack as ds
+import structs.stack as ds
 
 class CSEMachine:
     """

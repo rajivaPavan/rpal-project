@@ -1,5 +1,7 @@
-from rpal_interpreter.nodes import Nodes
-from rpal_interpreter.trees import BinaryTreeNode, STNode, ASTNode
+from interpreter.ast import ASTNode
+from interpreter.cse_machine.st import STNode
+from .nodes import Nodes
+from structs.tree import BinaryTreeNode
 
 
 class ASTStandardizer:

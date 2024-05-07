@@ -1,5 +1,5 @@
 import unittest
-from rpal_interpreter.rpal_parser import RPALParser
+from interpreter.parser import RPALParser
 from __helpers import read_file
 
 

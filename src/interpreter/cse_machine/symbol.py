@@ -1,7 +1,6 @@
 from typing import Iterable
-from rpal_interpreter.nodes import Nodes
-
-from rpal_interpreter.trees import STNode
+from interpreter.ast.nodes import Nodes
+from .st import STNode
 
 
 class Symbol:

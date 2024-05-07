@@ -1,6 +1,6 @@
 
 import sys
-from rpal_interpreter import Interpreter
+from interpreter import Interpreter
 from __helpers import *
 
 def main():

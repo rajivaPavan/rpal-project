@@ -1,8 +1,8 @@
 import pprint
-from typing import Dict, Iterator, List
+from typing import Iterator, List
 
-from rpal_interpreter.symbol import *
-from rpal_interpreter.trees import STNode
+from .symbol import *
+from .st import STNode
 
 
 class ControlStruct(Iterable):
