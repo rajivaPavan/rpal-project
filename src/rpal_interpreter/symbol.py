@@ -41,6 +41,8 @@ class SymbolFactory:
             return UnaryOperatorSymbol(value)
         elif value is Nodes.TAU:
             return TauSymbol(value)
+        elif value is Nodes.YSTAR:
+            return YStarSymbol()
         else:
             raise Exception(f"Invalid node type:{value}")
 
@@ -182,6 +184,15 @@ class TupleSymbol(TauSymbol):
         super().__init__(n)
         self.tuple = tuple(tupleList)
 
+
+class YStarSymbol(Symbol):
+    
+    """
+    Represents a Y* symbol in the CSE machine.
+    """
+
+    def __repr__(self):
+        return f"Y*"
 
 
         
