@@ -1,10 +1,8 @@
-import sys
 from rpal_interpreter.cse_control_structures import CSInitializer
 from rpal_interpreter.trees import STNode
 from .symbol import *
 from .cse_components import *
-import logging
-from logging import Logger
+import logger
 
 class CSEMachine:
     """
@@ -12,9 +10,7 @@ class CSEMachine:
     used in the RPAL language interpreter. It manages the control structures, environment, and stack
     to intepret the RPAL code. The class provides methods to evaluate expressions based on the cse machine rules
     """
-    
-    
-    
+
     def __init__(self, st:STNode):
         """
         Initializes the CSE machine with the given standardized tree.
@@ -34,13 +30,10 @@ class CSEMachine:
         # init stack
         self.stack = Stack()
         self.stack.pushStack(EnvMarkerSymbol(0)) # e0 is the first in the stack
-        
-        # setup logging
-        self.logger:Logger = logging.getLogger("CSEMachine")
-        self.logger.setLevel(logging.CRITICAL+1)
-        logging.basicConfig(stream=sys.stdout, level=logging.DEBUG, format='%(levelname)s - %(message)s')
 
-        # log the initial cs map
+        # set the initialized logger object
+        self.logger = logger.logger
+        
         self.logger.info(f"csMap: \n{self.csMap}\n")
 
     def __create_env(self, index, parent_index = None):
