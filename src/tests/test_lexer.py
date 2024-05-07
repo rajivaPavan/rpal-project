@@ -1,7 +1,7 @@
 # test/test_lexer.py
 import unittest
 from rpal_interpreter.lexer import Lexer
-from helpers import read_file
+from __helpers import read_file
 from rpal_interpreter.tokens import InvalidTokenException
 
 class TestLexer(unittest.TestCase):

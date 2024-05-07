@@ -1,7 +1,7 @@
 
 import sys
 from rpal_interpreter import Interpreter
-from helpers import *
+from __helpers import *
 
 def main():
     """Entry point for the RPAL lexical analyzer and parser.

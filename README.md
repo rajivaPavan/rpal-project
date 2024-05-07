@@ -53,8 +53,8 @@ pip install -r requirements.txt
 
 From the root directory of the project, run the following commands:
 ```bash
-sphinx-apidoc -o docs src
 cd docs
+sphinx-apidoc -o . ../src
 ./make html # or whatever format you want
 ```
 to find list of available formats, run
