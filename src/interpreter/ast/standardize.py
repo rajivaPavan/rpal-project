@@ -1,5 +1,7 @@
-from rpal_interpreter.nodes import Nodes
-from rpal_interpreter.trees import BinaryTreeNode, STNode, ASTNode
+from interpreter.ast import ASTNode
+from interpreter.cse_machine.st import STNode
+from .nodes import Nodes
+from structs.tree import BinaryTreeNode
 
 
 class ASTStandardizer:
@@ -25,7 +27,7 @@ class ASTStandardizer:
         
     # list of values of nodes that do not need to be standardized
     NON_STANDARDIZE = Nodes.UOP + Nodes.BOP + [
-        Nodes.GAMMA, Nodes.TAU, Nodes.ARROW, Nodes.COMMA,
+        Nodes.GAMMA, Nodes.TAU, Nodes.COND, Nodes.COMMA,
         Nodes.TRUE,Nodes.FALSE, Nodes.DUMMY, Nodes.NIL
     ]
 

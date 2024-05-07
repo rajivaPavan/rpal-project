@@ -1,7 +1,6 @@
 from typing import Iterable
-from rpal_interpreter.nodes import Nodes
-
-from rpal_interpreter.trees import STNode
+from interpreter.ast.nodes import Nodes
+from .st import STNode
 
 
 class Symbol:
@@ -17,6 +16,9 @@ class Symbol:
         
     def isType(self, t):
         return self.__class__ == t
+
+    def __eq__(self, other):
+        return id(self) == id(other)
     
 class SymbolFactory:
 
@@ -41,6 +43,8 @@ class SymbolFactory:
             return UnaryOperatorSymbol(value)
         elif value is Nodes.TAU:
             return TauSymbol(value)
+        elif value is Nodes.YSTAR:
+            return YStarSymbol()
         else:
             raise Exception(f"Invalid node type:{value}")
 
@@ -103,7 +107,6 @@ class LambdaSymbol(Symbol):
         return f"<lambda, ({', '.join(self.variables)}), {self.index}>"
         
 class LambdaClosureSymbol(LambdaSymbol):
-    
     """Represents a lambda closure (lambda in the stack) in the CSE machine.
     
         Has the additional attribute envIndex.
@@ -111,14 +114,38 @@ class LambdaClosureSymbol(LambdaSymbol):
         Extends the Lambda class.
     """
     
-    
     def __init__(self, variables, index, envIndex):
         super().__init__(index, variables)
         self.envMarker: EnvMarkerSymbol = EnvMarkerSymbol(envIndex)
     
     def getEnvMarkerIndex(self):
         return self.envMarker.envIndex
+    
+    def __repr__(self):
+        return f"<lambda, ({', '.join(self.variables)}), {self.index}, {self.envMarker}>"
+    
+
+class EtaClosureSymbol(LambdaClosureSymbol):
+        """Represents an eta closure in the CSE machine.
         
+        Extends the LambdaClosure class.
+        """
+        
+        def __init__(self, variables, index, envIndex):
+            super().__init__(variables, index, envIndex)
+        
+        def __repr__(self):
+            return f"<eta, ({', '.join(self.variables)}), {self.index}, {self.envMarker}>"
+        
+        @staticmethod
+        def fromLambdaClosure(lambdaClosure:LambdaClosureSymbol):
+            """Creates an eta closure from a lambda closure."""
+            return EtaClosureSymbol(lambdaClosure.variables, lambdaClosure.index, lambdaClosure.getEnvMarkerIndex())
+        
+        @staticmethod
+        def toLambdaClosure(etaClosure):
+            """Converts an eta closure to a lambda closure."""
+            return LambdaClosureSymbol(etaClosure.variables, etaClosure.index, etaClosure.getEnvMarkerIndex())
 
 class EnvMarkerSymbol(Symbol):
     
@@ -130,6 +157,11 @@ class EnvMarkerSymbol(Symbol):
 
     def __repr__(self) -> str:
         return f"e{self.envIndex}"
+    
+    def __eq__(self, other):
+        if not isinstance(other, EnvMarkerSymbol):
+            return False
+        return self.envIndex == other.envIndex
         
 class DeltaSymbol(Symbol):
     
@@ -140,8 +172,11 @@ class DeltaSymbol(Symbol):
     """
     
     def __init__(self, index):
-        super().__init()
+        super().__init__()
         self.index = index
+
+    def __repr__(self) -> str:
+        return f"delta-{self.index}"
 
 class BetaSymbol(Symbol):
     
@@ -152,6 +187,9 @@ class BetaSymbol(Symbol):
     """
     def __init__(self):
         super().__init__()
+
+    def __repr__(self):
+        return f"beta"
         
 
 class TauSymbol(Symbol):
@@ -176,6 +214,15 @@ class TupleSymbol(TauSymbol):
         super().__init__(n)
         self.tuple = tuple(tupleList)
 
+
+class YStarSymbol(Symbol):
+    
+    """
+    Represents a Y* symbol in the CSE machine.
+    """
+
+    def __repr__(self):
+        return f"Y*"
 
 
         
