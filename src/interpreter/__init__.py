@@ -76,5 +76,4 @@ class Interpreter:
             st = self.__st
             cse = CSEMachine(st)
             result = cse.evaluate()
-            print(result)
 

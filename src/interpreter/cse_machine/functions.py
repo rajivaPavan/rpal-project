@@ -34,6 +34,9 @@ class DefinedFunction():
     def run(self, arg):
         raise NotImplementedError
     
+    def getName(self):
+        return self.__name
+    
     def __repr__(self):
         return f"fn: {self.__name}"
     

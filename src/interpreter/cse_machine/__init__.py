@@ -64,10 +64,9 @@ class CSEMachine:
         right_most = self.control.removeRightMost()
 
         if right_most is None:
-            final_result = self.stack.popStack().name
-            return final_result
+            return
 
-        elif right_most.isType(NameSymbol) or right_most.isType(YStarSymbol):
+        if right_most.isType(NameSymbol) or right_most.isType(YStarSymbol):
             self.stackName(right_most)       
               
         elif right_most.isType(LambdaSymbol):
@@ -365,13 +364,30 @@ class CSEMachine:
         self.logger.debug("rule 14 - apply function")
 
         function:DefinedFunction = top.func
-        name_symbol:NameSymbol = self.stack.popStack()
-        if name_symbol.isTupleSymbol():
-            value:TupleSymbol = name_symbol.name
-            arg = value.tuple
+        symbol = self.stack.popStack()
+        if symbol.isType(LambdaClosureSymbol):
+            # add gamma to the control again
+            self.control.addGamma()
+            # add the function NameSymbol to the control again
+            self.control.addSymbol(NameSymbol(function.getName()))
+            lambda_closure:LambdaClosureSymbol = symbol
+            self.applyLambda(lambda_closure)
+            return 
         else:
-            # for primitive data types
-            arg = name_symbol.name
+            symbol:NameSymbol = symbol
+            if symbol.isTupleSymbol():
+                value:TupleSymbol = symbol.name
+                arg = value.tuple
+            else:
+                # for primitive data types
+                arg = symbol.name
         function_result = function.run(arg)
-        self.stack.pushStack(NameSymbol(function_result))
-        
+
+        if function_result is not None:
+            self.stack.pushStack(NameSymbol(function_result))
+        else:
+            # FIXME: The line below is a hack to handle the function output if None
+            # This is not the right way to handle this. Need to refactor this.
+            self.control.removeRightMost()
+
+
