@@ -3,7 +3,7 @@ from typing import Iterator, List
 
 from .symbol import *
 from .st import STNode
-
+from logger import logger
 
 class ControlStruct(Iterable):
     """
@@ -86,7 +86,6 @@ class CSInitializer:
 
             if node is None:
                 return
-            
             visit(node, deltaIndex)
             # if node is lambda dont traverse left instead traverse right of left
             traverse(node.getLeft(), deltaIndex)
@@ -99,23 +98,41 @@ class CSInitializer:
             currentCS:ControlStruct = self.__get(deltaIndex)
             symbol = None
             if node.is_lambda():
-                deltaIndex = self.__addNewControlStruct(deltaIndex)
-                # add x to the control structure
-                x:STNode = node.getLeft()
-                x_value = x.parseValueInToken()
-                symbol = LambdaSymbol(deltaIndex, [x_value])
-                currentCS.addSymbol(symbol)
-                # don't traverse left of lambda
-                node.setLeft(None)
-                traverse(x.getRight(), deltaIndex)
+                handleLambda(node, deltaIndex, currentCS)
             elif node.is_conditional():
                 # add beta to the control structure
                 handleConditional(node, deltaIndex, currentCS)
+            elif node.is_tau():
+                handleTau(node, deltaIndex, currentCS)
             else:
                 # add to current CS 
                 symbol = SymbolFactory.createSymbol(node)
                 currentCS.addSymbol(symbol)
+            
+
+        def handleLambda(node, deltaIndex, currentCS):
+            deltaIndex = self.__addNewControlStruct(deltaIndex)
+                # add x to the control structure
+            x:STNode = node.getLeft()
+            x_value = x.parseValueInToken()
+            if x_value != Nodes.COMMA:
+                symbol = LambdaSymbol(deltaIndex, [x_value])
+            else:
+                values = valuesOfChildren(x)
+                symbol = LambdaSymbol(deltaIndex, values)
+            currentCS.addSymbol(symbol)
+                # don't traverse left of lambda
+            node.setLeft(None)
+            traverse(x.getRight(), deltaIndex)
             return deltaIndex
+        
+        def valuesOfChildren(node:STNode):
+            node = node.getLeft()
+            values = []
+            while node is not None:
+                values.append(node.parseValueInToken())
+                node = node.getRight()
+            return values
 
         def handleConditional(node:STNode, deltaIndex:int, currentCS:ControlStruct):
             symbol = BetaSymbol()
@@ -137,6 +154,12 @@ class CSInitializer:
             traverse(then_exp, delta_then)
             traverse(else_exp, delta_else)
 
+
+        def handleTau(node:STNode, deltaIndex:int, currentCS:ControlStruct):
+            n = node.getChildrenCount()
+            symbol = TauSymbol(n)
+            currentCS.addSymbol(symbol)
+            return deltaIndex
 
         # Initialize the control structure map
         self.__controlStructureMap = {}   

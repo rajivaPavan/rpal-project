@@ -44,8 +44,6 @@ class SymbolFactory:
             return BinaryOperatorSymbol(value)
         elif value in Nodes.UOP:
             return UnaryOperatorSymbol(value)
-        elif value is Nodes.TAU:
-            return TauSymbol(value)
         elif value is Nodes.YSTAR:
             return YStarSymbol()
         else:
@@ -63,13 +61,20 @@ class NameSymbol(Symbol):
     def __init__(self, name):
         super().__init__()
         self.name = name  
-        self.type = name.__class__
+        self.nameType = name.__class__
         
     def checkNameSymbolType(self, dataType):
-        if not(dataType == str or dataType == int or dataType == bool):
+        if not(self.isPrimitive() or self.isTupleSymbol()):
             raise Exception(f"Invalid type for NameSymbol:{dataType}")
-        return self.type == dataType
-        
+        return self.nameType == dataType
+    
+    def isPrimitive(self):
+        return self.nameType == str or self.nameType == int or self.nameType == bool
+    
+    def isTupleSymbol(self):
+        return self.nameType == TupleSymbol
+    
+            
 class OperatorSymbol(Symbol):
     def __init__(self, operator):
         super().__init__()
@@ -80,9 +85,12 @@ class OperatorSymbol(Symbol):
     
 class FunctionSymbol(Symbol):
 
-    def __init__(self):
+    def __init__(self, func):
         super().__init__()
+        self.func = func
 
+    def __repr__(self):
+        return f"<{self.func}>"
     
     
 class BinaryOperatorSymbol(OperatorSymbol):
@@ -215,7 +223,7 @@ class TauSymbol(Symbol):
         self.n = n
 
     def __repr__(self):
-        return f"tau:{self.n}"
+        return f"<tau:{self.n}>"
         
 class TupleSymbol(TauSymbol):
     """
