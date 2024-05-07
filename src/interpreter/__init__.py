@@ -1,9 +1,9 @@
-from rpal_interpreter.ast_standardizer import ASTStandardizer
-from rpal_interpreter.cse_machine import CSEMachine
-from rpal_interpreter.trees import ASTNode, STNode
-from .lexer import *
-from .rpal_parser import RPALParser
-from .tokens import *
+from interpreter.ast import ASTNode
+from interpreter.cse_machine.st import STNode
+from .ast.standardize import ASTStandardizer
+from .cse_machine import CSEMachine
+from .parser import RPALParser
+from .lexer.tokens import *
 
 class Interpreter:
     

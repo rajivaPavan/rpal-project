@@ -1,6 +1,6 @@
-from .lexer import Lexer
-from .tokens import *
-from .trees import ASTNode
+from interpreter.lexer import Lexer
+from interpreter.lexer.tokens import *
+from interpreter.ast import ASTNode
 
 class Parser:
     """

@@ -1,6 +1,6 @@
 import unittest
-from rpal_interpreter.rpal_parser import RPALParser
-from helpers import read_file
+from interpreter.parser import RPALParser
+from __helpers import read_file
 
 
 class TestRPALParser(unittest.TestCase):
