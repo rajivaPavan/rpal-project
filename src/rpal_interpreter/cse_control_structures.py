@@ -62,6 +62,9 @@ class CSInitializer:
         self.__controlStructureMap = None
         
     def init(self) -> ControlStructures:
+        """Generates the control structures for the CSE machine from the Standardized Tree.
+        
+        Returns: ControlStructures object containing the control structures."""
         self.__initializeCS(self.__st)
         return ControlStructures(self.__controlStructureMap)
     
@@ -107,14 +110,14 @@ class CSInitializer:
                 traverse(x.getRight(), deltaIndex)
             elif node.is_conditional():
                 # add beta to the control structure
-                _handleConditional(node, deltaIndex, currentCS)
+                handleConditional(node, deltaIndex, currentCS)
             else:
                 # add to current CS 
                 symbol = SymbolFactory.createSymbol(node)
                 currentCS.addSymbol(symbol)
             return deltaIndex
 
-        def _handleConditional(node:STNode, deltaIndex:int, currentCS:ControlStruct):
+        def handleConditional(node:STNode, deltaIndex:int, currentCS:ControlStruct):
             symbol = BetaSymbol()
             delta_then = self.__addNewControlStruct(deltaIndex)
             delta_else = self.__addNewControlStruct(delta_then)
@@ -133,6 +136,7 @@ class CSInitializer:
             traverse(boolean_exp, deltaIndex)
             traverse(then_exp, delta_then)
             traverse(else_exp, delta_else)
+
 
         # Initialize the control structure map
         self.__controlStructureMap = {}   

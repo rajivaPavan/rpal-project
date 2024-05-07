@@ -30,6 +30,9 @@ class Control:
 
     def __repr__(self):
         return f"{self.control}"
+    
+    def addGamma(self):
+        self.control.append(GammaSymbol())
             
 
 class Stack:
@@ -44,6 +47,9 @@ class Stack:
     def popStack(self) -> Symbol:
         popElement = self.__arr.pop(0)
         return popElement
+    
+    def top(self) -> Symbol:
+        return self.__arr[0]
     
     def pushStack(self, symbol: Symbol):
         self.__arr.insert(0,symbol)

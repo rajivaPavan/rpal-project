@@ -38,11 +38,11 @@ class CSEMachine:
         
         # setup logging
         self.logger:Logger = logging.getLogger("CSEMachine")
-        self.logger.setLevel(logging.CRITICAL+1)
+        self.logger.setLevel(logging.DEBUG)
         logging.basicConfig(stream=sys.stdout, level=logging.DEBUG, format='%(levelname)s - %(message)s')
 
         # log the initial cs map
-        self.logger.info(f"csMap: \n{self.csMap}")
+        self.logger.info(f"csMap: \n{self.csMap}\n")
 
     def __create_env(self, index, parent_index = None):
         """Creates new env and sets it as current env and adds to env to envMap"""
@@ -57,16 +57,17 @@ class CSEMachine:
         
         """Evaluates the Control."""
         
+        self.logger.debug(f"control {self.control}")
+        self.logger.debug(f"stack {self.stack}")
+
         right_most = self.control.removeRightMost()
-        self.logger.debug(f"eval {right_most}")
 
         if right_most is None:
             final_result = self.stack.popStack().name
             return final_result
 
-        elif right_most.isType(NameSymbol):
-            _nameSymbol = right_most
-            self.stackName(_nameSymbol)       
+        elif right_most.isType(NameSymbol) or right_most.isType(YStarSymbol):
+            self.stackName(right_most)       
               
         elif right_most.isType(LambdaSymbol):
             _lambda = right_most
@@ -93,7 +94,6 @@ class CSEMachine:
         elif right_most.isType(TauSymbol):
             _tau = right_most
             self.tupleFormation(_tau)
-            
         else:
             pass
             #TODO: throw an exception
@@ -101,7 +101,7 @@ class CSEMachine:
         return self.evaluate()
         
 
-    def stackName(self, nameSymbol: NameSymbol):
+    def stackName(self, symbol: Symbol):
         """
         CSE Rule 1
         
@@ -109,11 +109,20 @@ class CSEMachine:
         """
 
         self.logger.debug("rule 1")
-        if nameSymbol.checkNameSymbolType(str):
-            _value = self.env.lookUpEnv(nameSymbol.name)
-            nameSymbol = NameSymbol(_value)
+
+        if symbol.isType(YStarSymbol):
+            self.stack.pushStack(symbol)
+            return  
+        
+        symbol:NameSymbol = symbol
+        if symbol.checkNameSymbolType(str):
+            _value = self.env.lookUpEnv(symbol.name)
+            if isinstance(_value, EtaClosureSymbol):
+                symbol = _value
+            else:
+                symbol = NameSymbol(_value)
             
-        self.stack.pushStack(nameSymbol)
+        self.stack.pushStack(symbol)
         
     def stackLambda(self, _lambda: LambdaSymbol):
         """
@@ -135,11 +144,19 @@ class CSEMachine:
         Also Insert environment data for env_variables with the respective env_values.
         """	
 
-        self.logger.debug("rule 4/11")
         top = self.stack.popStack() 
         
-        if top.isType(LambdaClosureSymbol):
+        if top.isType(YStarSymbol):
+            # Rule 12
+            self.applyYStar()
+        elif top.isType(EtaClosureSymbol):
+            # Rule 13
+            self.applyFP(top)
+        
+        elif top.isType(LambdaClosureSymbol):
             
+            self.logger.debug("rule 4/11")
+
             _lambdaClosure: LambdaClosureSymbol = top
             
             # create new environment
@@ -152,11 +169,41 @@ class CSEMachine:
             
             #Here an error can occur if number of variables != number of values
             for i in range(len(env_variables)):
-                self.env.insertEnvData(env_variables[i], self.stack.popStack().name)
+                stack_top = self.stack.popStack()
+                # if the stack_top is a name symbol, get the value from the environment
+                if stack_top.isType(NameSymbol):
+                    stack_top = stack_top.name
+                # else if stack_top is a eta closure, just add it as it is 
+                self.env.insertEnvData(env_variables[i], stack_top)
                 
             self.__addEnvMarker(env_index)
             self.control.insertControlStruct(self.csMap.get(_lambdaClosure.index))         
-            
+
+
+    def applyYStar(self):
+        """
+        CSE Rule 12
+        
+        This function evaluates the Y* symbol.
+        """
+        self.logger.debug("rule 12")
+        top:LambdaClosureSymbol = self.stack.popStack()
+        eta_closure = EtaClosureSymbol.fromLambdaClosure(top)
+        self.stack.pushStack(eta_closure)
+
+    def applyFP(self, top: EtaClosureSymbol):
+        """
+        CSE Rule 13
+        
+        This function handles the eta closure in the stack.
+        """
+        self.logger.debug("rule 13")
+        lamda_closure = EtaClosureSymbol.toLambdaClosure(top)
+        self.stack.pushStack(top)
+        self.stack.pushStack(lamda_closure)
+        self.control.addGamma()
+        self.control.addGamma()
+
     def __addEnvMarker(self, env_index):
             
         """
@@ -259,5 +306,3 @@ class CSEMachine:
             
         new_n_tuple = TauSymbol(n, tupleList)
         self.stack.pushStack(new_n_tuple)
-
-    

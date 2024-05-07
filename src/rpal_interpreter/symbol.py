@@ -105,7 +105,6 @@ class LambdaSymbol(Symbol):
         return f"<lambda, ({', '.join(self.variables)}), {self.index}>"
         
 class LambdaClosureSymbol(LambdaSymbol):
-    
     """Represents a lambda closure (lambda in the stack) in the CSE machine.
     
         Has the additional attribute envIndex.
@@ -113,14 +112,38 @@ class LambdaClosureSymbol(LambdaSymbol):
         Extends the Lambda class.
     """
     
-    
     def __init__(self, variables, index, envIndex):
         super().__init__(index, variables)
         self.envMarker: EnvMarkerSymbol = EnvMarkerSymbol(envIndex)
     
     def getEnvMarkerIndex(self):
         return self.envMarker.envIndex
+    
+    def __repr__(self):
+        return f"<lambda, ({', '.join(self.variables)}), {self.index}, {self.envMarker}>"
+    
+
+class EtaClosureSymbol(LambdaClosureSymbol):
+        """Represents an eta closure in the CSE machine.
         
+        Extends the LambdaClosure class.
+        """
+        
+        def __init__(self, variables, index, envIndex):
+            super().__init__(variables, index, envIndex)
+        
+        def __repr__(self):
+            return f"<eta, ({', '.join(self.variables)}), {self.index}, {self.envMarker}>"
+        
+        @staticmethod
+        def fromLambdaClosure(lambdaClosure:LambdaClosureSymbol):
+            """Creates an eta closure from a lambda closure."""
+            return EtaClosureSymbol(lambdaClosure.variables, lambdaClosure.index, lambdaClosure.getEnvMarkerIndex())
+        
+        @staticmethod
+        def toLambdaClosure(etaClosure):
+            """Converts an eta closure to a lambda closure."""
+            return LambdaClosureSymbol(etaClosure.variables, etaClosure.index, etaClosure.getEnvMarkerIndex())
 
 class EnvMarkerSymbol(Symbol):
     
