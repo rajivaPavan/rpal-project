@@ -1,6 +1,6 @@
 import unittest
-from rpal_interpreter.rpal_parser import RPALParser
-from helpers import read_file
+from interpreter.parser import RPALParser
+from __helpers import read_file
 
 
 class TestRPALParser(unittest.TestCase):
@@ -19,10 +19,10 @@ class TestRPALParser(unittest.TestCase):
             ("x", "<ID:x>"),
             ("1", "<INT:1>"),
             ("\'hello\'", "<STR:\'hello\'>"),
-            ("true", "true"),
-            ("false", "false"),
-            ("nil", "nil"),
-            ("dummy", "dummy"),
+            ("true", "<true>"),
+            ("false", "<false>"),
+            ("nil", "<nil>"),
+            ("dummy", "<dummy>"),
         ]
         
         for src, expected_ast in test_cases:

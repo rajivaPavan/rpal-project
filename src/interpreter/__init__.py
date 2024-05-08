@@ -1,9 +1,11 @@
-from rpal_interpreter.ast_standardizer import ASTStandardizer
-from rpal_interpreter.cse_machine import CSEMachine
-from rpal_interpreter.trees import ASTNode, STNode
-from .lexer import *
-from .rpal_parser import RPALParser
-from .tokens import *
+from interpreter.ast import ASTNode
+from interpreter.cse_machine.st import STNode
+from .ast.standardize import ASTStandardizer
+from .cse_machine import CSEMachine
+from .parser import RPALParser
+from .lexer.tokens import *
+from logger import logger 
+
 
 class Interpreter:
     
@@ -33,16 +35,11 @@ class Interpreter:
                 return
             # Get the st from the ast
             self.__standardize_ast()
-        
-            # Print the ast or st
-            if self.__switch is None:
-                res = self.__compute()
-                print(res)
-            
+            if self.__switch != Interpreter.__ST_SWITCH:
+                self.__compute()            
         except Exception as e:
-            print(e)
+            logger.error(e)
 
-        return
     
     def __parse(self):
         """
@@ -78,6 +75,10 @@ class Interpreter:
             """
             st = self.__st
             cse = CSEMachine(st)
-            result = cse.evaluate()
-            return result
+            try:
+                cse.evaluate()
+            except ZeroDivisionError as e:
+                print("Zero Division Error: Division by zero")
+            except RecursionError as e:
+                print("Recursion Error: Maximum recursion depth exceeded")
 

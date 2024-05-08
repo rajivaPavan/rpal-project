@@ -1,6 +1,7 @@
-from rpal_interpreter.nodes import Nodes
-from .parser import Parser
-from .tokens import *
+from interpreter.ast.nodes import Nodes
+from .__parser import Parser
+from interpreter.lexer.tokens import *
+
 class RPALParser(Parser):
     def __init__(self,src):
         super().__init__(src)
@@ -71,12 +72,12 @@ class RPALParser(Parser):
         
     def proc_Tc(self):
         self.proc_B()
-        if self.nextToken() != None and self.nextToken().isValue(Nodes.ARROW):
-            self.read(OperatorToken.fromValue(Nodes.ARROW))
+        if self.nextToken() != None and self.nextToken().isValue(Nodes.COND):
+            self.read(OperatorToken.fromValue(Nodes.COND))
             self.proc_Tc()
             self.read(OperatorToken.fromValue("|"))
             self.proc_Tc()
-            self.buildTree(Nodes.ARROW, 3)
+            self.buildTree(Nodes.COND, 3)
 
     def proc_B(self):
         self.proc_Bt()
@@ -241,7 +242,7 @@ class RPALParser(Parser):
 
     def __isInFirstRn(token:Token):
         if token.__class__ == KeywordToken:
-            return token.value in ["true", "false", "nil", "dummy"]
+            return token.value in KeywordToken.type_keywords()
         return token.__class__ in RPALParser.__FIRST_RN
         
     def proc_Rn(self):
@@ -252,8 +253,7 @@ class RPALParser(Parser):
             # read the identifier token
             self.read(token, ignore=False)
         elif(token.__class__ == KeywordToken 
-             and token.value in [Nodes.TRUE, Nodes.FALSE, 
-                                 Nodes.NIL, Nodes.DUMMY]):
+             and token.value in KeywordToken.type_keywords()):
                 # build the tree with the token value
                 self.read(token)
                 self.buildTree(token.value, 0)
@@ -280,10 +280,13 @@ class RPALParser(Parser):
         
     def proc_Da(self):
         self.proc_Dr()
+        n = 1
         while self.nextToken() != None and self.nextToken().isValue(Nodes.AND):
             self.read(KeywordToken.fromValue(Nodes.AND))      
             self.proc_Dr()
-            self.buildTree(Nodes.AND, 2)
+            n += 1
+        if n > 1:
+            self.buildTree(Nodes.AND, n)
         
     
     def proc_Dr(self):

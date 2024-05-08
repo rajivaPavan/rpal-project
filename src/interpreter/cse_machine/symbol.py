@@ -1,8 +1,8 @@
 from typing import Iterable
-from rpal_interpreter.nodes import Nodes
-
-from rpal_interpreter.trees import STNode
-
+from interpreter.ast.nodes import Nodes
+from interpreter.cse_machine.functions import DefinedFunctions
+from .st import STNode
+from logger import logger
 
 class Symbol:
     
@@ -17,6 +17,9 @@ class Symbol:
         
     def isType(self, t):
         return self.__class__ == t
+
+    def __eq__(self, other):
+        return id(self) == id(other)
     
 class SymbolFactory:
 
@@ -26,22 +29,25 @@ class SymbolFactory:
         if node.is_gamma():
             return GammaSymbol()
         elif node.is_name():
+            node: STNode = node
+            is_id = node.is_id()
             value = node.parseValueInToken()
             if str.isnumeric(value):
                 value = int(value)
-            elif value in [Nodes.TRUE, Nodes.FALSE]:
-                value = value == Nodes.TRUE
-            elif value in [Nodes.DUMMY, Nodes.NIL]:
-                raise NotImplementedError()
-
+            return NameSymbol(value, is_id)
+        elif value in [Nodes.TRUE, Nodes.FALSE]:
+            value = value == Nodes.TRUE
+            return NameSymbol(value)
+        elif value in [Nodes.DUMMY, Nodes.NIL]:
             return NameSymbol(value)
         elif value in Nodes.BOP:
             return BinaryOperatorSymbol(value)
         elif value in Nodes.UOP:
             return UnaryOperatorSymbol(value)
-        elif value is Nodes.TAU:
-            return TauSymbol(value)
+        elif value is Nodes.YSTAR:
+            return YStarSymbol()
         else:
+            logger.error(f"Invalid node type:{value}")
             raise Exception(f"Invalid node type:{value}")
 
 #Subclasses of Symbol
@@ -52,15 +58,33 @@ class NameSymbol(Symbol):
     def __repr__(self):
         return f"{self.name}"
     
-    def __init__(self, name):
+    def __init__(self, name, is_id = False):
         super().__init__()
         self.name = name  
-        self.type = name.__class__
-        
-    def checkNameSymbolType(self, dataType):
-        assert dataType == str or dataType == int or dataType == bool
-        return self.type == dataType
-        
+        self.nameType = name.__class__
+        self.is_id = is_id
+
+    def isId(self):
+        return self.is_id
+
+    def isFunction(self):
+        return self.name in DefinedFunctions.get_functions()
+
+    def isString(self):
+        return self.nameType == str
+    
+    @staticmethod
+    def isPrimitive(nameType):
+        return nameType == str or nameType == int or nameType == bool
+    
+    @staticmethod
+    def isTupleSymbol(nameType):
+        return nameType == TupleSymbol
+    
+    @staticmethod
+    def isValidType(nameType):
+        return NameSymbol.isPrimitive(nameType) or NameSymbol.isTupleSymbol(nameType)
+            
 class OperatorSymbol(Symbol):
     def __init__(self, operator):
         super().__init__()
@@ -68,6 +92,16 @@ class OperatorSymbol(Symbol):
         
     def __repr__(self):
         return f"{self.operator}"
+    
+class FunctionSymbol(Symbol):
+
+    def __init__(self, func):
+        super().__init__()
+        self.func = func
+
+    def __repr__(self):
+        return f"<{self.func}>"
+    
     
 class BinaryOperatorSymbol(OperatorSymbol):
     def __init__(self, operator):
@@ -103,7 +137,6 @@ class LambdaSymbol(Symbol):
         return f"<lambda, ({', '.join(self.variables)}), {self.index}>"
         
 class LambdaClosureSymbol(LambdaSymbol):
-    
     """Represents a lambda closure (lambda in the stack) in the CSE machine.
     
         Has the additional attribute envIndex.
@@ -111,14 +144,38 @@ class LambdaClosureSymbol(LambdaSymbol):
         Extends the Lambda class.
     """
     
-    
     def __init__(self, variables, index, envIndex):
         super().__init__(index, variables)
         self.envMarker: EnvMarkerSymbol = EnvMarkerSymbol(envIndex)
     
     def getEnvMarkerIndex(self):
         return self.envMarker.envIndex
+    
+    def __repr__(self):
+        return f"<lambda, ({', '.join(self.variables)}), {self.index}, {self.envMarker}>"
+    
+
+class EtaClosureSymbol(LambdaClosureSymbol):
+        """Represents an eta closure in the CSE machine.
         
+        Extends the LambdaClosure class.
+        """
+        
+        def __init__(self, variables, index, envIndex):
+            super().__init__(variables, index, envIndex)
+        
+        def __repr__(self):
+            return f"<eta, ({', '.join(self.variables)}), {self.index}, {self.envMarker}>"
+        
+        @staticmethod
+        def fromLambdaClosure(lambdaClosure:LambdaClosureSymbol):
+            """Creates an eta closure from a lambda closure."""
+            return EtaClosureSymbol(lambdaClosure.variables, lambdaClosure.index, lambdaClosure.getEnvMarkerIndex())
+        
+        @staticmethod
+        def toLambdaClosure(etaClosure):
+            """Converts an eta closure to a lambda closure."""
+            return LambdaClosureSymbol(etaClosure.variables, etaClosure.index, etaClosure.getEnvMarkerIndex())
 
 class EnvMarkerSymbol(Symbol):
     
@@ -130,6 +187,11 @@ class EnvMarkerSymbol(Symbol):
 
     def __repr__(self) -> str:
         return f"e{self.envIndex}"
+    
+    def __eq__(self, other):
+        if not isinstance(other, EnvMarkerSymbol):
+            return False
+        return self.envIndex == other.envIndex
         
 class DeltaSymbol(Symbol):
     
@@ -140,8 +202,11 @@ class DeltaSymbol(Symbol):
     """
     
     def __init__(self, index):
-        super().__init()
+        super().__init__()
         self.index = index
+
+    def __repr__(self) -> str:
+        return f"delta-{self.index}"
 
 class BetaSymbol(Symbol):
     
@@ -152,6 +217,9 @@ class BetaSymbol(Symbol):
     """
     def __init__(self):
         super().__init__()
+
+    def __repr__(self):
+        return f"beta"
         
 
 class TauSymbol(Symbol):
@@ -165,7 +233,7 @@ class TauSymbol(Symbol):
         self.n = n
 
     def __repr__(self):
-        return f"tau:{self.n}"
+        return f"<tau:{self.n}>"
         
 class TupleSymbol(TauSymbol):
     """
@@ -176,6 +244,18 @@ class TupleSymbol(TauSymbol):
         super().__init__(n)
         self.tuple = tuple(tupleList)
 
+    def __repr__(self):
+        return f"({', '.join([str(tup_el) for tup_el in self.tuple])},)"
+
+
+class YStarSymbol(Symbol):
+    
+    """
+    Represents a Y* symbol in the CSE machine.
+    """
+
+    def __repr__(self):
+        return f"Y*"
 
 
         
