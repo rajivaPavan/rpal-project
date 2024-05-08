@@ -75,5 +75,10 @@ class Interpreter:
             """
             st = self.__st
             cse = CSEMachine(st)
-            result = cse.evaluate()
+            try:
+                cse.evaluate()
+            except ZeroDivisionError as e:
+                print("Zero Division Error: Division by zero")
+            except RecursionError as e:
+                print("Recursion Error: Maximum recursion depth exceeded")
 

@@ -1,6 +1,7 @@
 class DefinedFunctions:
     PRINT = "Print"
     ORDER = "Order"
+    CONC = "Conc"
     ISINTEGER = "Isinteger"
     ISSTRING = "Isstring"
     ISTRUTHVALUE = "Istruthvalue"
@@ -13,12 +14,13 @@ class DefinedFunctions:
         return [
             DefinedFunctions.PRINT,
             DefinedFunctions.ORDER,
+            DefinedFunctions.CONC,
             DefinedFunctions.ISINTEGER,
             DefinedFunctions.ISSTRING,
             DefinedFunctions.ISTRUTHVALUE,
             DefinedFunctions.ISTUPLE,
             DefinedFunctions.ISFUNCTION,
-            DefinedFunctions.ISDUMMY
+            DefinedFunctions.ISDUMMY,
         ]
 
     def isdefined(name):
@@ -60,6 +62,8 @@ class FunctionFactory:
             return IsFunctionFn()
         elif name == DefinedFunctions.ISDUMMY:
             return IsDummyFn()
+        elif name == DefinedFunctions.CONC:
+            return ConcFn()
         else:
             raise Exception(f"Invalid function name: {name}")
     
@@ -75,6 +79,8 @@ class PrintFn(DefinedFunction):
     @staticmethod
     def __handler(arg):
         if isinstance(arg, str):
+            # replace \n with newline
+            arg = arg.replace("\\n", "\n")
             return arg.strip("'")
         elif isinstance(arg, bool):
             return "true" if arg else "false"
@@ -86,6 +92,18 @@ class OrderFn(DefinedFunction):
     
     def run(self, arg):
         return len(arg)
+
+class ConcFn(DefinedFunction):
+    def __init__(self):
+        super().__init__(DefinedFunctions.CONC)
+    
+    def run(self, args):
+        # strip ' in the beginning and end
+        args = [arg.strip("'") for arg in args]
+        # concatenate the strings
+        res = "".join(args)
+        return f"'{res}'"
+        
 
 class IsIntegerFn(DefinedFunction):
     def __init__(self):

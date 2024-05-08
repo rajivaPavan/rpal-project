@@ -191,7 +191,7 @@ class ASTStandardizer:
         e1:STNode = node.getLeft()
         n:STNode = e1.getRight()
         e2:STNode = n.getRight()
-
+        e1.setRight(None) # remove n from e1
         gamma = STNode.gamma_node(n, e1)
         gamma = STNode.gamma_node(gamma, e2)
         return gamma 

@@ -283,11 +283,7 @@ class CSEMachine:
         rand_1 = self.stack.popStack().name
         rand_2 = self.stack.popStack().name
         self.logger.debug(f"op:{operator}, rand_1: {rand_1}, rand_2: {rand_2}")
-        try:
-            _value = self.__applyOp(operator, rand_1, rand_2)
-        except ZeroDivisionError as e:
-            print("Division by zero")
-            raise e
+        _value = self.__applyOp(operator, rand_1, rand_2)
         self.stack.pushStack(NameSymbol(_value))
         
     def unop(self, operator):
@@ -379,30 +375,38 @@ class CSEMachine:
         self.logger.debug("rule 14 - apply function")
 
         function:DefinedFunction = top.func
-        symbol = self.stack.popStack()
-        if symbol.isType(LambdaClosureSymbol):
+        rand_symbol = self.stack.popStack()
+        if rand_symbol.isType(LambdaClosureSymbol):
             # add the function NameSymbol to the control again
             self.control.addSymbol(NameSymbol(function.getName()))
-            lambda_closure:LambdaClosureSymbol = symbol
+            lambda_closure:LambdaClosureSymbol = rand_symbol
             self.applyLambda(lambda_closure)
             return 
         else:
-            if isinstance(symbol, TupleSymbol):
-                arg = symbol.tuple
-            elif isinstance(symbol, NameSymbol):
-                value = symbol.name
-                if isinstance(value, TupleSymbol):
-                    arg = value.tuple
-                else:
-                    arg = value
-            else:
-                # for primitive data types
-                arg = symbol.name
+            args = self.get_arg(rand_symbol)
+            if function.getName() == DefinedFunctions.CONC:
+                args = [args]
+                args += self.get_arg(self.stack.popStack())
+                self.control.removeRightMost() # remove the gamma symbol
 
-        function_result = function.run(arg)
+        function_result = function.run(args)
 
         if function_result is not None:
             self.stack.pushStack(NameSymbol(function_result))
+
+    def get_arg(self, rand_symbol):
+        if isinstance(rand_symbol, TupleSymbol):
+            rand_symbol = rand_symbol.tuple
+        elif isinstance(rand_symbol, NameSymbol):
+            value = rand_symbol.name
+            if isinstance(value, TupleSymbol):
+                rand_symbol = value.tuple
+            else:
+                rand_symbol = value
+        else:
+                # for primitive data types
+            rand_symbol = rand_symbol.name
+        return rand_symbol
 
 
 
