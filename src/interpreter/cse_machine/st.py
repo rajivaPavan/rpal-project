@@ -63,7 +63,15 @@ class STNode(BinaryTreeNode):
         token = self.getValue()
         if not isinstance(token, Token):
             return token
+        token:Token = token
         return token.getValue()
+
+    def hasToken(self) -> (bool, Token):
+        t = self.getValue()
+        res = isinstance(t, Token)
+        if res:
+            return res, None
+        return res, t
     
     def getSibilingCount(self):
         count = 0

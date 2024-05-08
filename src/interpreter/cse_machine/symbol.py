@@ -1,6 +1,7 @@
 from typing import Iterable
 from interpreter.ast.nodes import Nodes
 from interpreter.cse_machine.functions import DefinedFunctions
+from interpreter.lexer.tokens import IdentifierToken, Token
 from .st import STNode
 from logger import logger
 
@@ -29,6 +30,8 @@ class SymbolFactory:
         if node.is_gamma():
             return GammaSymbol()
         elif node.is_name():
+            node: STNode = node
+            is_id = node.is_id()
             value = node.parseValueInToken()
             if str.isnumeric(value):
                 value = int(value)
@@ -36,7 +39,7 @@ class SymbolFactory:
                 value = value == Nodes.TRUE
             elif value in [Nodes.DUMMY, Nodes.NIL]:
                 raise NotImplementedError()
-            return NameSymbol(value)
+            return NameSymbol(value, is_id)
         elif value in Nodes.BOP:
             return BinaryOperatorSymbol(value)
         elif value in Nodes.UOP:
@@ -53,14 +56,16 @@ class NameSymbol(Symbol):
     Represents variables and numerics in the CSE machine.
     """
     def __repr__(self):
-        if NameSymbol.isValidType(self.nameType):
-            return f"`{self.name}`"
-        return f"`{self}`"
+        return f"`{self.name}, {self.is_id}`"
     
-    def __init__(self, name):
+    def __init__(self, name, is_id = False):
         super().__init__()
         self.name = name  
         self.nameType = name.__class__
+        self.is_id = is_id
+
+    def isId(self):
+        return self.is_id
 
     def isString(self):
         return self.nameType == str

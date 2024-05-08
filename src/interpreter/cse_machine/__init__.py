@@ -139,7 +139,7 @@ class CSEMachine:
             return  
         
         symbol:NameSymbol = symbol
-        if symbol.isString():
+        if symbol.isId():
             try:
                 _value = self.currentEnv().lookUpEnv(symbol.name)
             except Exception as e:
@@ -147,7 +147,6 @@ class CSEMachine:
                 self.logger.info(f"envMap: {map}")
                 self.logger.error(f"Name {symbol.name} not found in the environment tree.")
                 raise e
-
 
             if (isinstance(_value, EtaClosureSymbol) or isinstance(_value, LambdaClosureSymbol) 
                 or isinstance(_value, FunctionSymbol)):
