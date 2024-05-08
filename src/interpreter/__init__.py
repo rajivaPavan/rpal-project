@@ -1,7 +1,7 @@
 from interpreter.ast import ASTNode
 from interpreter.cse_machine.st import STNode
 from .ast.standardize import ASTStandardizer
-from .cse_machine import CSEMachine
+from .cse_machine import CSEMachine, MachineException
 from .parser import RPALParser
 from .lexer.tokens import *
 from logger import logger 
@@ -100,7 +100,7 @@ class Interpreter:
             except RecursionError as e:
                 print("Recursion Error: Maximum recursion depth exceeded")
                 raise e
-            except (ZeroDivisionError, ArithmeticError) as e:
+            except (ZeroDivisionError, ArithmeticError, MachineException) as e:
                 print(e)
                 raise e
             except Exception as e:

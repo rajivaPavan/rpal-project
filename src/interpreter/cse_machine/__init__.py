@@ -146,7 +146,7 @@ class CSEMachine:
                 map = pprint.pformat(self.envMap)
                 self.logger.info(f"envMap: {map}")
                 self.logger.error(f"Name {symbol.name} not found in the environment tree.")
-                raise e
+                raise MachineException(f"The {symbol.name} is undefined.")
             if (isinstance(_value, EtaClosureSymbol) or isinstance(_value, LambdaClosureSymbol) 
                 or isinstance(_value, FunctionSymbol)):
                 symbol = _value
@@ -262,7 +262,7 @@ class CSEMachine:
         "*": lambda rator, rand: rator * rand,
         "/": lambda rator, rand: int(rator / rand),
         "or": lambda rator, rand: rator or rand,
-        "and": lambda rator, rand: rator and rand,
+        "&": lambda rator, rand: rator and rand,
         "gr": lambda rator, rand: rator > rand,
         "ge": lambda rator, rand: rator >= rand,
         "ls": lambda rator, rand: rator < rand,
@@ -414,5 +414,6 @@ class CSEMachine:
             rand_symbol = rand_symbol.name
         return rand_symbol
 
-
-
+class MachineException(Exception):
+    def __init__(self, message):
+        super().__init__("An error occured while computing the result.\n" + message)
