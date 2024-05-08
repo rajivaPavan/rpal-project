@@ -34,11 +34,12 @@ class SymbolFactory:
             value = node.parseValueInToken()
             if str.isnumeric(value):
                 value = int(value)
-            elif value in [Nodes.TRUE, Nodes.FALSE]:
-                value = value == Nodes.TRUE
-            elif value in [Nodes.DUMMY, Nodes.NIL]:
-                raise NotImplementedError()
             return NameSymbol(value, is_id)
+        elif value in [Nodes.TRUE, Nodes.FALSE]:
+            value = value == Nodes.TRUE
+            return NameSymbol(value)
+        elif value in [Nodes.DUMMY, Nodes.NIL]:
+            return NameSymbol(value)
         elif value in Nodes.BOP:
             return BinaryOperatorSymbol(value)
         elif value in Nodes.UOP:
@@ -55,7 +56,7 @@ class NameSymbol(Symbol):
     Represents variables and numerics in the CSE machine.
     """
     def __repr__(self):
-        return f"`{self.name}, {self.is_id}`"
+        return f"{self.name}"
     
     def __init__(self, name, is_id = False):
         super().__init__()

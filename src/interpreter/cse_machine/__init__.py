@@ -175,7 +175,6 @@ class CSEMachine:
         Also Insert environment data for env_variables with the respective env_values.
         """	
  
-        self.logger.debug("rule 4/11")
         _lambdaClosure = top
         
         # create new environment
@@ -189,6 +188,7 @@ class CSEMachine:
         #Here an error can occur if number of variables != number of values
         num_variables = len(env_variables)
         if num_variables == 1:
+            self.logger.debug("rule 4")
             stack_top = self.stack.popStack()
             # if the stack_top is a name symbol, get the value from the environment
             if stack_top.isType(NameSymbol):
@@ -196,6 +196,7 @@ class CSEMachine:
             # else if stack_top is a eta closure, just add it as it is 
             self.currentEnv().insertEnvData(env_variables[0], stack_top)
         else:
+            self.logger.debug("rule 11")
             stack_top:NameSymbol = self.stack.popStack()
             tuple_symbol:TupleSymbol = stack_top
             tuple = tuple_symbol.tuple
@@ -266,8 +267,8 @@ class CSEMachine:
         "le": lambda rator, rand: rator <= rand,
         "eq": lambda rator, rand: rator == rand,
         "neg": lambda rator: -rator,
-        "not": lambda rator: not rator
-        
+        "not": lambda rator: not rator,
+        "aug": lambda rator, rand: rator + rand
     }
           
     def binop(self, operator):
@@ -341,7 +342,10 @@ class CSEMachine:
         tupleList = []
         for i in range (n):
             symbol = self.stack.popStack()
-            tupleList.append(symbol.name)
+            if symbol.isType(NameSymbol):
+                tupleList.append(symbol.name)
+            elif symbol.isType(TupleSymbol):
+                tupleList.append(symbol.tuple)
             
         new_n_tuple = TupleSymbol(n, tupleList)
         self.stack.pushStack(new_n_tuple)
