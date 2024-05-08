@@ -139,7 +139,7 @@ class CSEMachine:
             return  
         
         symbol:NameSymbol = symbol
-        if symbol.isId():
+        if symbol.isId() or symbol.isFunction():
             try:
                 _value = self.currentEnv().lookUpEnv(symbol.name)
             except Exception as e:
@@ -147,13 +147,12 @@ class CSEMachine:
                 self.logger.info(f"envMap: {map}")
                 self.logger.error(f"Name {symbol.name} not found in the environment tree.")
                 raise e
-
             if (isinstance(_value, EtaClosureSymbol) or isinstance(_value, LambdaClosureSymbol) 
                 or isinstance(_value, FunctionSymbol)):
                 symbol = _value
             else:
                 symbol = NameSymbol(_value)
-            
+
         self.stack.pushStack(symbol)
         
     def stackLambda(self, _lambda: LambdaSymbol):
@@ -364,8 +363,6 @@ class CSEMachine:
         function:DefinedFunction = top.func
         symbol = self.stack.popStack()
         if symbol.isType(LambdaClosureSymbol):
-            # add gamma to the control again
-            self.control.addGamma()
             # add the function NameSymbol to the control again
             self.control.addSymbol(NameSymbol(function.getName()))
             lambda_closure:LambdaClosureSymbol = symbol
@@ -388,9 +385,6 @@ class CSEMachine:
 
         if function_result is not None:
             self.stack.pushStack(NameSymbol(function_result))
-        else:
-            # FIXME: The line below is a hack to handle the function output if None
-            # This is not the right way to handle this. Need to refactor this.
-            self.control.removeRightMost()
+
 
 

@@ -68,6 +68,8 @@ class PrintFn(DefinedFunction):
         super().__init__(DefinedFunctions.PRINT)
     
     def run(self, arg):
+        # strip ' in the beginning and end
+        arg = str(arg).strip("'")
         print(arg)
 
 class OrderFn(DefinedFunction):

@@ -1,7 +1,6 @@
 from typing import Iterable
 from interpreter.ast.nodes import Nodes
 from interpreter.cse_machine.functions import DefinedFunctions
-from interpreter.lexer.tokens import IdentifierToken, Token
 from .st import STNode
 from logger import logger
 
@@ -66,6 +65,9 @@ class NameSymbol(Symbol):
 
     def isId(self):
         return self.is_id
+
+    def isFunction(self):
+        return self.name in DefinedFunctions.get_functions()
 
     def isString(self):
         return self.nameType == str
