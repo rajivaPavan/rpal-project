@@ -12,6 +12,9 @@ class BinaryTreeNode:
         self.__right = right
         
     def isValue(self, value):
+        """
+        Checks if the node value is an instance of a class of the given value and compares the value. 
+        """
         if not isinstance(self.__value, type(value)):
             return False
         return value == self.__value
@@ -53,10 +56,16 @@ class BinaryTreeNode:
 
 
     def is_name(self):
+        """
+        Returns true if the node value is a name.
+        """
         node_value = str(self.getValue())
         return self.is_id() or str.startswith(node_value, "<INT:") or str.startswith(node_value, "<STR:")
     
     def is_id(self):
+        """"
+        Returns true if the node value is an identifier.
+        """
         node_value = str(self.getValue())
         return str.startswith(node_value, "<ID:")
     
@@ -65,10 +74,8 @@ class BinaryTreeNode:
     
 class TreeFormatter():
     
-    """_summary_
-
-    Returns:
-        _type_: _description_
+    """
+    A class that provides a method to represent a tree structure in the specified format.
     """
 
     @staticmethod
