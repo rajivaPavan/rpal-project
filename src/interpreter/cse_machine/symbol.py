@@ -1,7 +1,8 @@
 from typing import Iterable
 from interpreter.ast.nodes import Nodes
+from interpreter.cse_machine.functions import DefinedFunctions
 from .st import STNode
-
+from logger import logger
 
 class Symbol:
     
@@ -28,24 +29,25 @@ class SymbolFactory:
         if node.is_gamma():
             return GammaSymbol()
         elif node.is_name():
+            node: STNode = node
+            is_id = node.is_id()
             value = node.parseValueInToken()
             if str.isnumeric(value):
                 value = int(value)
-            elif value in [Nodes.TRUE, Nodes.FALSE]:
-                value = value == Nodes.TRUE
-            elif value in [Nodes.DUMMY, Nodes.NIL]:
-                raise NotImplementedError()
-
+            return NameSymbol(value, is_id)
+        elif value in [Nodes.TRUE, Nodes.FALSE]:
+            value = value == Nodes.TRUE
+            return NameSymbol(value)
+        elif value in [Nodes.DUMMY, Nodes.NIL]:
             return NameSymbol(value)
         elif value in Nodes.BOP:
             return BinaryOperatorSymbol(value)
         elif value in Nodes.UOP:
             return UnaryOperatorSymbol(value)
-        elif value is Nodes.TAU:
-            return TauSymbol(value)
         elif value is Nodes.YSTAR:
             return YStarSymbol()
         else:
+            logger.error(f"Invalid node type:{value}")
             raise Exception(f"Invalid node type:{value}")
 
 #Subclasses of Symbol
@@ -56,15 +58,33 @@ class NameSymbol(Symbol):
     def __repr__(self):
         return f"{self.name}"
     
-    def __init__(self, name):
+    def __init__(self, name, is_id = False):
         super().__init__()
         self.name = name  
-        self.type = name.__class__
-        
-    def checkNameSymbolType(self, dataType):
-        assert dataType == str or dataType == int or dataType == bool
-        return self.type == dataType
-        
+        self.nameType = name.__class__
+        self.is_id = is_id
+
+    def isId(self):
+        return self.is_id
+
+    def isFunction(self):
+        return self.name in DefinedFunctions.get_functions()
+
+    def isString(self):
+        return self.nameType == str
+    
+    @staticmethod
+    def isPrimitive(nameType):
+        return nameType == str or nameType == int or nameType == bool
+    
+    @staticmethod
+    def isTupleSymbol(nameType):
+        return nameType == TupleSymbol
+    
+    @staticmethod
+    def isValidType(nameType):
+        return NameSymbol.isPrimitive(nameType) or NameSymbol.isTupleSymbol(nameType)
+            
 class OperatorSymbol(Symbol):
     def __init__(self, operator):
         super().__init__()
@@ -72,6 +92,16 @@ class OperatorSymbol(Symbol):
         
     def __repr__(self):
         return f"{self.operator}"
+    
+class FunctionSymbol(Symbol):
+
+    def __init__(self, func):
+        super().__init__()
+        self.func = func
+
+    def __repr__(self):
+        return f"<{self.func}>"
+    
     
 class BinaryOperatorSymbol(OperatorSymbol):
     def __init__(self, operator):
@@ -203,7 +233,7 @@ class TauSymbol(Symbol):
         self.n = n
 
     def __repr__(self):
-        return f"tau:{self.n}"
+        return f"<tau:{self.n}>"
         
 class TupleSymbol(TauSymbol):
     """
@@ -213,6 +243,9 @@ class TupleSymbol(TauSymbol):
     def __init__(self, n, tupleList):
         super().__init__(n)
         self.tuple = tuple(tupleList)
+
+    def __repr__(self):
+        return f"({', '.join([str(tup_el) for tup_el in self.tuple])})"
 
 
 class YStarSymbol(Symbol):

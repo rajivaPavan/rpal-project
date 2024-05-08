@@ -19,10 +19,10 @@ class TestRPALParser(unittest.TestCase):
             ("x", "<ID:x>"),
             ("1", "<INT:1>"),
             ("\'hello\'", "<STR:\'hello\'>"),
-            ("true", "true"),
-            ("false", "false"),
-            ("nil", "nil"),
-            ("dummy", "dummy"),
+            ("true", "<true>"),
+            ("false", "<false>"),
+            ("nil", "<nil>"),
+            ("dummy", "<dummy>"),
         ]
         
         for src, expected_ast in test_cases:

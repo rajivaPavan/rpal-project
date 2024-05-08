@@ -4,6 +4,8 @@ from .ast.standardize import ASTStandardizer
 from .cse_machine import CSEMachine
 from .parser import RPALParser
 from .lexer.tokens import *
+from logger import logger 
+
 
 class Interpreter:
     
@@ -33,16 +35,11 @@ class Interpreter:
                 return
             # Get the st from the ast
             self.__standardize_ast()
-        
-            # Print the ast or st
-            if self.__switch is None:
-                res = self.__compute()
-                print(res)
-            
+            if self.__switch != Interpreter.__ST_SWITCH:
+                self.__compute()            
         except Exception as e:
-            print(e)
+            logger.error(e)
 
-        return
     
     def __parse(self):
         """
@@ -79,5 +76,4 @@ class Interpreter:
             st = self.__st
             cse = CSEMachine(st)
             result = cse.evaluate()
-            return result
 

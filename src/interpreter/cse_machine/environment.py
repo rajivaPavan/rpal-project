@@ -1,3 +1,4 @@
+from interpreter.cse_machine.functions import FunctionFactory
 from .symbol import *
 from typing import List
 
@@ -15,7 +16,7 @@ class Environment:
         """
         self.envMarker = EnvMarkerSymbol(envIndex)
         self.parent : Environment = parent
-        self.envData = {}      
+        self.envData = {}    
         
     def getIndex(self):
         return self.envMarker.envIndex
@@ -31,7 +32,10 @@ class Environment:
         Looks up the value for the variable.
         Checks the parent environment if not in the current.
         """
-        
+        if DefinedFunctions.isdefined(name):
+            # add a function symbol with the defined Function Object
+            return FunctionSymbol(FunctionFactory.create(name))
+               
         if name in self.envData:
             return self.envData[name]
         else:

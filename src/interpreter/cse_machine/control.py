@@ -34,4 +34,7 @@ class Control:
     
     def addGamma(self):
         self.control.append(GammaSymbol())
+
+    def addSymbol(self, symbol):
+        self.control.append(symbol)
  
