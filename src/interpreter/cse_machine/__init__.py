@@ -286,9 +286,9 @@ class CSEMachine:
         try:
             _value = self.__applyOp(operator, rand_1, rand_2)
         except ZeroDivisionError as e:
-            raise ZeroDivisionError(f"Division by zero error: {rand_1} / {rand_2}")
+            raise MachineException(f"Division by zero error: {rand_1} / {rand_2}")
         except Exception as e:
-            raise ArithmeticError(f"Error in binary operation: {rand_1} {operator} {rand_2}")
+            raise MachineException(f"Error in binary operation: {rand_1} {operator} {rand_2}")
         
         self.stack.pushStack(NameSymbol(_value))
         

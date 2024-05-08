@@ -100,7 +100,7 @@ class Interpreter:
             except RecursionError as e:
                 print("Recursion Error: Maximum recursion depth exceeded")
                 raise e
-            except (ZeroDivisionError, ArithmeticError, MachineException) as e:
+            except (MachineException) as e:
                 print(e)
                 raise e
             except Exception as e:
