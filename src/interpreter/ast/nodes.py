@@ -38,3 +38,4 @@ class Nodes:
 
     UOP = [NEG, NOT]
     BOP = [AUG, OR, AND_OP, GR, GE, LS, LE, EQ, NE, PLUS, MINUS, MULTIPLY, DIVIDE, POWER]
+    TYPES = [TRUE, FALSE, NIL, DUMMY]

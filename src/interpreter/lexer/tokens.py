@@ -80,6 +80,11 @@ class KeywordToken(Token):
                  "eq", "ne", "nil", "dummy", "true", 
                  "false", "within", "and", "rec"]
     
+    __TYPE_KEYWORDS = ["true", "false", "nil", "dummy"]
+
+    def type_keywords():
+        return KeywordToken.__TYPE_KEYWORDS
+    
     def values():
         return KeywordToken.___VALUES
     
@@ -87,6 +92,8 @@ class KeywordToken(Token):
         super().__init__("<KEYWORD>", value, line, col)
         
     def __str__(self):
+        if self.value in KeywordToken.__TYPE_KEYWORDS:
+            return f"<{self.value}>"
         return f"{self.value}"
     
     

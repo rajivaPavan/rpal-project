@@ -1,9 +1,10 @@
+from interpreter.ast import ASTNode
 from interpreter.ast.nodes import Nodes
 from interpreter.lexer.tokens import Token
 from structs.tree import BinaryTreeNode
 
     
-class STNode(BinaryTreeNode):
+class STNode(ASTNode):
     """A class representing a node in a Standardized Tree (ST).
     
     The STNode class uses the left child right sibling representation to store the tree structure.
