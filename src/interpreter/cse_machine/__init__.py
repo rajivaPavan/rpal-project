@@ -1,4 +1,6 @@
 import pprint
+
+from interpreter.cse_machine.functions import DefinedFunction
 from .control_structures import CSInitializer
 from .st import STNode
 from .symbol import *
@@ -62,10 +64,9 @@ class CSEMachine:
         right_most = self.control.removeRightMost()
 
         if right_most is None:
-            final_result = self.stack.popStack().name
-            return final_result
+            return
 
-        elif right_most.isType(NameSymbol) or right_most.isType(YStarSymbol):
+        if right_most.isType(NameSymbol) or right_most.isType(YStarSymbol):
             self.stackName(right_most)       
               
         elif right_most.isType(LambdaSymbol):
@@ -73,7 +74,25 @@ class CSEMachine:
             self.stackLambda(_lambda)
             
         elif right_most.isType(GammaSymbol):
-            self.applyLambda()
+            top = self.stack.popStack() 
+        
+            if top.isType(YStarSymbol):
+                # Rule 12
+                self.applyYStar()
+            elif top.isType(EtaClosureSymbol):
+                # Rule 13
+                self.applyFP(top)
+            elif top.isType(NameSymbol):
+                # Rule 10
+                tuple_symbol:TupleSymbol = top.name
+                self.tupleSelection(tuple_symbol)
+            elif top.isType(LambdaClosureSymbol):
+                # Rule 4, 11
+                self.applyLambda(top)
+            elif top.isType(FunctionSymbol):
+                self.applyFunction(top)
+            else: 
+                raise Exception(f"Invalid symbol:{top, type(top)} in stack for gamma in Control")
                    
         elif right_most.isType(EnvMarkerSymbol):
             env_marker = right_most
@@ -120,7 +139,7 @@ class CSEMachine:
             return  
         
         symbol:NameSymbol = symbol
-        if symbol.checkNameSymbolType(str):
+        if symbol.isId() or symbol.isFunction():
             try:
                 _value = self.currentEnv().lookUpEnv(symbol.name)
             except Exception as e:
@@ -128,13 +147,12 @@ class CSEMachine:
                 self.logger.info(f"envMap: {map}")
                 self.logger.error(f"Name {symbol.name} not found in the environment tree.")
                 raise e
-
-
-            if isinstance(_value, EtaClosureSymbol):
+            if (isinstance(_value, EtaClosureSymbol) or isinstance(_value, LambdaClosureSymbol) 
+                or isinstance(_value, FunctionSymbol)):
                 symbol = _value
             else:
                 symbol = NameSymbol(_value)
-            
+
         self.stack.pushStack(symbol)
         
     def stackLambda(self, _lambda: LambdaSymbol):
@@ -148,7 +166,7 @@ class CSEMachine:
         __currentEnvIndex = self.currentEnv().getIndex()
         self.stack.pushStack(LambdaClosureSymbol(_lambda.variables, _lambda.index, __currentEnvIndex))         
             
-    def applyLambda(self):
+    def applyLambda(self, top:LambdaClosureSymbol):
         """
         CSE Rule 4 and CSE Rule 11 and also Rule 12, 13
         
@@ -156,41 +174,39 @@ class CSEMachine:
         Creates a new environment and make it the current environment.
         Also Insert environment data for env_variables with the respective env_values.
         """	
-
-        top = self.stack.popStack() 
+ 
+        _lambdaClosure = top
         
-        if top.isType(YStarSymbol):
-            # Rule 12
-            self.applyYStar()
-        elif top.isType(EtaClosureSymbol):
-            # Rule 13
-            self.applyFP(top)
+        # create new environment
+        self.envIndexCounter = self.envIndexCounter + 1
+        env_index = self.envIndexCounter
+        self.__create_env(env_index, _lambdaClosure.getEnvMarkerIndex())
         
-        elif top.isType(LambdaClosureSymbol):
-            
-            self.logger.debug("rule 4/11")
-
-            _lambdaClosure: LambdaClosureSymbol = top
-            
-            # create new environment
-            self.envIndexCounter = self.envIndexCounter + 1
-            env_index = self.envIndexCounter
-            self.__create_env(env_index, _lambdaClosure.getEnvMarkerIndex())
-            
-            #Add environment data to the environment            
-            env_variables = _lambdaClosure.variables
-            
-            #Here an error can occur if number of variables != number of values
-            for i in range(len(env_variables)):
-                stack_top = self.stack.popStack()
-                # if the stack_top is a name symbol, get the value from the environment
-                if stack_top.isType(NameSymbol):
-                    stack_top = stack_top.name
+        #Add environment data to the environment            
+        env_variables = _lambdaClosure.variables
+        
+        #Here an error can occur if number of variables != number of values
+        num_variables = len(env_variables)
+        if num_variables == 1:
+            self.logger.debug("rule 4")
+            stack_top = self.stack.popStack()
+            # if the stack_top is a name symbol, get the value from the environment
+            if stack_top.isType(NameSymbol):
+                stack_top = stack_top.name
+            # else if stack_top is a eta closure, just add it as it is 
+            self.currentEnv().insertEnvData(env_variables[0], stack_top)
+        else:
+            self.logger.debug("rule 11")
+            stack_top:NameSymbol = self.stack.popStack()
+            tuple_symbol:TupleSymbol = stack_top
+            tuple = tuple_symbol.tuple
+            for i in range(num_variables):
                 # else if stack_top is a eta closure, just add it as it is 
-                self.currentEnv().insertEnvData(env_variables[i], stack_top)
-                
-            self.__addEnvMarker(env_index)
-            self.control.insertControlStruct(self.csMap.get(_lambdaClosure.index))         
+                self.currentEnv().insertEnvData(env_variables[i], tuple[i])
+
+            
+        self.__addEnvMarker(env_index)
+        self.control.insertControlStruct(self.csMap.get(_lambdaClosure.index))         
 
 
     def applyYStar(self):
@@ -242,7 +258,7 @@ class CSEMachine:
         "+": lambda rator, rand: rator + rand,
         "-": lambda rator, rand: rator - rand,
         "*": lambda rator, rand: rator * rand,
-        "/": lambda rator, rand: rator / rand,
+        "/": lambda rator, rand: int(rator / rand),
         "or": lambda rator, rand: rator or rand,
         "and": lambda rator, rand: rator and rand,
         "gr": lambda rator, rand: rator > rand,
@@ -251,8 +267,8 @@ class CSEMachine:
         "le": lambda rator, rand: rator <= rand,
         "eq": lambda rator, rand: rator == rand,
         "neg": lambda rator: -rator,
-        "not": lambda rator: not rator
-        
+        "not": lambda rator: not rator,
+        "aug": lambda rator, rand: rator + rand
     }
           
     def binop(self, operator):
@@ -265,8 +281,11 @@ class CSEMachine:
 
         rand_1 = self.stack.popStack().name
         rand_2 = self.stack.popStack().name
-
-        _value = self.__applyOp(operator, rand_1, rand_2)
+        try:
+            _value = self.__applyOp(operator, rand_1, rand_2)
+        except ZeroDivisionError as e:
+            print("Division by zero")
+            raise e
         self.stack.pushStack(NameSymbol(_value))
         
     def unop(self, operator):
@@ -322,7 +341,57 @@ class CSEMachine:
         n: int = _tau.n
         tupleList = []
         for i in range (n):
-            tupleList.append(self.stack.popStack())
+            symbol = self.stack.popStack()
+            if symbol.isType(NameSymbol):
+                tupleList.append(symbol.name)
+            elif symbol.isType(TupleSymbol):
+                tupleList.append(symbol.tuple)
             
-        new_n_tuple = TauSymbol(n, tupleList)
+        new_n_tuple = TupleSymbol(n, tupleList)
         self.stack.pushStack(new_n_tuple)
+
+    def tupleSelection(self, tuple:TupleSymbol):
+        """
+        CSE Rule 10
+        """
+        self.logger.debug("rule 10")
+        name_symbol:NameSymbol = self.stack.popStack()
+        n = name_symbol.name
+
+        self.logger.debug(f"tuple: {tuple}, access n: {n}")
+        self.stack.pushStack(NameSymbol(tuple.tuple[n-1]))
+
+    def applyFunction(self, top: FunctionSymbol):
+        """
+        CSE Rule 14 - Apply Predefined Function
+        """
+        self.logger.debug("rule 14 - apply function")
+
+        function:DefinedFunction = top.func
+        symbol = self.stack.popStack()
+        if symbol.isType(LambdaClosureSymbol):
+            # add the function NameSymbol to the control again
+            self.control.addSymbol(NameSymbol(function.getName()))
+            lambda_closure:LambdaClosureSymbol = symbol
+            self.applyLambda(lambda_closure)
+            return 
+        else:
+            if isinstance(symbol, TupleSymbol):
+                arg = symbol.tuple
+            elif isinstance(symbol, NameSymbol):
+                value = symbol.name
+                if isinstance(value, TupleSymbol):
+                    arg = value.tuple
+                else:
+                    arg = value
+            else:
+                # for primitive data types
+                arg = symbol.name
+
+        function_result = function.run(arg)
+
+        if function_result is not None:
+            self.stack.pushStack(NameSymbol(function_result))
+
+
+

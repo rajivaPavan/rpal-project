@@ -11,7 +11,7 @@ class BinaryTreeNode:
         self.__left = left
         self.__right = right
         
-    def valueIs(self, value):
+    def isValue(self, value):
         if not isinstance(self.__value, type(value)):
             return False
         return value == self.__value
@@ -51,31 +51,15 @@ class BinaryTreeNode:
             return None
         return cls(node.getValue(), BinaryTreeNode.deep_copy(node.getLeft()), BinaryTreeNode.deep_copy(node.getRight()))
 
-    def __str__(self, level=0):
-        """
-        Returns a string representation of the current node and its children.
-        
-        Args:
-            level (int): The current level of the node in the tree.
-        
-        Returns:
-            str: A string representation of the current node and its children.
-        """
-        
-        _formatter = TreeFormatter
-        s = str(self.getValue())
-        if self.getLeft() != None:
-            child_level = level + 1
-            line = _formatter.line_str(self.getLeft(), child_level)
-            s += line
-        if self.getRight() != None:
-            line = _formatter.line_str(self.getRight(), level)
-            s += line
-        return s
+
     
     def is_name(self):
         node_value = str(self.getValue())
-        return str.startswith(node_value, "<ID:") or str.startswith(node_value, "<INT:") or str.startswith(node_value, "<STR:")
+        return self.is_id() or str.startswith(node_value, "<INT:") or str.startswith(node_value, "<STR:")
+    
+    def is_id(self):
+        node_value = str(self.getValue())
+        return str.startswith(node_value, "<ID:")
     
     def __repr__(self):
         return f"{self.getValue()}"

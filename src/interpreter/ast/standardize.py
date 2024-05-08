@@ -28,7 +28,8 @@ class ASTStandardizer:
     # list of values of nodes that do not need to be standardized
     NON_STANDARDIZE = Nodes.UOP + Nodes.BOP + [
         Nodes.GAMMA, Nodes.TAU, Nodes.COND, Nodes.COMMA,
-        Nodes.TRUE,Nodes.FALSE, Nodes.DUMMY, Nodes.NIL
+        Nodes.TRUE,Nodes.FALSE, Nodes.DUMMY, Nodes.NIL,
+        Nodes.ASSIGN
     ]
 
     @staticmethod
@@ -139,14 +140,29 @@ class ASTStandardizer:
         lambda_left:STNode = node.getLeft()
 
         # handle the second lambda transform that has ,
-        if lambda_left.valueIs(Nodes.COMMA):
+        if lambda_left.isValue(Nodes.COMMA):
             return STNode.copy(node)
         
         lambda_ = ASTStandardizer.__transform_lambda_helper(lambda_left)
         return lambda_
 
     def __transform_and(self, node:BinaryTreeNode):
-        raise Exception("transform_and() Not implemented")
+        x_nodes = []
+        e_nodes = []
+        child_assign_node = node.getLeft()
+        while child_assign_node is not None:
+            x = child_assign_node.getLeft()
+            e = x.getRight()
+            x_nodes.append(x)
+            e_nodes.append(e)
+            child_assign_node = child_assign_node.getRight()
+        
+        x_siblings = STNode.siblings(x_nodes)
+        e_siblings = STNode.siblings(e_nodes)
+        comma_node = STNode.comma_node(x_siblings)
+        tau_node = STNode.tau_node(e_siblings)
+        assign_node = STNode.assign_node(comma_node, tau_node)
+        return assign_node
 
     def __transform_where(self, node:BinaryTreeNode):
         p:STNode = node.getLeft()

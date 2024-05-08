@@ -242,7 +242,7 @@ class RPALParser(Parser):
 
     def __isInFirstRn(token:Token):
         if token.__class__ == KeywordToken:
-            return token.value in ["true", "false", "nil", "dummy"]
+            return token.value in KeywordToken.type_keywords()
         return token.__class__ in RPALParser.__FIRST_RN
         
     def proc_Rn(self):
@@ -253,8 +253,7 @@ class RPALParser(Parser):
             # read the identifier token
             self.read(token, ignore=False)
         elif(token.__class__ == KeywordToken 
-             and token.value in [Nodes.TRUE, Nodes.FALSE, 
-                                 Nodes.NIL, Nodes.DUMMY]):
+             and token.value in KeywordToken.type_keywords()):
                 # build the tree with the token value
                 self.read(token)
                 self.buildTree(token.value, 0)
