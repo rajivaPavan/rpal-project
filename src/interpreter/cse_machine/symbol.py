@@ -245,7 +245,7 @@ class TupleSymbol(TauSymbol):
         self.tuple = tuple(tupleList)
 
     def __repr__(self):
-        return f"({', '.join([str(tup_el) for tup_el in self.tuple])})"
+        return f"({', '.join([str(tup_el) for tup_el in self.tuple])},)"
 
 
 class YStarSymbol(Symbol):

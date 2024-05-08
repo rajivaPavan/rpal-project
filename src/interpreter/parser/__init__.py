@@ -280,10 +280,13 @@ class RPALParser(Parser):
         
     def proc_Da(self):
         self.proc_Dr()
+        n = 1
         while self.nextToken() != None and self.nextToken().isValue(Nodes.AND):
             self.read(KeywordToken.fromValue(Nodes.AND))      
             self.proc_Dr()
-            self.buildTree(Nodes.AND, 2)
+            n += 1
+        if n > 1:
+            self.buildTree(Nodes.AND, n)
         
     
     def proc_Dr(self):
