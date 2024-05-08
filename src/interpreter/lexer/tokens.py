@@ -87,7 +87,7 @@ class KeywordToken(Token):
         super().__init__("<KEYWORD>", value, line, col)
         
     def __str__(self):
-        return self.value
+        return f"{self.value}"
     
     
         

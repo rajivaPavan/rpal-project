@@ -33,6 +33,20 @@ class STNode(BinaryTreeNode):
         """
         return STNode.createFCRSNode(Nodes.LAMBDA, left, right)
     
+    @staticmethod
+    def comma_node(left, right = None):
+        """
+        Creates a new comma node in the form of a FCRS node.
+        """
+        return STNode.createFCRSNode(Nodes.COMMA, left, right)
+    
+    @staticmethod
+    def tau_node(left, right = None):
+        """
+        Creates a new tau node in the form of a FCRS node.
+        """
+        return STNode.createFCRSNode(Nodes.TAU, left, right)
+    
     def is_lambda(self):
         return self.isValue(Nodes.LAMBDA)
     
@@ -88,6 +102,16 @@ class STNode(BinaryTreeNode):
             count += 1
             left = left.getRight()
         return count
+    
+    @staticmethod
+    def siblings(sibling_list):
+        """Set the right sibling of each node in the list to the next node in the list
+        Returns the first node in the list.
+        """
+
+        for i in range(len(sibling_list) - 1):
+            sibling_list[i].setRight(sibling_list[i + 1])
+        return sibling_list[0]
     
     
 
