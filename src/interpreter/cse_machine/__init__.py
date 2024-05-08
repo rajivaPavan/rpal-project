@@ -168,7 +168,7 @@ class CSEMachine:
             
     def applyLambda(self, top:LambdaClosureSymbol):
         """
-        CSE Rule 4 and CSE Rule 11 and also Rule 12, 13
+        CSE Rule 4 and CSE Rule 11
         
         This function evaluates n-ary functions as well.
         Creates a new environment and make it the current environment.
