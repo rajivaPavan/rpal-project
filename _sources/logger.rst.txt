@@ -1,7 +1,7 @@
-helpers module
-==============
+logger module
+=============
 
-.. automodule:: helpers
+.. automodule:: logger
    :members:
    :undoc-members:
    :show-inheritance:

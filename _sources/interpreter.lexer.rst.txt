@@ -1,0 +1,21 @@
+interpreter.lexer package
+=========================
+
+Submodules
+----------
+
+interpreter.lexer.tokens module
+-------------------------------
+
+.. automodule:: interpreter.lexer.tokens
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: interpreter.lexer
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -4,7 +4,8 @@ src
 .. toctree::
    :maxdepth: 4
 
-   helpers
+   interpreter
+   logger
    myrpal
-   rpal_interpreter
+   structs
    tests

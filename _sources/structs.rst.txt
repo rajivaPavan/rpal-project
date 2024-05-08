@@ -1,0 +1,29 @@
+structs package
+===============
+
+Submodules
+----------
+
+structs.stack module
+--------------------
+
+.. automodule:: structs.stack
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+structs.tree module
+-------------------
+
+.. automodule:: structs.tree
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: structs
+   :members:
+   :undoc-members:
+   :show-inheritance:

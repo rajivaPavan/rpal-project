@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>interpreter package &#8212; RPAL Interpreter  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="interpreter-package">
+<h1>interpreter package<a class="headerlink" href="#interpreter-package" title="Permalink to this heading">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="interpreter.ast.html">interpreter.ast package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.ast.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.ast.html#module-interpreter.ast.nodes">interpreter.ast.nodes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes"><code class="docutils literal notranslate"><span class="pre">Nodes</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.AND"><code class="docutils literal notranslate"><span class="pre">Nodes.AND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.AND_OP"><code class="docutils literal notranslate"><span class="pre">Nodes.AND_OP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.ASSIGN"><code class="docutils literal notranslate"><span class="pre">Nodes.ASSIGN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.AT"><code class="docutils literal notranslate"><span class="pre">Nodes.AT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.AUG"><code class="docutils literal notranslate"><span class="pre">Nodes.AUG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.BOP"><code class="docutils literal notranslate"><span class="pre">Nodes.BOP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.COMMA"><code class="docutils literal notranslate"><span class="pre">Nodes.COMMA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.COND"><code class="docutils literal notranslate"><span class="pre">Nodes.COND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.DIVIDE"><code class="docutils literal notranslate"><span class="pre">Nodes.DIVIDE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.DUMMY"><code class="docutils literal notranslate"><span class="pre">Nodes.DUMMY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.EQ"><code class="docutils literal notranslate"><span class="pre">Nodes.EQ</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.FALSE"><code class="docutils literal notranslate"><span class="pre">Nodes.FALSE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.FCN_FORM"><code class="docutils literal notranslate"><span class="pre">Nodes.FCN_FORM</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.GAMMA"><code class="docutils literal notranslate"><span class="pre">Nodes.GAMMA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.GE"><code class="docutils literal notranslate"><span class="pre">Nodes.GE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.GR"><code class="docutils literal notranslate"><span class="pre">Nodes.GR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.LAMBDA"><code class="docutils literal notranslate"><span class="pre">Nodes.LAMBDA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.LE"><code class="docutils literal notranslate"><span class="pre">Nodes.LE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.LET"><code class="docutils literal notranslate"><span class="pre">Nodes.LET</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.LS"><code class="docutils literal notranslate"><span class="pre">Nodes.LS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.MINUS"><code class="docutils literal notranslate"><span class="pre">Nodes.MINUS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.MULTIPLY"><code class="docutils literal notranslate"><span class="pre">Nodes.MULTIPLY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.NE"><code class="docutils literal notranslate"><span class="pre">Nodes.NE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.NEG"><code class="docutils literal notranslate"><span class="pre">Nodes.NEG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.NIL"><code class="docutils literal notranslate"><span class="pre">Nodes.NIL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.NOT"><code class="docutils literal notranslate"><span class="pre">Nodes.NOT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.OR"><code class="docutils literal notranslate"><span class="pre">Nodes.OR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.PARENS"><code class="docutils literal notranslate"><span class="pre">Nodes.PARENS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.PLUS"><code class="docutils literal notranslate"><span class="pre">Nodes.PLUS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.POWER"><code class="docutils literal notranslate"><span class="pre">Nodes.POWER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.REC"><code class="docutils literal notranslate"><span class="pre">Nodes.REC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.TAU"><code class="docutils literal notranslate"><span class="pre">Nodes.TAU</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.TRUE"><code class="docutils literal notranslate"><span class="pre">Nodes.TRUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.TYPES"><code class="docutils literal notranslate"><span class="pre">Nodes.TYPES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.UOP"><code class="docutils literal notranslate"><span class="pre">Nodes.UOP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.WHERE"><code class="docutils literal notranslate"><span class="pre">Nodes.WHERE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.WITHIN"><code class="docutils literal notranslate"><span class="pre">Nodes.WITHIN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.nodes.Nodes.YSTAR"><code class="docutils literal notranslate"><span class="pre">Nodes.YSTAR</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.ast.html#module-interpreter.ast.standardize">interpreter.ast.standardize module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.standardize.ASTStandardizer"><code class="docutils literal notranslate"><span class="pre">ASTStandardizer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.standardize.ASTStandardizer.NON_STANDARDIZE"><code class="docutils literal notranslate"><span class="pre">ASTStandardizer.NON_STANDARDIZE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.standardize.ASTStandardizer.check_to_standardize"><code class="docutils literal notranslate"><span class="pre">ASTStandardizer.check_to_standardize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.standardize.ASTStandardizer.standardize"><code class="docutils literal notranslate"><span class="pre">ASTStandardizer.standardize()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.ast.html#module-interpreter.ast">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.ast.html#interpreter.ast.ASTNode"><code class="docutils literal notranslate"><span class="pre">ASTNode</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interpreter.cse_machine.html">interpreter.cse_machine package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.cse_machine.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.cse_machine.html#module-interpreter.cse_machine.control">interpreter.cse_machine.control module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control.Control"><code class="docutils literal notranslate"><span class="pre">Control</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control.Control.addGamma"><code class="docutils literal notranslate"><span class="pre">Control.addGamma()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control.Control.addSymbol"><code class="docutils literal notranslate"><span class="pre">Control.addSymbol()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control.Control.insertControlStruct"><code class="docutils literal notranslate"><span class="pre">Control.insertControlStruct()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control.Control.insertEnvMarker"><code class="docutils literal notranslate"><span class="pre">Control.insertEnvMarker()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control.Control.peekRightMost"><code class="docutils literal notranslate"><span class="pre">Control.peekRightMost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control.Control.removeRightMost"><code class="docutils literal notranslate"><span class="pre">Control.removeRightMost()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.cse_machine.html#module-interpreter.cse_machine.control_structures">interpreter.cse_machine.control_structures module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control_structures.CSInitializer"><code class="docutils literal notranslate"><span class="pre">CSInitializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control_structures.CSInitializer.init"><code class="docutils literal notranslate"><span class="pre">CSInitializer.init()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control_structures.ControlStruct"><code class="docutils literal notranslate"><span class="pre">ControlStruct</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control_structures.ControlStruct.addSymbol"><code class="docutils literal notranslate"><span class="pre">ControlStruct.addSymbol()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control_structures.ControlStruct.getIndex"><code class="docutils literal notranslate"><span class="pre">ControlStruct.getIndex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control_structures.ControlStructures"><code class="docutils literal notranslate"><span class="pre">ControlStructures</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control_structures.ControlStructures.get"><code class="docutils literal notranslate"><span class="pre">ControlStructures.get()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.cse_machine.html#module-interpreter.cse_machine.environment">interpreter.cse_machine.environment module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.environment.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.environment.Environment.getIndex"><code class="docutils literal notranslate"><span class="pre">Environment.getIndex()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.environment.Environment.insertEnvData"><code class="docutils literal notranslate"><span class="pre">Environment.insertEnvData()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.environment.Environment.lookUpEnv"><code class="docutils literal notranslate"><span class="pre">Environment.lookUpEnv()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.cse_machine.html#module-interpreter.cse_machine.functions">interpreter.cse_machine.functions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.ConcFn"><code class="docutils literal notranslate"><span class="pre">ConcFn</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.ConcFn.run"><code class="docutils literal notranslate"><span class="pre">ConcFn.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunction"><code class="docutils literal notranslate"><span class="pre">DefinedFunction</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunction.getName"><code class="docutils literal notranslate"><span class="pre">DefinedFunction.getName()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunction.run"><code class="docutils literal notranslate"><span class="pre">DefinedFunction.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.CONC"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.CONC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.ISDUMMY"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.ISDUMMY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.ISFUNCTION"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.ISFUNCTION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.ISINTEGER"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.ISINTEGER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.ISSTRING"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.ISSTRING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.ISTRUTHVALUE"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.ISTRUTHVALUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.ISTUPLE"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.ISTUPLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.ORDER"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.ORDER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.PRINT"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.PRINT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.get_functions"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.get_functions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.isdefined"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.isdefined()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.FunctionFactory"><code class="docutils literal notranslate"><span class="pre">FunctionFactory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.FunctionFactory.create"><code class="docutils literal notranslate"><span class="pre">FunctionFactory.create()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.IsDummyFn"><code class="docutils literal notranslate"><span class="pre">IsDummyFn</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.IsDummyFn.run"><code class="docutils literal notranslate"><span class="pre">IsDummyFn.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.IsFunctionFn"><code class="docutils literal notranslate"><span class="pre">IsFunctionFn</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.IsFunctionFn.run"><code class="docutils literal notranslate"><span class="pre">IsFunctionFn.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.IsIntegerFn"><code class="docutils literal notranslate"><span class="pre">IsIntegerFn</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.IsIntegerFn.run"><code class="docutils literal notranslate"><span class="pre">IsIntegerFn.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.IsStringFn"><code class="docutils literal notranslate"><span class="pre">IsStringFn</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.IsStringFn.run"><code class="docutils literal notranslate"><span class="pre">IsStringFn.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.IsTruthValueFn"><code class="docutils literal notranslate"><span class="pre">IsTruthValueFn</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.IsTruthValueFn.run"><code class="docutils literal notranslate"><span class="pre">IsTruthValueFn.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.IsTupleFn"><code class="docutils literal notranslate"><span class="pre">IsTupleFn</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.IsTupleFn.run"><code class="docutils literal notranslate"><span class="pre">IsTupleFn.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.OrderFn"><code class="docutils literal notranslate"><span class="pre">OrderFn</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.OrderFn.run"><code class="docutils literal notranslate"><span class="pre">OrderFn.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.PrintFn"><code class="docutils literal notranslate"><span class="pre">PrintFn</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.PrintFn.run"><code class="docutils literal notranslate"><span class="pre">PrintFn.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.cse_machine.html#module-interpreter.cse_machine.st">interpreter.cse_machine.st module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode"><code class="docutils literal notranslate"><span class="pre">STNode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.assign_node"><code class="docutils literal notranslate"><span class="pre">STNode.assign_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.comma_node"><code class="docutils literal notranslate"><span class="pre">STNode.comma_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.createFCRSNode"><code class="docutils literal notranslate"><span class="pre">STNode.createFCRSNode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.gamma_node"><code class="docutils literal notranslate"><span class="pre">STNode.gamma_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.getChildrenCount"><code class="docutils literal notranslate"><span class="pre">STNode.getChildrenCount()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.getSibilingCount"><code class="docutils literal notranslate"><span class="pre">STNode.getSibilingCount()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.hasToken"><code class="docutils literal notranslate"><span class="pre">STNode.hasToken()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.is_conditional"><code class="docutils literal notranslate"><span class="pre">STNode.is_conditional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.is_gamma"><code class="docutils literal notranslate"><span class="pre">STNode.is_gamma()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.is_lambda"><code class="docutils literal notranslate"><span class="pre">STNode.is_lambda()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.is_tau"><code class="docutils literal notranslate"><span class="pre">STNode.is_tau()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.lambda_node"><code class="docutils literal notranslate"><span class="pre">STNode.lambda_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.parseValueInToken"><code class="docutils literal notranslate"><span class="pre">STNode.parseValueInToken()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.siblings"><code class="docutils literal notranslate"><span class="pre">STNode.siblings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.tau_node"><code class="docutils literal notranslate"><span class="pre">STNode.tau_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.ystar_node"><code class="docutils literal notranslate"><span class="pre">STNode.ystar_node()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.cse_machine.html#module-interpreter.cse_machine.stack">interpreter.cse_machine.stack module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.stack.Stack"><code class="docutils literal notranslate"><span class="pre">Stack</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.stack.Stack.popStack"><code class="docutils literal notranslate"><span class="pre">Stack.popStack()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.stack.Stack.pushStack"><code class="docutils literal notranslate"><span class="pre">Stack.pushStack()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.stack.Stack.removeEnvironment"><code class="docutils literal notranslate"><span class="pre">Stack.removeEnvironment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.stack.Stack.top"><code class="docutils literal notranslate"><span class="pre">Stack.top()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.cse_machine.html#module-interpreter.cse_machine.symbol">interpreter.cse_machine.symbol module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.BetaSymbol"><code class="docutils literal notranslate"><span class="pre">BetaSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.BinaryOperatorSymbol"><code class="docutils literal notranslate"><span class="pre">BinaryOperatorSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.DeltaSymbol"><code class="docutils literal notranslate"><span class="pre">DeltaSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.EnvMarkerSymbol"><code class="docutils literal notranslate"><span class="pre">EnvMarkerSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.EtaClosureSymbol"><code class="docutils literal notranslate"><span class="pre">EtaClosureSymbol</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.EtaClosureSymbol.fromLambdaClosure"><code class="docutils literal notranslate"><span class="pre">EtaClosureSymbol.fromLambdaClosure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.EtaClosureSymbol.toLambdaClosure"><code class="docutils literal notranslate"><span class="pre">EtaClosureSymbol.toLambdaClosure()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.FunctionSymbol"><code class="docutils literal notranslate"><span class="pre">FunctionSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.GammaSymbol"><code class="docutils literal notranslate"><span class="pre">GammaSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.LambdaClosureSymbol"><code class="docutils literal notranslate"><span class="pre">LambdaClosureSymbol</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.LambdaClosureSymbol.getEnvMarkerIndex"><code class="docutils literal notranslate"><span class="pre">LambdaClosureSymbol.getEnvMarkerIndex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.LambdaSymbol"><code class="docutils literal notranslate"><span class="pre">LambdaSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.NameSymbol"><code class="docutils literal notranslate"><span class="pre">NameSymbol</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.NameSymbol.isFunction"><code class="docutils literal notranslate"><span class="pre">NameSymbol.isFunction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.NameSymbol.isId"><code class="docutils literal notranslate"><span class="pre">NameSymbol.isId()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.NameSymbol.isPrimitive"><code class="docutils literal notranslate"><span class="pre">NameSymbol.isPrimitive()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.NameSymbol.isString"><code class="docutils literal notranslate"><span class="pre">NameSymbol.isString()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.NameSymbol.isTupleSymbol"><code class="docutils literal notranslate"><span class="pre">NameSymbol.isTupleSymbol()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.NameSymbol.isValidType"><code class="docutils literal notranslate"><span class="pre">NameSymbol.isValidType()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.OperatorSymbol"><code class="docutils literal notranslate"><span class="pre">OperatorSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.Symbol"><code class="docutils literal notranslate"><span class="pre">Symbol</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.Symbol.isType"><code class="docutils literal notranslate"><span class="pre">Symbol.isType()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.SymbolFactory"><code class="docutils literal notranslate"><span class="pre">SymbolFactory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.SymbolFactory.createSymbol"><code class="docutils literal notranslate"><span class="pre">SymbolFactory.createSymbol()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.TauSymbol"><code class="docutils literal notranslate"><span class="pre">TauSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.TupleSymbol"><code class="docutils literal notranslate"><span class="pre">TupleSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.UnaryOperatorSymbol"><code class="docutils literal notranslate"><span class="pre">UnaryOperatorSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.symbol.YStarSymbol"><code class="docutils literal notranslate"><span class="pre">YStarSymbol</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.cse_machine.html#module-interpreter.cse_machine">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine"><code class="docutils literal notranslate"><span class="pre">CSEMachine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.applyFP"><code class="docutils literal notranslate"><span class="pre">CSEMachine.applyFP()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.applyFunction"><code class="docutils literal notranslate"><span class="pre">CSEMachine.applyFunction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.applyLambda"><code class="docutils literal notranslate"><span class="pre">CSEMachine.applyLambda()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.applyYStar"><code class="docutils literal notranslate"><span class="pre">CSEMachine.applyYStar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.binop"><code class="docutils literal notranslate"><span class="pre">CSEMachine.binop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.conditional"><code class="docutils literal notranslate"><span class="pre">CSEMachine.conditional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.currentEnv"><code class="docutils literal notranslate"><span class="pre">CSEMachine.currentEnv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.evaluate"><code class="docutils literal notranslate"><span class="pre">CSEMachine.evaluate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.exitEnv"><code class="docutils literal notranslate"><span class="pre">CSEMachine.exitEnv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.get_arg"><code class="docutils literal notranslate"><span class="pre">CSEMachine.get_arg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.stackLambda"><code class="docutils literal notranslate"><span class="pre">CSEMachine.stackLambda()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.stackName"><code class="docutils literal notranslate"><span class="pre">CSEMachine.stackName()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.tupleFormation"><code class="docutils literal notranslate"><span class="pre">CSEMachine.tupleFormation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.tupleSelection"><code class="docutils literal notranslate"><span class="pre">CSEMachine.tupleSelection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.unop"><code class="docutils literal notranslate"><span class="pre">CSEMachine.unop()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interpreter.lexer.html">interpreter.lexer package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.lexer.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.lexer.html#module-interpreter.lexer.tokens">interpreter.lexer.tokens module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.BuildTreeException"><code class="docutils literal notranslate"><span class="pre">BuildTreeException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.BuiltTreeException"><code class="docutils literal notranslate"><span class="pre">BuiltTreeException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.CommaToken"><code class="docutils literal notranslate"><span class="pre">CommaToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.CommaToken.regex"><code class="docutils literal notranslate"><span class="pre">CommaToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.CommentToken"><code class="docutils literal notranslate"><span class="pre">CommentToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.CommentToken.regex"><code class="docutils literal notranslate"><span class="pre">CommentToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.IdentifierToken"><code class="docutils literal notranslate"><span class="pre">IdentifierToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.IdentifierToken.regex"><code class="docutils literal notranslate"><span class="pre">IdentifierToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.IntegerToken"><code class="docutils literal notranslate"><span class="pre">IntegerToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.IntegerToken.regex"><code class="docutils literal notranslate"><span class="pre">IntegerToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.InvalidTokenException"><code class="docutils literal notranslate"><span class="pre">InvalidTokenException</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.InvalidTokenException.fromLine"><code class="docutils literal notranslate"><span class="pre">InvalidTokenException.fromLine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.InvalidTokenException.fromToken"><code class="docutils literal notranslate"><span class="pre">InvalidTokenException.fromToken()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.KeywordToken"><code class="docutils literal notranslate"><span class="pre">KeywordToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.KeywordToken.type_keywords"><code class="docutils literal notranslate"><span class="pre">KeywordToken.type_keywords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.KeywordToken.values"><code class="docutils literal notranslate"><span class="pre">KeywordToken.values()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.LParenToken"><code class="docutils literal notranslate"><span class="pre">LParenToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.LParenToken.regex"><code class="docutils literal notranslate"><span class="pre">LParenToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.OperatorToken"><code class="docutils literal notranslate"><span class="pre">OperatorToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.OperatorToken.regex"><code class="docutils literal notranslate"><span class="pre">OperatorToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.RParenToken"><code class="docutils literal notranslate"><span class="pre">RParenToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.RParenToken.regex"><code class="docutils literal notranslate"><span class="pre">RParenToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.SemiColonToken"><code class="docutils literal notranslate"><span class="pre">SemiColonToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.SemiColonToken.regex"><code class="docutils literal notranslate"><span class="pre">SemiColonToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.SpacesToken"><code class="docutils literal notranslate"><span class="pre">SpacesToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.SpacesToken.regex"><code class="docutils literal notranslate"><span class="pre">SpacesToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.StringToken"><code class="docutils literal notranslate"><span class="pre">StringToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.StringToken.regex"><code class="docutils literal notranslate"><span class="pre">StringToken.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.Token"><code class="docutils literal notranslate"><span class="pre">Token</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.Token.fromValue"><code class="docutils literal notranslate"><span class="pre">Token.fromValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.Token.getType"><code class="docutils literal notranslate"><span class="pre">Token.getType()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.Token.getValue"><code class="docutils literal notranslate"><span class="pre">Token.getValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.Token.instance"><code class="docutils literal notranslate"><span class="pre">Token.instance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.Token.isType"><code class="docutils literal notranslate"><span class="pre">Token.isType()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.Token.isValue"><code class="docutils literal notranslate"><span class="pre">Token.isValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.Token.regex"><code class="docutils literal notranslate"><span class="pre">Token.regex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.TokenRegex"><code class="docutils literal notranslate"><span class="pre">TokenRegex</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.TokenRegex.CloseParen"><code class="docutils literal notranslate"><span class="pre">TokenRegex.CloseParen</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.TokenRegex.Comma"><code class="docutils literal notranslate"><span class="pre">TokenRegex.Comma</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.TokenRegex.Comment"><code class="docutils literal notranslate"><span class="pre">TokenRegex.Comment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.TokenRegex.Identifier"><code class="docutils literal notranslate"><span class="pre">TokenRegex.Identifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.TokenRegex.Integer"><code class="docutils literal notranslate"><span class="pre">TokenRegex.Integer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.TokenRegex.OPERATOR_SYMBOL"><code class="docutils literal notranslate"><span class="pre">TokenRegex.OPERATOR_SYMBOL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.TokenRegex.OpenParen"><code class="docutils literal notranslate"><span class="pre">TokenRegex.OpenParen</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.TokenRegex.Operator"><code class="docutils literal notranslate"><span class="pre">TokenRegex.Operator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.TokenRegex.SemiColon"><code class="docutils literal notranslate"><span class="pre">TokenRegex.SemiColon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.TokenRegex.Spaces"><code class="docutils literal notranslate"><span class="pre">TokenRegex.Spaces</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.tokens.TokenRegex.String"><code class="docutils literal notranslate"><span class="pre">TokenRegex.String</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.lexer.html#module-interpreter.lexer">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.Lexer"><code class="docutils literal notranslate"><span class="pre">Lexer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.Lexer.lookAhead"><code class="docutils literal notranslate"><span class="pre">Lexer.lookAhead()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.Lexer.nextToken"><code class="docutils literal notranslate"><span class="pre">Lexer.nextToken()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.Lexer.reset"><code class="docutils literal notranslate"><span class="pre">Lexer.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.lexer.html#interpreter.lexer.Lexer.tokenize"><code class="docutils literal notranslate"><span class="pre">Lexer.tokenize()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interpreter.parser.html">interpreter.parser package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.parser.html#module-interpreter.parser">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser"><code class="docutils literal notranslate"><span class="pre">RPALParser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.parse"><code class="docutils literal notranslate"><span class="pre">RPALParser.parse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_A"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_A()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_Af"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Af()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_Ap"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Ap()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_At"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_At()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_B"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_B()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_Bp"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Bp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_Bs"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Bs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_Bt"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Bt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_D"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_D()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_Da"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Da()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_Db"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Db()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_Dr"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Dr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_E"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_E()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_Ew"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Ew()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_R"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_R()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_Rn"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Rn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_T"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_T()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_Ta"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Ta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_Tc"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Tc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_Vb"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Vb()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.parser.html#interpreter.parser.RPALParser.proc_Vl"><code class="docutils literal notranslate"><span class="pre">RPALParser.proc_Vl()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-interpreter">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-interpreter" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="interpreter.Interpreter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.</span></span><span class="sig-name descname"><span class="pre">Interpreter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">program</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">switch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.Interpreter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="interpreter.Interpreter.interpret">
+<span class="sig-name descname"><span class="pre">interpret</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.Interpreter.interpret" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpret the given program</p>
+<dl class="simple">
+<dt>args: </dt><dd><p>program - the source code
+switch - switch specifying to print the ast or st</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">RPAL Interpreter</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2024, Pavan Pitiwaduge & Sandali Liyanage.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/interpreter.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
