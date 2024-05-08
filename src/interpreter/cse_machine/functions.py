@@ -2,6 +2,8 @@ class DefinedFunctions:
     PRINT = "Print"
     ORDER = "Order"
     CONC = "Conc"
+    STEM = "Stem"
+    STERN = "Stern"
     ISINTEGER = "Isinteger"
     ISSTRING = "Isstring"
     ISTRUTHVALUE = "Istruthvalue"
@@ -15,6 +17,8 @@ class DefinedFunctions:
             DefinedFunctions.PRINT,
             DefinedFunctions.ORDER,
             DefinedFunctions.CONC,
+            DefinedFunctions.STEM,
+            DefinedFunctions.STERN,
             DefinedFunctions.ISINTEGER,
             DefinedFunctions.ISSTRING,
             DefinedFunctions.ISTRUTHVALUE,
@@ -64,6 +68,10 @@ class FunctionFactory:
             return IsDummyFn()
         elif name == DefinedFunctions.CONC:
             return ConcFn()
+        elif name == DefinedFunctions.STEM:
+            return StemFn()
+        elif name == DefinedFunctions.STERN:
+            return SternFn()
         else:
             raise Exception(f"Invalid function name: {name}")
     
@@ -109,6 +117,20 @@ class ConcFn(DefinedFunction):
         res = "".join(args)
         return f"'{res}'"
         
+
+class StemFn(DefinedFunction):
+    def __init__(self):
+        super().__init__(DefinedFunctions.STEM)
+    
+    def run(self, arg):
+        return arg[0]
+    
+class SternFn(DefinedFunction):
+    def __init__(self):
+        super().__init__(DefinedFunctions.STERN)
+    
+    def run(self, arg):
+        return arg[-1]
 
 class IsIntegerFn(DefinedFunction):
     def __init__(self):
