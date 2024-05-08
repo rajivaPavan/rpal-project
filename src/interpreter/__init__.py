@@ -54,20 +54,21 @@ class Interpreter:
         parser = RPALParser(self.__program)
         try:
             self.__ast = parser.parse()
-        except (InvalidTokenException, BuildTreeException) as e:
+
+            # Check if the program was fully parsed
+            if parser.nextToken() != None:
+                if self.__switch is Interpreter.__AST_SWITCH:
+                    print(self.__ast)
+                raise BuiltTreeException("Program was not fully parsed.")
+        
+        except (InvalidTokenException, 
+                BuildTreeException, BuiltTreeException) as e:
             print(e)
             raise e
+        
         except Exception as e:
             print("An error occured while parsing the program.")
             raise e
-        
-        # Check if the program was fully parsed
-        if parser.nextToken() != None:
-            if self.__switch is Interpreter.__AST_SWITCH:
-                print(self.__ast)
-            err = "Program was not fully parsed."
-            print(err)
-            raise BuiltTreeException(err)
         
         if self.__switch == Interpreter.__AST_SWITCH:
             print(self.__ast)
@@ -77,8 +78,10 @@ class Interpreter:
         Standardize the ast. Also print the ST if the switch is -st
         """
         standardizer = ASTStandardizer()
+
         try:
             self.__st = standardizer.standardize(self.__ast)
+
         except Exception as e:
             print("An error occured while standardizing the AST.")
             raise e
