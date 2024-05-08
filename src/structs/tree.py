@@ -52,7 +52,6 @@ class BinaryTreeNode:
         return cls(node.getValue(), BinaryTreeNode.deep_copy(node.getLeft()), BinaryTreeNode.deep_copy(node.getRight()))
 
 
-    
     def is_name(self):
         node_value = str(self.getValue())
         return self.is_id() or str.startswith(node_value, "<INT:") or str.startswith(node_value, "<STR:")
@@ -65,6 +64,12 @@ class BinaryTreeNode:
         return f"{self.getValue()}"
     
 class TreeFormatter():
+    
+    """_summary_
+
+    Returns:
+        _type_: _description_
+    """
 
     @staticmethod
     def line_str(node, level):
