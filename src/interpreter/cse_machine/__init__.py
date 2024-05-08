@@ -280,8 +280,11 @@ class CSEMachine:
 
         rand_1 = self.stack.popStack().name
         rand_2 = self.stack.popStack().name
-
-        _value = self.__applyOp(operator, rand_1, rand_2)
+        try:
+            _value = self.__applyOp(operator, rand_1, rand_2)
+        except ZeroDivisionError as e:
+            print("Division by zero")
+            raise e
         self.stack.pushStack(NameSymbol(_value))
         
     def unop(self, operator):
