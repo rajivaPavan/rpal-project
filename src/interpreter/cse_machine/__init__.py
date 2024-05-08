@@ -193,6 +193,8 @@ class CSEMachine:
             # if the stack_top is a name symbol, get the value from the environment
             if stack_top.isType(NameSymbol):
                 stack_top = stack_top.name
+            elif stack_top.isType(TupleSymbol):
+                stack_top = stack_top
             # else if stack_top is a eta closure, just add it as it is 
             self.currentEnv().insertEnvData(env_variables[0], stack_top)
         else:
@@ -268,7 +270,6 @@ class CSEMachine:
         "eq": lambda rator, rand: rator == rand,
         "neg": lambda rator: -rator,
         "not": lambda rator: not rator,
-        "aug": lambda rator, rand: rator + rand
     }
           
     def binop(self, operator):
@@ -281,6 +282,7 @@ class CSEMachine:
 
         rand_1 = self.stack.popStack().name
         rand_2 = self.stack.popStack().name
+        self.logger.debug(f"op:{operator}, rand_1: {rand_1}, rand_2: {rand_2}")
         try:
             _value = self.__applyOp(operator, rand_1, rand_2)
         except ZeroDivisionError as e:
@@ -310,6 +312,11 @@ class CSEMachine:
         if rand is None:
             return self.__operator_map[operator](rator)
         else:
+            if operator == "aug":
+                rator = list() if rator == Nodes.NIL else [rator]
+                rand = list() if rand == Nodes.NIL else [rand]
+                return tuple(rator + rand)
+            
             return self.__operator_map[operator](rator, rand)
     
     def conditional(self):
@@ -359,7 +366,11 @@ class CSEMachine:
         n = name_symbol.name
 
         self.logger.debug(f"tuple: {tuple}, access n: {n}")
-        self.stack.pushStack(NameSymbol(tuple.tuple[n-1]))
+        if n < 1 or n > tuple.n:
+            # push a nil
+            self.stack.pushStack(NameSymbol(Nodes.NIL, False))
+        else:
+            self.stack.pushStack(NameSymbol(tuple.tuple[n-1]))
 
     def applyFunction(self, top: FunctionSymbol):
         """
