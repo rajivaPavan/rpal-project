@@ -21,7 +21,7 @@ class TestRPALSTGeneration(unittest.TestCase):
             ("tests/rpal/rpal_02", "tests/rpal/output02.test"),
             # ("tests/rpal/rpal_03", "tests/rpal/output03.test"),
             ("tests/rpal/rpal_04", "tests/rpal/output04.test"),
-            # ("tests/rpal/rpal_05", "tests/rpal/output05.test"),
+            ("tests/rpal/rpal_05", "tests/rpal/output05.test"),
             # ("tests/rpal/rpal_06", "tests/rpal/output06.test"),
             ("tests/rpal/rpal_07", "tests/rpal/output07.test"),
             ("tests/rpal/rpal_08", "tests/rpal/output08.test"),

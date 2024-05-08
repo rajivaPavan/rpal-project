@@ -69,8 +69,16 @@ class PrintFn(DefinedFunction):
     
     def run(self, arg):
         # strip ' in the beginning and end
-        arg = str(arg).strip("'")
+        arg = PrintFn.__handler(arg)
         print(arg)
+
+    @staticmethod
+    def __handler(arg):
+        if isinstance(arg, str):
+            return arg.strip("'")
+        elif isinstance(arg, bool):
+            return "true" if arg else "false"
+        return arg
 
 class OrderFn(DefinedFunction):
     def __init__(self):
