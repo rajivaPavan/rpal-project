@@ -84,6 +84,11 @@ class PrintFn(DefinedFunction):
             return arg.strip("'")
         elif isinstance(arg, bool):
             return "true" if arg else "false"
+        elif isinstance(arg, tuple):
+            tuple_ = str(arg)
+            tuple_ = tuple_.lstrip("(").rstrip(")")
+            tuple_ = tuple_.rstrip(",")
+            return f"({tuple_})"
         return arg
 
 class OrderFn(DefinedFunction):
