@@ -8,6 +8,15 @@ from logger import logger
 
 
 class Interpreter:
+    """
+    Represents the Interpreter of the program.
+    
+    Attributes: 
+        program: The source code.
+        switch: Switch specifying to print the ast or st.
+        ast: The abstract syntax tree.
+        st: The standardized tree.        
+    """
     
     __AST_SWITCH = "-ast"
     __ST_SWITCH = "-st"
@@ -17,15 +26,14 @@ class Interpreter:
         self.__switch = switch
         self.__ast: ASTNode = None
         self.__st: STNode = None
-        self.__result = ""
     
     def interpret(self):
         """
-        Interpret the given program
+        Interprets the given program.
         
         args: 
-            program - the source code
-            switch - switch specifying to print the ast or st
+            program: The source code.
+            switch: Switch specifying to print the ast or st.
         """
         res = ""
         try: 
@@ -33,7 +41,7 @@ class Interpreter:
             self.__parse()
             if self.__switch == Interpreter.__AST_SWITCH:
                 return
-            # Get the st from the ast
+            # Get the st from the ast. 
             self.__standardize_ast()
             if self.__switch != Interpreter.__ST_SWITCH:
                 self.__compute()            
@@ -43,7 +51,7 @@ class Interpreter:
     
     def __parse(self):
         """
-        Parse the program given to the interpreter. Also print the AST if the switch is -ast
+        Parses the program given to the interpreter. Prints the AST if the switch is -ast.
         """
         
         parser = RPALParser(self.__program)
@@ -61,7 +69,7 @@ class Interpreter:
              
     def __standardize_ast(self):
         """
-        Standardize the ast. Also print the ST if the switch is -st
+        Standardizes the ast. Print the ST if the switch is -st.
         """
         standardizer = ASTStandardizer()
         self.__st = standardizer.standardize(self.__ast)
@@ -70,15 +78,15 @@ class Interpreter:
             print(self.__st)
 
     def __compute(self):
-            """
-            Computes the result by inputting the standardized tree (ST) to the CSE machine.
-            """
-            st = self.__st
-            cse = CSEMachine(st)
-            try:
-                cse.evaluate()
-            except ZeroDivisionError as e:
-                print("Zero Division Error: Division by zero")
-            except RecursionError as e:
-                print("Recursion Error: Maximum recursion depth exceeded")
+        """
+        Computes the result by inputting the standardized tree (ST) to the CSE machine.
+        """
+        st = self.__st
+        cse = CSEMachine(st)
+        try:
+            cse.evaluate()
+        except ZeroDivisionError as e:
+            print("Zero Division Error: Division by zero")
+        except RecursionError as e:
+            print("Recursion Error: Maximum recursion depth exceeded")
 
