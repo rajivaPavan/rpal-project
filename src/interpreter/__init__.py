@@ -9,7 +9,7 @@ from logger import logger
 
 class Interpreter:
     """
-    Represents the Interpreter of the program.
+    Represents the Interpreter.
     
     Attributes: 
         program: The source code.
@@ -31,7 +31,7 @@ class Interpreter:
         """
         Interprets the given program.
         
-        args: 
+        Args: 
             program: The source code.
             switch: Switch specifying to print the ast or st.
         """

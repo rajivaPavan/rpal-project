@@ -2,7 +2,8 @@ from interpreter.ast.nodes import Nodes
 from structs.tree import BinaryTreeNode, TreeFormatter
 
 class ASTNode(BinaryTreeNode):
-    """A class representing a node in an Abstract Syntax Tree (AST).
+    """
+    A class representing a node in an Abstract Syntax Tree (AST).
 
     The ASTNode class uses the left child right sibling representation to store the tree structure.
     Each node contains a reference to its node value, left child, and right sibling.

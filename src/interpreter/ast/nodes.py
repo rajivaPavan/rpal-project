@@ -1,5 +1,7 @@
 class Nodes:
-    # reserved AST node values
+
+    """" A class representing the reserved values of the AST nodes. """
+    
     LET = "let"
     LAMBDA = "lambda"
     TAU = "tau"

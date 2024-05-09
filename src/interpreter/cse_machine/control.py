@@ -4,17 +4,20 @@ from .symbol import EnvMarkerSymbol, GammaSymbol, Symbol
 
 class Control:
     
-    """The control of the CSE machine."""
+    """
+    The control of the CSE machine.
+    
+    Methods: 
+        removeRightMost() -> Symbol: Removes the rightmost element of the control.
+        insertControlStruct(controlStruct: List[Symbol]): Inserts a control structure to the control.
+        insertEnvMarker(env_index: int): Inserts an environment marker to the control.
+    
+    """
     
     def __init__(self, controlStruct):
         self.control: List[Symbol] = []
         self.insertEnvMarker(0)
         self.insertControlStruct(controlStruct)  
-    
-    def peekRightMost(self):
-        #Not used yet. Can remove if needed
-        right_most = self.control[-1]
-        return right_most
     
     def removeRightMost(self):
         if len(self.control)== 0:

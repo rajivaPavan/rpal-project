@@ -4,23 +4,21 @@ from interpreter.ast import ASTNode
 
 class Parser:
     """
-    The Parser class is responsible for parsing the source code and building the Abstract Syntax Tree (AST).
+    Parses the source code and builds the Abstract Syntax Tree (AST).
+    
+    Attributes:
+        lexer (Lexer): The lexer object used for tokenizing the source code.
+        nextToken (Token): The next token to be processed.
+        stack (ParserStack): The stack used for parsing.
     """
 
     def __init__(self, src):
         """
         Initializes a Parser object.
-
-        Parameters:
-        - src (str): The source code to be parsed.
-
-        Attributes:
-        - __lexer (Lexer): The lexer object used for tokenizing the source code.
-        - __nextToken (Token): The next token to be processed.
-        - __stack (ParserStack): The stack used for parsing.
-
-        Returns:
-        - None
+        
+        Args: 
+            src (str): The source code to be parsed.
+        
         """
         self.__lexer = Lexer(src)
         self.__nextToken:Token = self.__lexer.nextToken() 
@@ -46,7 +44,7 @@ class Parser:
         Reads the next token in the parser and checks if it is the expected token. If not, raises an exception.
         Pushes the token to the stack as an ASTNode and gets the next token from the lexer.
 
-        Parameters:
+        Args:
             token (str): The expected token.
             ignore (bool, optional): If True, the token will not be pushed to the stack. Defaults to True.
 
@@ -149,6 +147,9 @@ class Parser:
         return self.__popStack()
     
 class ParserStack:
+    """
+    Represents the stack used to implement the parser.
+    """
     def __init__(self):
         self.__stack:ASTNode = []
         

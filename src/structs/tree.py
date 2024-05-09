@@ -2,9 +2,9 @@ class BinaryTreeNode:
     """ A class representing a node in a binary tree.
     
     Attributes:
-        value: The value of the node.
-        left: The left child of the node.
-        right: The right child of the node.
+        __value: The value of the node.
+        __left: The left child of the node.
+        __right: The right child of the node.
     """
     def __init__(self, value, left=None, right=None):
         self.__value = value
