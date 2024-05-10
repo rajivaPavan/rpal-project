@@ -12,10 +12,10 @@ class Interpreter:
     Represents the Interpreter.
     
     Attributes: 
-        program: The source code.
-        switch: Switch specifying to print the ast or st.
-        ast: The abstract syntax tree.
-        st: The standardized tree.        
+        __program: The source code.
+        __switch: Switch specifying to print the ast or st.
+        __ast: The abstract syntax tree.
+        __st: The standardized tree.        
     """
     
     __AST_SWITCH = "-ast"
@@ -30,10 +30,6 @@ class Interpreter:
     def interpret(self):
         """
         Interprets the given program.
-        
-        Args: 
-            program: The source code.
-            switch: Switch specifying to print the ast or st.
         """
         res = ""
         try: 

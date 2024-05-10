@@ -47,11 +47,15 @@ class ASTStandardizer:
         return True
 
     def __standardize(self, node:BinaryTreeNode):
-        """"
-        standardize the AST using post order traversal.
+        """
+        Standardize the AST using post order traversal.
         
         AST given by the parser is in the form of a first child right sibling tree.
         Standardized tree is in the form of a binary tree.
+
+        Args: BinaryTreeNode: The root of the AST to be standardized.
+
+        Return: Root of the standardized tree.
         """
         
         if node is None:
