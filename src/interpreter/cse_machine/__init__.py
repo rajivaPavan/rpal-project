@@ -1,4 +1,5 @@
 import pprint
+from interpreter.cse_machine.exceptions import MachineException
 
 from interpreter.cse_machine.functions import DefinedFunction
 from .control_structures import CSInitializer
@@ -413,7 +414,3 @@ class CSEMachine:
                 # for primitive data types
             rand_symbol = rand_symbol.name
         return rand_symbol
-
-class MachineException(Exception):
-    def __init__(self, message):
-        super().__init__("An error occured while computing the result.\n" + message)
