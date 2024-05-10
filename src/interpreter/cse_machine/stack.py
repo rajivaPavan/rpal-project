@@ -6,6 +6,12 @@ class Stack:
     
     """
     The stack to evaluate the CONTROL.
+    
+    Methods:
+        popStack() -> Symbol: Pops the top element from the stack.
+        top() -> Symbol: Returns the top element of the stack.
+        pushStack(symbol: Symbol): Pushes the symbol to the stack.
+        removeEnvironment(envMarker: EnvMarkerSymbol): Removes the environment marker from the stack.
     """    
     
     def __init__(self):

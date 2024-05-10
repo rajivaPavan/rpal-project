@@ -3,6 +3,10 @@ from typing import Generic, TypeVar
 T = TypeVar('T')
 
 class Stack(Generic[T]):
+    """
+    A generic stack implementation.
+    
+    """
     def __init__(self) -> None:
         self.items: list[T] = []
 

@@ -8,6 +8,15 @@ from logger import logger
 
 
 class Interpreter:
+    """
+    Represents the Interpreter.
+    
+    Attributes: 
+        __program: The source code.
+        __switch: Switch specifying to print the ast or st.
+        __ast: The abstract syntax tree.
+        __st: The standardized tree.        
+    """
     
     __AST_SWITCH = "-ast"
     __ST_SWITCH = "-st"
@@ -17,15 +26,10 @@ class Interpreter:
         self.__switch = switch
         self.__ast: ASTNode = None
         self.__st: STNode = None
-        self.__result = ""
     
     def interpret(self):
         """
-        Interpret the given program
-        
-        args: 
-            program - the source code
-            switch - switch specifying to print the ast or st
+        Interprets the given program.
         """
 
         try: 
@@ -48,7 +52,7 @@ class Interpreter:
     
     def __parse(self):
         """
-        Parse the program given to the interpreter. Also print the AST if the switch is -ast
+        Parses the program given to the interpreter. Prints the AST if the switch is -ast.
         """
         
         parser = RPALParser(self.__program)
@@ -75,7 +79,7 @@ class Interpreter:
              
     def __standardize_ast(self):
         """
-        Standardize the ast. Also print the ST if the switch is -st
+        Standardizes the ast. Print the ST if the switch is -st.
         """
         standardizer = ASTStandardizer()
 
