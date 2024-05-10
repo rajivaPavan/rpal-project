@@ -14,7 +14,7 @@ class CSEMachine:
     """
     The CSEMachine class is responsible for simulating the Control Structure Environment (CSE) machine
     used in the RPAL language interpreter. It manages the control structures, environment, and stack
-    to intepret the RPAL code. The class provides methods to evaluate expressions based on the cse machine rules
+    to intepret the RPAL code. This class provides methods to evaluate expressions based on the cse machine rules.  
     """
 
     def __init__(self, st:STNode):
@@ -22,7 +22,7 @@ class CSEMachine:
         Initializes the CSE machine with the given standardized tree.
         
         Args:
-        st (STNode): The standardized tree which is used to generate control structures.
+            st (STNode): The standardized tree which is used to generate control structures.
         """
         # inti control
         self.csMap  = CSInitializer(st).init()
@@ -172,7 +172,7 @@ class CSEMachine:
         
         This function evaluates n-ary functions as well.
         Creates a new environment and make it the current environment.
-        Also Insert environment data for env_variables with the respective env_values.
+        Also Inserts environment data for env_variables with the respective env_values.
         """	
  
         _lambdaClosure = top

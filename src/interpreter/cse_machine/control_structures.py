@@ -13,10 +13,7 @@ class ControlStruct(Iterable):
     """
     
     def __init__(self, index):
-        """
-        Represents a control structure in the CSE machine.
-        eg: delta1, delta 0
-        """
+
         self.__index = index
         self.__array: List[Symbol] = []
 
@@ -44,11 +41,20 @@ class ControlStruct(Iterable):
     
 
 class ControlStructures:
+    """
+    A class which represents the control structures as an object.
+    
+    Attributes: 
+        control_structure_map (dict): A dictionary of control structures.
+        
+    """
     
     def __init__(self, control_structure_map: dict):
         self.__control_structure_map = control_structure_map
 
-    def get(self, delta_index) -> ControlStruct:
+    def get(self, delta_index) -> ControlStruct:   
+        """Returns the control structure for the given delta index."""
+        
         return self.__control_structure_map[delta_index]
 
     def __repr__(self):
@@ -62,9 +68,12 @@ class CSInitializer:
         self.__controlStructureMap = None
         
     def init(self) -> ControlStructures:
-        """Generates the control structures for the CSE machine from the Standardized Tree.
+        """
+        Generates the control structures for the CSE machine from the Standardized Tree.
         
-        Returns: ControlStructures object containing the control structures."""
+        Returns: 
+            ControlStructures object containing the control structures.
+        """
         self.__initializeCS(self.__st)
         return ControlStructures(self.__controlStructureMap)
     
@@ -72,16 +81,23 @@ class CSInitializer:
         return self.__controlStructureMap[delta_index]
 
     def __initializeCS(self, st) -> dict:
-        """Generates the control structures for the CSE machine from the Standardized Tree.
-        Returns: a dictionary of control structures."""
+        """
+        Generates the control structures for the CSE machine from the Standardized Tree.
+        
+        Args: st (STNode): The Standardized Tree.
+        
+        Returns: 
+            A dictionary of control structures.
+        """
         
         def traverse(node: STNode, deltaIndex: int):
             """
-            Traverse the tree using pre-order traversal.
+            Traverses the tree using pre-order traversal.
             
             Args:
-            node (STNode): The node to traverse.
-            csIndex (int): The index of the control structure.
+                node (STNode): The node to traverse.
+                deltaIndex (int): The index of the control structure.
+
             """
 
             if node is None:
@@ -173,6 +189,7 @@ class CSInitializer:
 
     def __addNewControlStruct(self, deltaIndex: int):
         """Adds a new control structure to the Control Structure Map by linear probing"""
+        
         while deltaIndex in self.__controlStructureMap.keys():
             deltaIndex+=1
         self.__controlStructureMap[deltaIndex] = ControlStruct(deltaIndex)

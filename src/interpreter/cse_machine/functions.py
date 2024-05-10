@@ -1,4 +1,6 @@
 class DefinedFunctions:
+    """The functions defined in the Primitive Environment are represented here."""
+    
     PRINT = "Print"
     ORDER = "Order"
     CONC = "Conc"
@@ -29,12 +31,13 @@ class DefinedFunctions:
 
 
 class DefinedFunction():
-    """"""
+    """A parent class for the defined functions in the Primitive Environment."""
+    
     def __init__(self, __name):
         self.__name = __name
 
     def run(self, arg):
-        raise NotImplementedError
+        raise  are
     
     def getName(self):
         return self.__name
@@ -44,6 +47,7 @@ class DefinedFunction():
     
 
 class FunctionFactory:
+    """A factory class to create objects to define the functions of each predefined function."""
     @staticmethod
     def create(name):
         if name == DefinedFunctions.PRINT:

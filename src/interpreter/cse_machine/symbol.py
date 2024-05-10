@@ -6,11 +6,7 @@ from logger import logger
 
 class Symbol:
     
-    """
-    Represents differnt types of symbols in the CSE machine.
-    Include both control symbols and stack symbols.
-    
-    """
+    """Represents symbols in the CSE machine."""
     
     def __init__(self):
         pass
@@ -22,7 +18,9 @@ class Symbol:
         return id(self) == id(other)
     
 class SymbolFactory:
-
+    
+    """A factory class to create symbols from the ST nodes."""
+    
     @staticmethod
     def createSymbol(node:STNode):
         value = node.getValue()
@@ -53,7 +51,16 @@ class SymbolFactory:
 #Subclasses of Symbol
 class NameSymbol(Symbol):
     """
-    Represents variables and numerics in the CSE machine.
+    Represents variables and numerics as a symbol.
+    
+    Methods:
+        isId() -> bool: Returns the ID.
+        isFunction() -> bool: Returns True if the symbol is a function.
+        isString() -> bool: Returns True if the symbol is a string.
+        isPrimitive(nameType) -> bool: Returns True if the symbol is a string integer or a bool.
+        isTupleSymbol(nameType) -> bool: Returns True if the symbol is a TupleSymbol.
+        isValidType(nameType) -> bool: Returns True if the symbol is a valid type.
+    
     """
     def __repr__(self):
         return f"{self.name}"
@@ -86,6 +93,7 @@ class NameSymbol(Symbol):
         return NameSymbol.isPrimitive(nameType) or NameSymbol.isTupleSymbol(nameType)
             
 class OperatorSymbol(Symbol):
+    """"Represents an operator symbol."""
     def __init__(self, operator):
         super().__init__()
         self.operator = operator
@@ -94,6 +102,7 @@ class OperatorSymbol(Symbol):
         return f"{self.operator}"
     
 class FunctionSymbol(Symbol):
+    """Represents a function symbol."""
 
     def __init__(self, func):
         super().__init__()
@@ -104,17 +113,19 @@ class FunctionSymbol(Symbol):
     
     
 class BinaryOperatorSymbol(OperatorSymbol):
+    """Represents a binary operator symbol."""
     def __init__(self, operator):
         super().__init__(operator)
 
         
 class UnaryOperatorSymbol(OperatorSymbol):
+    """Represents a unary operator symbol."""
     def __init__(self, operator):
         super().__init__(operator)
         
               
 class GammaSymbol(Symbol):
-    """Represents a gamma Symbol in the CSE machine."""
+    """Represents a gamma Symbol."""
     
     def __init__(self):
         super().__init__()
@@ -123,9 +134,12 @@ class GammaSymbol(Symbol):
         return f"gamma"
     
 class LambdaSymbol(Symbol):
-    """Represents a lambda Symbol in the CSE machine.
+    """
+    Represents a lambda Symbol,.
     
-       attribute variables can either be a list or a single variable.
+    Attributes:
+        index (int): The index of the lambda in the control structure array.
+        variables (Iterable): The variables of the lambda.
     """
     
     def __init__(self, index, variables:Iterable):
@@ -137,11 +151,14 @@ class LambdaSymbol(Symbol):
         return f"<lambda, ({', '.join(self.variables)}), {self.index}>"
         
 class LambdaClosureSymbol(LambdaSymbol):
-    """Represents a lambda closure (lambda in the stack) in the CSE machine.
+    """
+    Represents a lambda closure (lambda in the stack) in the CSE machine.
     
-        Has the additional attribute envIndex.
-        
-        Extends the Lambda class.
+    Extends the Lambda class.
+    
+    
+    Attributes:
+        envMarker (EnvMarkerSymbol): The environment marker the lambda closure.    
     """
     
     def __init__(self, variables, index, envIndex):
@@ -156,30 +173,43 @@ class LambdaClosureSymbol(LambdaSymbol):
     
 
 class EtaClosureSymbol(LambdaClosureSymbol):
-        """Represents an eta closure in the CSE machine.
+    """
+    Represents an eta closure in the CSE machine.
+    
+    Extends the LambdaClosure class.
+    
+    Methods: 
+        fromLambdaClosure(lambdaClosure:LambdaClosureSymbol) -> EtaClosureSymbol: Creates an eta closure from a lambda closure.
+        toLambdaClosure(etaClosure) -> LambdaClosureSymbol: Converts an eta closure to a lambda closure.
+    """
+    
+    def __init__(self, variables, index, envIndex):
+        super().__init__(variables, index, envIndex)
+    
+    def __repr__(self):
+        return f"<eta, ({', '.join(self.variables)}), {self.index}, {self.envMarker}>"
+    
+    @staticmethod
+    def fromLambdaClosure(lambdaClosure:LambdaClosureSymbol):
         
-        Extends the LambdaClosure class.
-        """
+        return EtaClosureSymbol(lambdaClosure.variables, lambdaClosure.index, lambdaClosure.getEnvMarkerIndex())
+    
+    @staticmethod
+    def toLambdaClosure(etaClosure):
         
-        def __init__(self, variables, index, envIndex):
-            super().__init__(variables, index, envIndex)
-        
-        def __repr__(self):
-            return f"<eta, ({', '.join(self.variables)}), {self.index}, {self.envMarker}>"
-        
-        @staticmethod
-        def fromLambdaClosure(lambdaClosure:LambdaClosureSymbol):
-            """Creates an eta closure from a lambda closure."""
-            return EtaClosureSymbol(lambdaClosure.variables, lambdaClosure.index, lambdaClosure.getEnvMarkerIndex())
-        
-        @staticmethod
-        def toLambdaClosure(etaClosure):
-            """Converts an eta closure to a lambda closure."""
-            return LambdaClosureSymbol(etaClosure.variables, etaClosure.index, etaClosure.getEnvMarkerIndex())
+        return LambdaClosureSymbol(etaClosure.variables, etaClosure.index, etaClosure.getEnvMarkerIndex())
 
 class EnvMarkerSymbol(Symbol):
     
-    """ Represents an environment marker in the control and the stack. """
+    """
+    Represents an environment marker in the control and the stack. 
+    
+    Attributes:
+        envIndex (int): The index of the environment marker.
+        
+    Methods:
+        __eq__(other) -> bool: Checks whether an instance of the EnvMarkerSymbol and then checks whether equal.
+    """
     
     def __init__(self, envIndex):
         super().__init__()
@@ -197,7 +227,9 @@ class DeltaSymbol(Symbol):
     
     """
     Represents a control structure as a Symbol in the control.
-    Has an index which points to relevant control structure in the control structure array.
+    
+    Attributes: 
+        index (int): Points to relevant control structure in the control structure array.
 
     """
     
@@ -212,6 +244,7 @@ class BetaSymbol(Symbol):
     
     """ 
     Represents a beta symbol.
+    
     Used when representing a conditonal operator in the control without standardizing.
     
     """
@@ -226,6 +259,7 @@ class TauSymbol(Symbol):
     
     """
     Represents a tau symbol.
+    
     Used when representing a tau node in the control.	
     """
     def __init__(self, n):
@@ -237,8 +271,9 @@ class TauSymbol(Symbol):
         
 class TupleSymbol(TauSymbol):
     """
-        Represents a Tuple in the stack as an object.
-        Used in standardizing the tau node in the st.
+    Represents a Tuple in the stack as an object.
+    
+    Used in standardizing the tau node in the st.
     """
     def __init__(self, n, tupleList):
         super().__init__(n)
@@ -252,9 +287,7 @@ class TupleSymbol(TauSymbol):
 
 class YStarSymbol(Symbol):
     
-    """
-    Represents a Y* symbol in the CSE machine.
-    """
+    """Represents a Y* symbol."""
 
     def __repr__(self):
         return f"Y*"

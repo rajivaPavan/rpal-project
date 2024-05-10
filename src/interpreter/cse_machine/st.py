@@ -81,14 +81,8 @@ class STNode(ASTNode):
         token:Token = token
         return token.getValue()
 
-    def hasToken(self) -> (bool, Token):
-        t = self.getValue()
-        res = isinstance(t, Token)
-        if res:
-            return res, None
-        return res, t
-    
     def getSibilingCount(self):
+        
         count = 0
         right = self.getRight()
         while right is not None:
@@ -97,6 +91,7 @@ class STNode(ASTNode):
         return count
     
     def getChildrenCount(self):
+        
         count = 0
         left = self.getLeft()
         while left is not None:
@@ -106,8 +101,14 @@ class STNode(ASTNode):
     
     @staticmethod
     def siblings(sibling_list):
-        """Set the right sibling of each node in the list to the next node in the list
-        Returns the first node in the list.
+        """
+        Set the right sibling of each node in the list to the next node in the list
+        
+        Args: 
+            sibling_list (List[STNode]): A list of nodes to be set as siblings.
+            
+        Returns: 
+            The first node.
         """
 
         for i in range(len(sibling_list) - 1):
