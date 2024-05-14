@@ -14,6 +14,9 @@ def read_file(file):
 __RUN_COMMAND_USAGE = "Usage: python3 myrpal.py [-ast, -st] <file_name>\nRequired: <file_name>\nOptional: -as"
 
 def init_args(args)->Tuple[str, str]:
+    
+    """Takes command line arguments as input and returns the file name and switch"""
+    
     switch:str = None
     file_name = ""
     

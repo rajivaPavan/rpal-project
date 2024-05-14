@@ -2,9 +2,9 @@ class BinaryTreeNode:
     """ A class representing a node in a binary tree.
     
     Attributes:
-        value: The value of the node.
-        left: The left child of the node.
-        right: The right child of the node.
+        __value: The value of the node.
+        __left: The left child of the node.
+        __right: The right child of the node.
     """
     def __init__(self, value, left=None, right=None):
         self.__value = value
@@ -12,6 +12,9 @@ class BinaryTreeNode:
         self.__right = right
         
     def isValue(self, value):
+        """
+        Checks if the node value is an instance of a class of the given value and compares the value. 
+        """
         if not isinstance(self.__value, type(value)):
             return False
         return value == self.__value
@@ -52,12 +55,17 @@ class BinaryTreeNode:
         return cls(node.getValue(), BinaryTreeNode.deep_copy(node.getLeft()), BinaryTreeNode.deep_copy(node.getRight()))
 
 
-    
     def is_name(self):
+        """
+        Returns true if the node value is a name.
+        """
         node_value = str(self.getValue())
         return self.is_id() or str.startswith(node_value, "<INT:") or str.startswith(node_value, "<STR:")
     
     def is_id(self):
+        """"
+        Returns true if the node value is an identifier.
+        """
         node_value = str(self.getValue())
         return str.startswith(node_value, "<ID:")
     
@@ -65,6 +73,10 @@ class BinaryTreeNode:
         return f"{self.getValue()}"
     
 class TreeFormatter():
+    
+    """
+    A class that provides a method to represent a tree structure in the specified format.
+    """
 
     @staticmethod
     def line_str(node, level):

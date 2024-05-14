@@ -3,6 +3,12 @@ from .__parser import Parser
 from interpreter.lexer.tokens import *
 
 class RPALParser(Parser):
+    """
+    A Parser that parses the RPAL source program.
+    
+    The procedures for the RPAL Grammar are implemented here.
+    
+    """
     def __init__(self,src):
         super().__init__(src)
     
@@ -10,7 +16,8 @@ class RPALParser(Parser):
     __FIRST_VB = [IdentifierToken, LParenToken]
     
     def parse(self):
-        """Parses the source program and returns the Abstract Syntax Tree (AST).
+        """
+        Parses the source program and returns the Abstract Syntax Tree (AST).
 
         Returns:
             The Abstract Syntax Tree (AST) of the source program.
@@ -274,7 +281,7 @@ class RPALParser(Parser):
     def proc_D(self):
         self.proc_Da()
         if self.nextToken() != None and self.nextToken().isValue(Nodes.WITHIN):
-            self.read(IdentifierToken.fromValue(Nodes.WITHIN))
+            self.read(KeywordToken.fromValue(Nodes.WITHIN))
             self.proc_D()
             self.buildTree(Nodes.WITHIN, 2)
         

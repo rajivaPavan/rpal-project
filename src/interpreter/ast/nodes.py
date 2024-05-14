@@ -1,5 +1,7 @@
 class Nodes:
-    # reserved AST node values
+
+    """" A class representing the reserved values of the AST nodes. """
+    
     LET = "let"
     LAMBDA = "lambda"
     TAU = "tau"
@@ -31,7 +33,7 @@ class Nodes:
     AND = "and"
     REC = "rec"
     ASSIGN = "="
-    FCN_FORM = "fcn_form"
+    FCN_FORM = "function_form"
     PARENS = "()"
     COMMA = ","
     YSTAR = "<Y*>"

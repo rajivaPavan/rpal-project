@@ -2,8 +2,10 @@ gamma
 .lambda
 ..<ID:f>
 ..gamma
-...<ID:f>
-...<INT:3>
+...<ID:Print>
+...gamma
+....<ID:f>
+....<INT:3>
 .gamma
 ..<Y*>
 ..lambda
