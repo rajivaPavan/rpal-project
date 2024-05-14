@@ -8,6 +8,7 @@ class DefinedFunctions:
     CONC = "Conc"
     STEM = "Stem"
     STERN = "Stern"
+    ITOS = "ItoS"
     ISINTEGER = "Isinteger"
     ISSTRING = "Isstring"
     ISTRUTHVALUE = "Istruthvalue"
@@ -23,6 +24,7 @@ class DefinedFunctions:
             DefinedFunctions.CONC,
             DefinedFunctions.STEM,
             DefinedFunctions.STERN,
+            DefinedFunctions.ITOS,
             DefinedFunctions.ISINTEGER,
             DefinedFunctions.ISSTRING,
             DefinedFunctions.ISTRUTHVALUE,
@@ -78,10 +80,13 @@ class FunctionFactory:
             return StemFn()
         elif name == DefinedFunctions.STERN:
             return SternFn()
+        elif name == DefinedFunctions.ITOS:
+            return ItoSFn()
         else:
             raise Exception(f"Invalid function name: {name}")
     
 class PrintFn(DefinedFunction):
+    """The Print function in the Primitive Environment."""
     def __init__(self):
         super().__init__(DefinedFunctions.PRINT)
     
@@ -106,6 +111,8 @@ class PrintFn(DefinedFunction):
         return arg
 
 class OrderFn(DefinedFunction):
+    """The Order function in the Primitive Environment.
+    Returns the length of tuple"""
     def __init__(self):
         super().__init__(DefinedFunctions.ORDER)
     
@@ -113,6 +120,8 @@ class OrderFn(DefinedFunction):
         return len(arg)
 
 class ConcFn(DefinedFunction):
+    """The Concatenate function in the Primitive Environment.
+    Concatenates the strings in the tuple"""
     def __init__(self):
         super().__init__(DefinedFunctions.CONC)
     
@@ -124,6 +133,8 @@ class ConcFn(DefinedFunction):
         
 
 class StemFn(DefinedFunction):
+    """The Stem function in the Primitive Environment.
+    Returns the first character of the string."""
     def __init__(self):
         super().__init__(DefinedFunctions.STEM)
     
@@ -135,6 +146,8 @@ class StemFn(DefinedFunction):
         return stem
     
 class SternFn(DefinedFunction):
+    """The Stern function in the Primitive Environment.
+    Returns the string without the first character."""
     def __init__(self):
         super().__init__(DefinedFunctions.STERN)
     
@@ -142,8 +155,19 @@ class SternFn(DefinedFunction):
         if type(arg) != str:
             raise Exception("Stern can only be applied to strings")
         return arg[1:] if len(arg) > 0 else ""
+    
+class ItoSFn(DefinedFunction):
+    """The ItoS function in the Primitive Environment.
+    Converts the integer to string."""
+    def __init__(self):
+        super().__init__(DefinedFunctions.ITOS)
+    
+    def run(self, arg):
+        return str(arg)
 
 class IsIntegerFn(DefinedFunction):
+    """The IsInteger function in the Primitive Environment.
+    Checks if the argument is an integer."""
     def __init__(self):
         super().__init__(DefinedFunctions.ISINTEGER)
     
@@ -151,6 +175,8 @@ class IsIntegerFn(DefinedFunction):
         return isinstance(arg, int)
 
 class IsStringFn(DefinedFunction):
+    """The IsString function in the Primitive Environment.
+    Checks if the argument is a string."""
     def __init__(self):
         super().__init__(DefinedFunctions.ISSTRING)
     
@@ -158,6 +184,8 @@ class IsStringFn(DefinedFunction):
         return isinstance(arg, str)
     
 class IsTruthValueFn(DefinedFunction):
+    """The IsTruthValue function in the Primitive Environment.
+    Checks if the argument is a boolean value."""
     def __init__(self):
         super().__init__(DefinedFunctions.ISTRUTHVALUE)
     
@@ -165,14 +193,21 @@ class IsTruthValueFn(DefinedFunction):
         return isinstance(arg, bool)
     
 class IsTupleFn(DefinedFunction):
+    """The IsTuple function in the Primitive Environment.
+    Checks if the argument is a tuple."""
     def __init__(self):
         super().__init__(DefinedFunctions.ISTUPLE)
     
     def run(self, arg):
-        
-        return isinstance(arg, tuple)
+        is_tuple =  isinstance(arg, tuple)
+        if not is_tuple:
+            if arg == "nil":
+                is_tuple = True
+        return is_tuple
     
 class IsFunctionFn(DefinedFunction):
+    """The IsFunction function in the Primitive Environment.
+    Checks if the argument is a function."""
     def __init__(self):
         super().__init__(DefinedFunctions.ISFUNCTION)
     
@@ -180,6 +215,8 @@ class IsFunctionFn(DefinedFunction):
         raise NotImplementedError
     
 class IsDummyFn(DefinedFunction):
+    """The IsDummy function in the Primitive Environment.
+    Checks if the argument is a dummy value."""
     def __init__(self):
         super().__init__(DefinedFunctions.ISDUMMY)
     
