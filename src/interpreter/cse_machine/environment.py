@@ -1,3 +1,4 @@
+from interpreter.cse_machine.exceptions import MachineException
 from interpreter.cse_machine.functions import FunctionFactory
 from .symbol import *
 from typing import List
@@ -6,14 +7,19 @@ from typing import List
 class Environment:
     """
     Represents the environments of the CSE machine as a tree structure. 
-    Initially the environment is the Primitive Environment.
+    
+    Attributes:
+        envMarker (EnvMarkerSymbol): The environment marker symbol.
+        parent (Environment): The parent environment.
+        envData (dict): The data in the environment.
+        
+    Methods:
+        insertEnvData(name: str, value: Symbol): Inserts the values for the variables in the environment.
+        lookUpEnv(name: str) -> Symbol: Looks up the relevant value for a given variable.
     """
     
     def __init__(self, envIndex, parent = None):
-        """
-        Initialize environments.
-        envData is represented as a dictionary.
-        """
+        
         self.envMarker = EnvMarkerSymbol(envIndex)
         self.parent : Environment = parent
         self.envData = {}    
@@ -23,19 +29,19 @@ class Environment:
         
         
     def insertEnvData(self, name, value):
-        """Inserts the values for the variables in the environment."""  
         self.envData[name] = value
     
         
     def lookUpEnv(self, name: str):
-        """
-        Looks up the value for the variable.
-        Checks the parent environment if not in the current.
-        """
-        if DefinedFunctions.isdefined(name):
-            # add a function symbol with the defined Function Object
-            return FunctionSymbol(FunctionFactory.create(name))
-               
+
+        # check if the name is a defined function in the primitive environment
+        if self.parent is None:
+            if DefinedFunctions.isdefined(name):
+                # add a function symbol with the defined Function Object
+                return FunctionSymbol(FunctionFactory.create(name))
+            else:
+                raise MachineException(f"{name} is not defined")
+            
         if name in self.envData:
             return self.envData[name]
         else:

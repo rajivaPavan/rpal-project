@@ -1,7 +1,13 @@
+
+
 class DefinedFunctions:
+    """The functions defined in the Primitive Environment are represented here."""
+    
     PRINT = "Print"
     ORDER = "Order"
     CONC = "Conc"
+    STEM = "Stem"
+    STERN = "Stern"
     ISINTEGER = "Isinteger"
     ISSTRING = "Isstring"
     ISTRUTHVALUE = "Istruthvalue"
@@ -15,6 +21,8 @@ class DefinedFunctions:
             DefinedFunctions.PRINT,
             DefinedFunctions.ORDER,
             DefinedFunctions.CONC,
+            DefinedFunctions.STEM,
+            DefinedFunctions.STERN,
             DefinedFunctions.ISINTEGER,
             DefinedFunctions.ISSTRING,
             DefinedFunctions.ISTRUTHVALUE,
@@ -29,12 +37,13 @@ class DefinedFunctions:
 
 
 class DefinedFunction():
-    """"""
+    """A parent class for the defined functions in the Primitive Environment."""
+    
     def __init__(self, __name):
         self.__name = __name
 
     def run(self, arg):
-        raise NotImplementedError
+        raise Exception("Abstract method run() not implemented.")
     
     def getName(self):
         return self.__name
@@ -44,6 +53,7 @@ class DefinedFunction():
     
 
 class FunctionFactory:
+    """A factory class to create objects to define the functions of each predefined function."""
     @staticmethod
     def create(name):
         if name == DefinedFunctions.PRINT:
@@ -64,6 +74,10 @@ class FunctionFactory:
             return IsDummyFn()
         elif name == DefinedFunctions.CONC:
             return ConcFn()
+        elif name == DefinedFunctions.STEM:
+            return StemFn()
+        elif name == DefinedFunctions.STERN:
+            return SternFn()
         else:
             raise Exception(f"Invalid function name: {name}")
     
@@ -81,9 +95,14 @@ class PrintFn(DefinedFunction):
         if isinstance(arg, str):
             # replace \n with newline
             arg = arg.replace("\\n", "\n")
-            return arg.strip("'")
+            return arg
         elif isinstance(arg, bool):
             return "true" if arg else "false"
+        elif isinstance(arg, tuple):
+            tuple_ = str(arg)
+            tuple_ = tuple_.lstrip("(").rstrip(")")
+            tuple_ = tuple_.rstrip(",")
+            return f"({tuple_})"
         return arg
 
 class OrderFn(DefinedFunction):
@@ -98,12 +117,31 @@ class ConcFn(DefinedFunction):
         super().__init__(DefinedFunctions.CONC)
     
     def run(self, args):
-        # strip ' in the beginning and end
-        args = [arg.strip("'") for arg in args]
+        args = [arg for arg in args]
         # concatenate the strings
         res = "".join(args)
-        return f"'{res}'"
+        return res
         
+
+class StemFn(DefinedFunction):
+    def __init__(self):
+        super().__init__(DefinedFunctions.STEM)
+    
+    def run(self, arg):
+        if type(arg) != str:
+            raise Exception("Stem can only be applied to strings")
+        
+        stem = arg[0] if len(arg) > 0 else ""
+        return stem
+    
+class SternFn(DefinedFunction):
+    def __init__(self):
+        super().__init__(DefinedFunctions.STERN)
+    
+    def run(self, arg):
+        if type(arg) != str:
+            raise Exception("Stern can only be applied to strings")
+        return arg[1:] if len(arg) > 0 else ""
 
 class IsIntegerFn(DefinedFunction):
     def __init__(self):
