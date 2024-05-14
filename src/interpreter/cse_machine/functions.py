@@ -141,7 +141,7 @@ class SternFn(DefinedFunction):
     def run(self, arg):
         if type(arg) != str:
             raise Exception("Stern can only be applied to strings")
-        return arg[-1] if len(arg) > 0 else ""
+        return arg[1:] if len(arg) > 0 else ""
 
 class IsIntegerFn(DefinedFunction):
     def __init__(self):
