@@ -54,19 +54,26 @@ class NameSymbol(Symbol):
     Represents variables and numerics as a symbol.
     
     Methods:
-        isId() -> bool: Returns the ID.
+        isId() -> bool: Returns if the symbol is an identifier.
         isFunction() -> bool: Returns True if the symbol is a function.
         isString() -> bool: Returns True if the symbol is a string.
         isPrimitive(nameType) -> bool: Returns True if the symbol is a string integer or a bool.
         isTupleSymbol(nameType) -> bool: Returns True if the symbol is a TupleSymbol.
         isValidType(nameType) -> bool: Returns True if the symbol is a valid type.
-    
     """
+
     def __repr__(self):
-        return f"{self.name}"
+        name = self.name
+        # if the name is a string(non identifier), add quotes for representation
+        if self.nameType == str and not self.is_id:
+            name = f"'{name}'"
+        return f'{name}'
     
     def __init__(self, name, is_id = False):
         super().__init__()
+        # if the name is a string(non identifier), strip the quotes
+        if isinstance(name, str) and not is_id:
+            name = name.strip("'")
         self.name = name  
         self.nameType = name.__class__
         self.is_id = is_id

@@ -1,3 +1,5 @@
+
+
 class DefinedFunctions:
     """The functions defined in the Primitive Environment are represented here."""
     
@@ -41,7 +43,7 @@ class DefinedFunction():
         self.__name = __name
 
     def run(self, arg):
-        raise  are
+        raise Exception("Abstract method run() not implemented.")
     
     def getName(self):
         return self.__name
@@ -93,7 +95,7 @@ class PrintFn(DefinedFunction):
         if isinstance(arg, str):
             # replace \n with newline
             arg = arg.replace("\\n", "\n")
-            return arg.strip("'")
+            return arg
         elif isinstance(arg, bool):
             return "true" if arg else "false"
         elif isinstance(arg, tuple):
@@ -115,11 +117,10 @@ class ConcFn(DefinedFunction):
         super().__init__(DefinedFunctions.CONC)
     
     def run(self, args):
-        # strip ' in the beginning and end
-        args = [arg.strip("'") for arg in args]
+        args = [arg for arg in args]
         # concatenate the strings
         res = "".join(args)
-        return f"'{res}'"
+        return res
         
 
 class StemFn(DefinedFunction):
@@ -127,14 +128,20 @@ class StemFn(DefinedFunction):
         super().__init__(DefinedFunctions.STEM)
     
     def run(self, arg):
-        return arg[0]
+        if type(arg) != str:
+            raise Exception("Stem can only be applied to strings")
+        
+        stem = arg[0] if len(arg) > 0 else ""
+        return stem
     
 class SternFn(DefinedFunction):
     def __init__(self):
         super().__init__(DefinedFunctions.STERN)
     
     def run(self, arg):
-        return arg[-1]
+        if type(arg) != str:
+            raise Exception("Stern can only be applied to strings")
+        return arg[-1] if len(arg) > 0 else ""
 
 class IsIntegerFn(DefinedFunction):
     def __init__(self):
