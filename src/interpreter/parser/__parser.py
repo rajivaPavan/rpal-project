@@ -1,6 +1,7 @@
 from interpreter.lexer import Lexer
 from interpreter.lexer.tokens import *
 from interpreter.ast import ASTNode
+from logger import logger
 
 class Parser:
     """
@@ -61,6 +62,7 @@ class Parser:
             err_msg = "Expected \"" + str(token) + "\" but found " + str(expected_token)
             if line is not None and col is not None:
                 err_msg = err_msg + "\" at line " + str(line) + ", column " + str(col)
+            logger.error(f"{self.__stack.top()}")
             raise InvalidTokenException(err_msg)
           
         # helper function to raise an exception based on the token type and value

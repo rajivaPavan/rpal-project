@@ -33,7 +33,7 @@ class Nodes:
     AND = "and"
     REC = "rec"
     ASSIGN = "="
-    FCN_FORM = "fcn_form"
+    FCN_FORM = "function_form"
     PARENS = "()"
     COMMA = ","
     YSTAR = "<Y*>"

@@ -1,7 +1,7 @@
 from interpreter.ast import ASTNode
 from interpreter.cse_machine.st import STNode
 from .ast.standardize import ASTStandardizer
-from .cse_machine import CSEMachine
+from .cse_machine import CSEMachine, MachineException
 from .parser import RPALParser
 from .lexer.tokens import *
 from logger import logger 
@@ -31,16 +31,21 @@ class Interpreter:
         """
         Interprets the given program.
         """
-        res = ""
+
         try: 
             # Parse the program to get the ast
             self.__parse()
             if self.__switch == Interpreter.__AST_SWITCH:
+                # exit if the switch is -ast
                 return
-            # Get the st from the ast. 
+
+            # Get the st from the ast
             self.__standardize_ast()
+
             if self.__switch != Interpreter.__ST_SWITCH:
+                # Compute the result if no switch is given
                 self.__compute()            
+
         except Exception as e:
             logger.error(e)
 
@@ -51,14 +56,23 @@ class Interpreter:
         """
         
         parser = RPALParser(self.__program)
+        try:
+            self.__ast = parser.parse()
 
-        self.__ast = parser.parse()
+            # Check if the program was fully parsed
+            if parser.nextToken() != None:
+                if self.__switch is Interpreter.__AST_SWITCH:
+                    print(self.__ast)
+                raise BuiltTreeException("Program was not fully parsed.")
         
-        # Check if the program was fully parsed
-        if parser.nextToken() != None:
-            if self.__switch is Interpreter.__AST_SWITCH:
-                print(self.__ast)
-            raise BuiltTreeException("Program was not fully parsed.")
+        except (InvalidTokenException, 
+                BuildTreeException, BuiltTreeException) as e:
+            print(e)
+            raise e
+        
+        except Exception as e:
+            print("An error occured while parsing the program.")
+            raise e
         
         if self.__switch == Interpreter.__AST_SWITCH:
             print(self.__ast)
@@ -68,21 +82,31 @@ class Interpreter:
         Standardizes the ast. Print the ST if the switch is -st.
         """
         standardizer = ASTStandardizer()
-        self.__st = standardizer.standardize(self.__ast)
+
+        try:
+            self.__st = standardizer.standardize(self.__ast)
+
+        except Exception as e:
+            print("An error occured while standardizing the AST.")
+            raise e
         
         if self.__switch == Interpreter.__ST_SWITCH:
             print(self.__st)
 
     def __compute(self):
-        """
-        Computes the result by inputting the standardized tree (ST) to the CSE machine.
-        """
-        st = self.__st
-        cse = CSEMachine(st)
-        try:
-            cse.evaluate()
-        except ZeroDivisionError as e:
-            print("Zero Division Error: Division by zero")
-        except RecursionError as e:
-            print("Recursion Error: Maximum recursion depth exceeded")
-
+            """
+            Computes the result by inputting the standardized tree (ST) to the CSE machine.
+            """
+            st = self.__st
+            cse = CSEMachine(st)
+            try:
+                cse.evaluate()
+            except RecursionError as e:
+                print("Recursion Error: Maximum recursion depth exceeded")
+                raise e
+            except (MachineException) as e:
+                print(e)
+                raise e
+            except Exception as e:
+                print("An error occured while computing the result.")
+                raise e
