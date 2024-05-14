@@ -281,7 +281,7 @@ class RPALParser(Parser):
     def proc_D(self):
         self.proc_Da()
         if self.nextToken() != None and self.nextToken().isValue(Nodes.WITHIN):
-            self.read(IdentifierToken.fromValue(Nodes.WITHIN))
+            self.read(KeywordToken.fromValue(Nodes.WITHIN))
             self.proc_D()
             self.buildTree(Nodes.WITHIN, 2)
         

@@ -1,3 +1,4 @@
+from interpreter.cse_machine.exceptions import MachineException
 from interpreter.cse_machine.functions import FunctionFactory
 from .symbol import *
 from typing import List
@@ -32,10 +33,15 @@ class Environment:
     
         
     def lookUpEnv(self, name: str):
-        if DefinedFunctions.isdefined(name):
-            # add a function symbol with the defined Function Object
-            return FunctionSymbol(FunctionFactory.create(name))
-               
+
+        # check if the name is a defined function in the primitive environment
+        if self.parent is None:
+            if DefinedFunctions.isdefined(name):
+                # add a function symbol with the defined Function Object
+                return FunctionSymbol(FunctionFactory.create(name))
+            else:
+                raise MachineException(f"{name} is not defined")
+            
         if name in self.envData:
             return self.envData[name]
         else:

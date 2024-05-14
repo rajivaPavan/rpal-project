@@ -1,4 +1,5 @@
 import pprint
+from interpreter.cse_machine.exceptions import MachineException
 
 from interpreter.cse_machine.functions import DefinedFunction
 from .control_structures import CSInitializer
@@ -15,6 +16,16 @@ class CSEMachine:
     The CSEMachine class is responsible for simulating the Control Structure Environment (CSE) machine
     used in the RPAL language interpreter. It manages the control structures, environment, and stack
     to intepret the RPAL code. This class provides methods to evaluate expressions based on the cse machine rules.  
+
+    Attributes:
+        st (STNode): The standardized tree which is used to generate control structures.
+        csMap (dict): The map of control structures. ie. delta-0, delta-1, etc.
+        control (Control): The control of the cse machine.
+        envIndexCounter (int): The environment index counter use to create new environments - eg e0, e1, etc.
+        envMap (dict): The map of environments in the cse machine.
+        __envStack (Stack): The stack of environments.
+        stack (Stack): The stack of the cse machine.
+        logger (Logger): The logger object.
     """
 
     def __init__(self, st:STNode):
@@ -64,12 +75,15 @@ class CSEMachine:
         right_most = self.control.removeRightMost()
 
         if right_most is None:
+            # End of the evaluation
             return
 
         if right_most.isType(NameSymbol) or right_most.isType(YStarSymbol):
+            # Rule 1
             self.stackName(right_most)       
               
         elif right_most.isType(LambdaSymbol):
+            # Rule 2
             _lambda = right_most
             self.stackLambda(_lambda)
             
@@ -90,31 +104,36 @@ class CSEMachine:
                 # Rule 4, 11
                 self.applyLambda(top)
             elif top.isType(FunctionSymbol):
+                # Rule 14
                 self.applyFunction(top)
             else: 
                 raise Exception(f"Invalid symbol:{top, type(top)} in stack for gamma in Control")
                    
         elif right_most.isType(EnvMarkerSymbol):
+            # Rule 5
             env_marker = right_most
             self.exitEnv(env_marker)
             
         elif right_most.isType(BinaryOperatorSymbol):
+            # Rule 6
             _binop = right_most.operator
             self.binop(_binop)
             
         elif right_most.isType(UnaryOperatorSymbol):
+            # Rule 7
             _unop = right_most.operator
             self.unop(_unop)
             
         elif right_most.isType(BetaSymbol):
+            # Rule 8
             self.conditional()
             
         elif right_most.isType(TauSymbol):
+            # Rule 9
             _tau = right_most
             self.tupleFormation(_tau)
         else:
-            pass
-            #TODO: throw an exception
+            raise Exception(f"Invalid symbol:{right_most, type(right_most)} in control")
                
         return self.evaluate()
         
@@ -146,7 +165,7 @@ class CSEMachine:
                 map = pprint.pformat(self.envMap)
                 self.logger.info(f"envMap: {map}")
                 self.logger.error(f"Name {symbol.name} not found in the environment tree.")
-                raise e
+                raise MachineException(f"The {symbol.name} is undefined.")
             if (isinstance(_value, EtaClosureSymbol) or isinstance(_value, LambdaClosureSymbol) 
                 or isinstance(_value, FunctionSymbol)):
                 symbol = _value
@@ -168,7 +187,7 @@ class CSEMachine:
             
     def applyLambda(self, top:LambdaClosureSymbol):
         """
-        CSE Rule 4 and CSE Rule 11 and also Rule 12, 13
+        CSE Rule 4 and CSE Rule 11
         
         This function evaluates n-ary functions as well.
         Creates a new environment and make it the current environment.
@@ -262,12 +281,13 @@ class CSEMachine:
         "*": lambda rator, rand: rator * rand,
         "/": lambda rator, rand: int(rator / rand),
         "or": lambda rator, rand: rator or rand,
-        "and": lambda rator, rand: rator and rand,
+        "&": lambda rator, rand: rator and rand,
         "gr": lambda rator, rand: rator > rand,
         "ge": lambda rator, rand: rator >= rand,
         "ls": lambda rator, rand: rator < rand,
         "le": lambda rator, rand: rator <= rand,
         "eq": lambda rator, rand: rator == rand,
+        "ne": lambda rator, rand: rator != rand,
         "neg": lambda rator: -rator,
         "not": lambda rator: not rator,
     }
@@ -283,7 +303,13 @@ class CSEMachine:
         rand_1 = self.stack.popStack().name
         rand_2 = self.stack.popStack().name
         self.logger.debug(f"op:{operator}, rand_1: {rand_1}, rand_2: {rand_2}")
-        _value = self.__applyOp(operator, rand_1, rand_2)
+        try:
+            _value = self.__applyOp(operator, rand_1, rand_2)
+        except ZeroDivisionError as e:
+            raise MachineException(f"Division by zero error: {rand_1} / {rand_2}")
+        except Exception as e:
+            raise MachineException(f"Error in binary operation: {rand_1} {operator} {rand_2}")
+        
         self.stack.pushStack(NameSymbol(_value))
         
     def unop(self, operator):
@@ -306,13 +332,16 @@ class CSEMachine:
         
         """ 
         if rand is None:
+            # apply unary operator
             return self.__operator_map[operator](rator)
         else:
+            # handle 'aug' operator
             if operator == "aug":
-                rator = list() if rator == Nodes.NIL else [rator]
-                rand = list() if rand == Nodes.NIL else [rand]
+                rator = list() if rator == Nodes.NIL else list(rator) if isinstance(rator, tuple) else [rator]
+                rand = list() if rand == Nodes.NIL else list(rand) if isinstance(rand, tuple) else [rand]
                 return tuple(rator + rand)
             
+            # else apply binary operator from the operator map
             return self.__operator_map[operator](rator, rand)
     
     def conditional(self):
@@ -407,6 +436,3 @@ class CSEMachine:
                 # for primitive data types
             rand_symbol = rand_symbol.name
         return rand_symbol
-
-
-

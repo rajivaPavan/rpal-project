@@ -2,7 +2,7 @@ import os
 import subprocess
 import unittest
 
-class TestRPALSTGeneration(unittest.TestCase):
+class TestMachineOutput(unittest.TestCase):
     def run_rpal(self, filename):
         """ Helper function to run the RPAL parser with the -st flag """
         result = subprocess.run(['python', './myrpal.py', filename], capture_output=True, text=True)
@@ -28,7 +28,10 @@ class TestRPALSTGeneration(unittest.TestCase):
             ("tests/machine/infix2", "tests/machine/infix2.out"),
             ("tests/st/add", "tests/st/add.out"),
             ("tests/st/fact3", "tests/st/fact3.out"),
-            ("tests/machine/towers", "tests/machine/towers.out")
+            ("tests/machine/towers", "tests/machine/towers.out"),
+            ("tests/machine/pairs1", "tests/machine/pairs.out"),
+            ("tests/machine/pairs2", "tests/machine/pairs.out"),
+            ("tests/machine/pairs3", "tests/machine/pairs.out"),
         ]
 
         for input_file, expected_file in test_files:
