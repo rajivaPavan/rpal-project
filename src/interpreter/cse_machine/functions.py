@@ -163,6 +163,8 @@ class ItoSFn(DefinedFunction):
         super().__init__(DefinedFunctions.ITOS)
     
     def run(self, arg):
+        if not isinstance(arg, int):
+            raise Exception("ItoS can only be applied to integers")
         return str(arg)
 
 class IsIntegerFn(DefinedFunction):
@@ -200,9 +202,6 @@ class IsTupleFn(DefinedFunction):
     
     def run(self, arg):
         is_tuple =  isinstance(arg, tuple)
-        if not is_tuple:
-            if arg == "nil":
-                is_tuple = True
         return is_tuple
     
 class IsFunctionFn(DefinedFunction):

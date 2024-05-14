@@ -165,7 +165,8 @@ class CSEMachine:
                 map = pprint.pformat(self.envMap)
                 self.logger.info(f"envMap: {map}")
                 self.logger.error(f"Name {symbol.name} not found in the environment tree.")
-                raise MachineException(f"The {symbol.name} is undefined.")
+                raise MachineException(f"{symbol.name} is undefined.")
+            
             if (isinstance(_value, EtaClosureSymbol) or isinstance(_value, LambdaClosureSymbol) 
                 or isinstance(_value, FunctionSymbol)):
                 symbol = _value
@@ -382,7 +383,7 @@ class CSEMachine:
         new_n_tuple = TupleSymbol(n, tupleList)
         self.stack.pushStack(new_n_tuple)
 
-    def tupleSelection(self, tuple:TupleSymbol):
+    def tupleSelection(self, tuple_:TupleSymbol):
         """
         CSE Rule 10
         """
@@ -390,12 +391,14 @@ class CSEMachine:
         name_symbol:NameSymbol = self.stack.popStack()
         n = name_symbol.name
 
-        self.logger.debug(f"tuple: {tuple}, access n: {n}")
-        if n < 1 or n > tuple.n:
-            # push a nil
-            self.stack.pushStack(NameSymbol(Nodes.NIL, False))
+        self.logger.debug(f"tuple: {tuple_}, access n: {n}")
+        tuple_ = tuple_.tuple if isinstance(tuple_, TupleSymbol) else tuple_
+        tuple_len = len(tuple_)
+
+        if n < 1 or n > tuple_len:
+            raise MachineException(f"The tuple selection value {n} out of range")
         else:
-            self.stack.pushStack(NameSymbol(tuple.tuple[n-1]))
+            self.stack.pushStack(NameSymbol(tuple_[n-1]))
 
     def applyFunction(self, top: FunctionSymbol):
         """
