@@ -53,13 +53,10 @@ class NameSymbol(Symbol):
     """
     Represents variables and numerics as a symbol.
     
-    Methods:
-        isId() -> bool: Returns if the symbol is an identifier.
-        isFunction() -> bool: Returns True if the symbol is a function.
-        isString() -> bool: Returns True if the symbol is a string.
-        isPrimitive(nameType) -> bool: Returns True if the symbol is a string integer or a bool.
-        isTupleSymbol(nameType) -> bool: Returns True if the symbol is a TupleSymbol.
-        isValidType(nameType) -> bool: Returns True if the symbol is a valid type.
+    Attributes:
+        name (str): The name of the symbol.
+        nameType (type): The type of the symbol.
+        is_id (bool): True if the symbol is an identifier.
     """
 
     def __repr__(self):
@@ -79,24 +76,30 @@ class NameSymbol(Symbol):
         self.is_id = is_id
 
     def isId(self):
+        """Returns if the symbol is an identifier."""
         return self.is_id
 
     def isFunction(self):
+        """Returns True if the symbol is a function."""
         return self.name in DefinedFunctions.get_functions()
 
     def isString(self):
+        """Returns True if the symbol is a string."""
         return self.nameType == str
     
     @staticmethod
     def isPrimitive(nameType):
+        """Returns True if the symbol is a string, integer or a bool."""
         return nameType == str or nameType == int or nameType == bool
     
     @staticmethod
     def isTupleSymbol(nameType):
+        """Returns True if the symbol is a TupleSymbol."""
         return nameType == TupleSymbol
     
     @staticmethod
     def isValidType(nameType):
+        """Returns True if the symbol is a valid type."""
         return NameSymbol.isPrimitive(nameType) or NameSymbol.isTupleSymbol(nameType)
             
 class OperatorSymbol(Symbol):
@@ -160,10 +163,8 @@ class LambdaSymbol(Symbol):
 class LambdaClosureSymbol(LambdaSymbol):
     """
     Represents a lambda closure (lambda in the stack) in the CSE machine.
-    
     Extends the Lambda class.
-    
-    
+       
     Attributes:
         envMarker (EnvMarkerSymbol): The environment marker the lambda closure.    
     """
@@ -182,7 +183,6 @@ class LambdaClosureSymbol(LambdaSymbol):
 class EtaClosureSymbol(LambdaClosureSymbol):
     """
     Represents an eta closure in the CSE machine.
-    
     Extends the LambdaClosure class.
     
     Methods: 
@@ -237,7 +237,6 @@ class DeltaSymbol(Symbol):
     
     Attributes: 
         index (int): Points to relevant control structure in the control structure array.
-
     """
     
     def __init__(self, index):
@@ -253,7 +252,6 @@ class BetaSymbol(Symbol):
     Represents a beta symbol.
     
     Used when representing a conditonal operator in the control without standardizing.
-    
     """
     def __init__(self):
         super().__init__()

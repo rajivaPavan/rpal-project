@@ -16,6 +16,16 @@ class CSEMachine:
     The CSEMachine class is responsible for simulating the Control Structure Environment (CSE) machine
     used in the RPAL language interpreter. It manages the control structures, environment, and stack
     to intepret the RPAL code. This class provides methods to evaluate expressions based on the cse machine rules.  
+
+    Attributes:
+        st (STNode): The standardized tree which is used to generate control structures.
+        csMap (dict): The map of control structures. ie. delta-0, delta-1, etc.
+        control (Control): The control of the cse machine.
+        envIndexCounter (int): The environment index counter use to create new environments - eg e0, e1, etc.
+        envMap (dict): The map of environments in the cse machine.
+        __envStack (Stack): The stack of environments.
+        stack (Stack): The stack of the cse machine.
+        logger (Logger): The logger object.
     """
 
     def __init__(self, st:STNode):
@@ -65,12 +75,15 @@ class CSEMachine:
         right_most = self.control.removeRightMost()
 
         if right_most is None:
+            # End of the evaluation
             return
 
         if right_most.isType(NameSymbol) or right_most.isType(YStarSymbol):
+            # Rule 1
             self.stackName(right_most)       
               
         elif right_most.isType(LambdaSymbol):
+            # Rule 2
             _lambda = right_most
             self.stackLambda(_lambda)
             
@@ -91,31 +104,36 @@ class CSEMachine:
                 # Rule 4, 11
                 self.applyLambda(top)
             elif top.isType(FunctionSymbol):
+                # Rule 14
                 self.applyFunction(top)
             else: 
                 raise Exception(f"Invalid symbol:{top, type(top)} in stack for gamma in Control")
                    
         elif right_most.isType(EnvMarkerSymbol):
+            # Rule 5
             env_marker = right_most
             self.exitEnv(env_marker)
             
         elif right_most.isType(BinaryOperatorSymbol):
+            # Rule 6
             _binop = right_most.operator
             self.binop(_binop)
             
         elif right_most.isType(UnaryOperatorSymbol):
+            # Rule 7
             _unop = right_most.operator
             self.unop(_unop)
             
         elif right_most.isType(BetaSymbol):
+            # Rule 8
             self.conditional()
             
         elif right_most.isType(TauSymbol):
+            # Rule 9
             _tau = right_most
             self.tupleFormation(_tau)
         else:
-            pass
-            #TODO: throw an exception
+            raise Exception(f"Invalid symbol:{right_most, type(right_most)} in control")
                
         return self.evaluate()
         
@@ -314,13 +332,16 @@ class CSEMachine:
         
         """ 
         if rand is None:
+            # apply unary operator
             return self.__operator_map[operator](rator)
         else:
+            # handle 'aug' operator
             if operator == "aug":
                 rator = list() if rator == Nodes.NIL else list(rator) if isinstance(rator, tuple) else [rator]
                 rand = list() if rand == Nodes.NIL else list(rand) if isinstance(rand, tuple) else [rand]
                 return tuple(rator + rand)
             
+            # else apply binary operator from the operator map
             return self.__operator_map[operator](rator, rand)
     
     def conditional(self):
