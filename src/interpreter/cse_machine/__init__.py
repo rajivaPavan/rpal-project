@@ -317,8 +317,8 @@ class CSEMachine:
             return self.__operator_map[operator](rator)
         else:
             if operator == "aug":
-                rator = list() if rator == Nodes.NIL else [rator]
-                rand = list() if rand == Nodes.NIL else [rand]
+                rator = list() if rator == Nodes.NIL else list(rator) if isinstance(rator, tuple) else [rator]
+                rand = list() if rand == Nodes.NIL else list(rand) if isinstance(rand, tuple) else [rand]
                 return tuple(rator + rand)
             
             return self.__operator_map[operator](rator, rand)
