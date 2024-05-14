@@ -198,6 +198,8 @@ lookUpEnv(name: str) -&gt; Symbol: Looks up the relevant value for a given varia
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.ConcFn">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">ConcFn</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.ConcFn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.functions.DefinedFunction" title="interpreter.cse_machine.functions.DefinedFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefinedFunction</span></code></a></p>
+<p>The Concatenate function in the Primitive Environment.
+Concatenates the strings in the tuple</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.ConcFn.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.ConcFn.run" title="Permalink to this definition">¶</a></dt>
@@ -263,6 +265,11 @@ lookUpEnv(name: str) -&gt; Symbol: Looks up the relevant value for a given varia
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="interpreter.cse_machine.functions.DefinedFunctions.ITOS">
+<span class="sig-name descname"><span class="pre">ITOS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ItoS'</span></em><a class="headerlink" href="#interpreter.cse_machine.functions.DefinedFunctions.ITOS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.DefinedFunctions.ORDER">
 <span class="sig-name descname"><span class="pre">ORDER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Order'</span></em><a class="headerlink" href="#interpreter.cse_machine.functions.DefinedFunctions.ORDER" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -310,6 +317,8 @@ lookUpEnv(name: str) -&gt; Symbol: Looks up the relevant value for a given varia
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.IsDummyFn">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">IsDummyFn</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.IsDummyFn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.functions.DefinedFunction" title="interpreter.cse_machine.functions.DefinedFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefinedFunction</span></code></a></p>
+<p>The IsDummy function in the Primitive Environment.
+Checks if the argument is a dummy value.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.IsDummyFn.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.IsDummyFn.run" title="Permalink to this definition">¶</a></dt>
@@ -321,6 +330,8 @@ lookUpEnv(name: str) -&gt; Symbol: Looks up the relevant value for a given varia
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.IsFunctionFn">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">IsFunctionFn</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.IsFunctionFn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.functions.DefinedFunction" title="interpreter.cse_machine.functions.DefinedFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefinedFunction</span></code></a></p>
+<p>The IsFunction function in the Primitive Environment.
+Checks if the argument is a function.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.IsFunctionFn.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.IsFunctionFn.run" title="Permalink to this definition">¶</a></dt>
@@ -332,6 +343,8 @@ lookUpEnv(name: str) -&gt; Symbol: Looks up the relevant value for a given varia
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.IsIntegerFn">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">IsIntegerFn</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.IsIntegerFn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.functions.DefinedFunction" title="interpreter.cse_machine.functions.DefinedFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefinedFunction</span></code></a></p>
+<p>The IsInteger function in the Primitive Environment.
+Checks if the argument is an integer.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.IsIntegerFn.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.IsIntegerFn.run" title="Permalink to this definition">¶</a></dt>
@@ -343,6 +356,8 @@ lookUpEnv(name: str) -&gt; Symbol: Looks up the relevant value for a given varia
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.IsStringFn">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">IsStringFn</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.IsStringFn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.functions.DefinedFunction" title="interpreter.cse_machine.functions.DefinedFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefinedFunction</span></code></a></p>
+<p>The IsString function in the Primitive Environment.
+Checks if the argument is a string.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.IsStringFn.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.IsStringFn.run" title="Permalink to this definition">¶</a></dt>
@@ -354,6 +369,8 @@ lookUpEnv(name: str) -&gt; Symbol: Looks up the relevant value for a given varia
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.IsTruthValueFn">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">IsTruthValueFn</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.IsTruthValueFn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.functions.DefinedFunction" title="interpreter.cse_machine.functions.DefinedFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefinedFunction</span></code></a></p>
+<p>The IsTruthValue function in the Primitive Environment.
+Checks if the argument is a boolean value.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.IsTruthValueFn.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.IsTruthValueFn.run" title="Permalink to this definition">¶</a></dt>
@@ -365,6 +382,8 @@ lookUpEnv(name: str) -&gt; Symbol: Looks up the relevant value for a given varia
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.IsTupleFn">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">IsTupleFn</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.IsTupleFn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.functions.DefinedFunction" title="interpreter.cse_machine.functions.DefinedFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefinedFunction</span></code></a></p>
+<p>The IsTuple function in the Primitive Environment.
+Checks if the argument is a tuple.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.IsTupleFn.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.IsTupleFn.run" title="Permalink to this definition">¶</a></dt>
@@ -373,9 +392,24 @@ lookUpEnv(name: str) -&gt; Symbol: Looks up the relevant value for a given varia
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="interpreter.cse_machine.functions.ItoSFn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">ItoSFn</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.ItoSFn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.functions.DefinedFunction" title="interpreter.cse_machine.functions.DefinedFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefinedFunction</span></code></a></p>
+<p>The ItoS function in the Primitive Environment.
+Converts the integer to string.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="interpreter.cse_machine.functions.ItoSFn.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.ItoSFn.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.OrderFn">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">OrderFn</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.OrderFn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.functions.DefinedFunction" title="interpreter.cse_machine.functions.DefinedFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefinedFunction</span></code></a></p>
+<p>The Order function in the Primitive Environment.
+Returns the length of tuple</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.OrderFn.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.OrderFn.run" title="Permalink to this definition">¶</a></dt>
@@ -387,6 +421,7 @@ lookUpEnv(name: str) -&gt; Symbol: Looks up the relevant value for a given varia
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.PrintFn">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">PrintFn</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.PrintFn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.functions.DefinedFunction" title="interpreter.cse_machine.functions.DefinedFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefinedFunction</span></code></a></p>
+<p>The Print function in the Primitive Environment.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.PrintFn.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.PrintFn.run" title="Permalink to this definition">¶</a></dt>
@@ -398,6 +433,8 @@ lookUpEnv(name: str) -&gt; Symbol: Looks up the relevant value for a given varia
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.StemFn">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">StemFn</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.StemFn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.functions.DefinedFunction" title="interpreter.cse_machine.functions.DefinedFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefinedFunction</span></code></a></p>
+<p>The Stem function in the Primitive Environment.
+Returns the first character of the string.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.StemFn.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.StemFn.run" title="Permalink to this definition">¶</a></dt>
@@ -409,6 +446,8 @@ lookUpEnv(name: str) -&gt; Symbol: Looks up the relevant value for a given varia
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.SternFn">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">SternFn</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.SternFn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.functions.DefinedFunction" title="interpreter.cse_machine.functions.DefinedFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefinedFunction</span></code></a></p>
+<p>The Stern function in the Primitive Environment.
+Returns the string without the first character.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.SternFn.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.SternFn.run" title="Permalink to this definition">¶</a></dt>
@@ -883,7 +922,7 @@ Conditional functions are defined in the control structure in the form of delta_
 
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.CSEMachine.tupleSelection">
-<span class="sig-name descname"><span class="pre">tupleSelection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tuple</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#interpreter.cse_machine.symbol.TupleSymbol" title="interpreter.cse_machine.symbol.TupleSymbol"><span class="pre">TupleSymbol</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.CSEMachine.tupleSelection" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tupleSelection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tuple_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#interpreter.cse_machine.symbol.TupleSymbol" title="interpreter.cse_machine.symbol.TupleSymbol"><span class="pre">TupleSymbol</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.CSEMachine.tupleSelection" title="Permalink to this definition">¶</a></dt>
 <dd><p>CSE Rule 10</p>
 </dd></dl>
 
