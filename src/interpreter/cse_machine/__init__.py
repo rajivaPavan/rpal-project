@@ -269,6 +269,7 @@ class CSEMachine:
         "ls": lambda rator, rand: rator < rand,
         "le": lambda rator, rand: rator <= rand,
         "eq": lambda rator, rand: rator == rand,
+        "ne": lambda rator, rand: rator != rand,
         "neg": lambda rator: -rator,
         "not": lambda rator: not rator,
     }
