@@ -104,7 +104,6 @@
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control.Control.addSymbol"><code class="docutils literal notranslate"><span class="pre">Control.addSymbol()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control.Control.insertControlStruct"><code class="docutils literal notranslate"><span class="pre">Control.insertControlStruct()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control.Control.insertEnvMarker"><code class="docutils literal notranslate"><span class="pre">Control.insertEnvMarker()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control.Control.peekRightMost"><code class="docutils literal notranslate"><span class="pre">Control.peekRightMost()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.control.Control.removeRightMost"><code class="docutils literal notranslate"><span class="pre">Control.removeRightMost()</span></code></a></li>
 </ul>
 </li>
@@ -135,6 +134,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="interpreter.cse_machine.html#module-interpreter.cse_machine.exceptions">interpreter.cse_machine.exceptions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.exceptions.MachineException"><code class="docutils literal notranslate"><span class="pre">MachineException</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="interpreter.cse_machine.html#module-interpreter.cse_machine.functions">interpreter.cse_machine.functions module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.ConcFn"><code class="docutils literal notranslate"><span class="pre">ConcFn</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.ConcFn.run"><code class="docutils literal notranslate"><span class="pre">ConcFn.run()</span></code></a></li>
@@ -155,6 +158,8 @@
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.ISTUPLE"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.ISTUPLE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.ORDER"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.ORDER</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.PRINT"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.PRINT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.STEM"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.STEM</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.STERN"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.STERN</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.get_functions"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.get_functions()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.isdefined"><code class="docutils literal notranslate"><span class="pre">DefinedFunctions.isdefined()</span></code></a></li>
 </ul>
@@ -195,6 +200,14 @@
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.PrintFn.run"><code class="docutils literal notranslate"><span class="pre">PrintFn.run()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.StemFn"><code class="docutils literal notranslate"><span class="pre">StemFn</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.StemFn.run"><code class="docutils literal notranslate"><span class="pre">StemFn.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.SternFn"><code class="docutils literal notranslate"><span class="pre">SternFn</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.functions.SternFn.run"><code class="docutils literal notranslate"><span class="pre">SternFn.run()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="interpreter.cse_machine.html#module-interpreter.cse_machine.st">interpreter.cse_machine.st module</a><ul>
@@ -205,7 +218,6 @@
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.gamma_node"><code class="docutils literal notranslate"><span class="pre">STNode.gamma_node()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.getChildrenCount"><code class="docutils literal notranslate"><span class="pre">STNode.getChildrenCount()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.getSibilingCount"><code class="docutils literal notranslate"><span class="pre">STNode.getSibilingCount()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.hasToken"><code class="docutils literal notranslate"><span class="pre">STNode.hasToken()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.is_conditional"><code class="docutils literal notranslate"><span class="pre">STNode.is_conditional()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.is_gamma"><code class="docutils literal notranslate"><span class="pre">STNode.is_gamma()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.is_lambda"><code class="docutils literal notranslate"><span class="pre">STNode.is_lambda()</span></code></a></li>
@@ -426,15 +438,18 @@
 <dt class="sig sig-object py" id="interpreter.Interpreter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.</span></span><span class="sig-name descname"><span class="pre">Interpreter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">program</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">switch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.Interpreter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents the Interpreter.</p>
+<dl class="simple">
+<dt>Attributes: </dt><dd><p>__program: The source code.
+__switch: Switch specifying to print the ast or st.
+__ast: The abstract syntax tree.
+__st: The standardized tree.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.Interpreter.interpret">
 <span class="sig-name descname"><span class="pre">interpret</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.Interpreter.interpret" title="Permalink to this definition">¶</a></dt>
-<dd><p>Interpret the given program</p>
-<dl class="simple">
-<dt>args: </dt><dd><p>program - the source code
-switch - switch specifying to print the ast or st</p>
-</dd>
-</dl>
+<dd><p>Interprets the given program.</p>
 </dd></dl>
 
 </dd></dl>

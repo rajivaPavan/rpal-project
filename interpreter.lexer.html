@@ -54,7 +54,7 @@
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.CommaToken">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.lexer.tokens.</span></span><span class="sig-name descname"><span class="pre">CommaToken</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.CommaToken" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.lexer.tokens.Token" title="interpreter.lexer.tokens.Token"><code class="xref py py-class docutils literal notranslate"><span class="pre">Token</span></code></a></p>
-<p>Represents a comma token in the RPAL language.</p>
+<p>Represents a comma token.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.CommaToken.regex">
 <span class="sig-name descname"><span class="pre">regex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.CommaToken.regex" title="Permalink to this definition">¶</a></dt>
@@ -66,6 +66,7 @@
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.CommentToken">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.lexer.tokens.</span></span><span class="sig-name descname"><span class="pre">CommentToken</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.CommentToken" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.lexer.tokens.Token" title="interpreter.lexer.tokens.Token"><code class="xref py py-class docutils literal notranslate"><span class="pre">Token</span></code></a></p>
+<p>Represents a comment.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.CommentToken.regex">
 <span class="sig-name descname"><span class="pre">regex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.CommentToken.regex" title="Permalink to this definition">¶</a></dt>
@@ -77,6 +78,7 @@
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.IdentifierToken">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.lexer.tokens.</span></span><span class="sig-name descname"><span class="pre">IdentifierToken</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.IdentifierToken" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.lexer.tokens.Token" title="interpreter.lexer.tokens.Token"><code class="xref py py-class docutils literal notranslate"><span class="pre">Token</span></code></a></p>
+<p>Represents an identifier token.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.IdentifierToken.regex">
 <span class="sig-name descname"><span class="pre">regex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.IdentifierToken.regex" title="Permalink to this definition">¶</a></dt>
@@ -88,6 +90,7 @@
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.IntegerToken">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.lexer.tokens.</span></span><span class="sig-name descname"><span class="pre">IntegerToken</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.IntegerToken" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.lexer.tokens.Token" title="interpreter.lexer.tokens.Token"><code class="xref py py-class docutils literal notranslate"><span class="pre">Token</span></code></a></p>
+<p>Represents an integer token.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.IntegerToken.regex">
 <span class="sig-name descname"><span class="pre">regex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.IntegerToken.regex" title="Permalink to this definition">¶</a></dt>
@@ -99,6 +102,7 @@
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.InvalidTokenException">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.lexer.tokens.</span></span><span class="sig-name descname"><span class="pre">InvalidTokenException</span></span><a class="headerlink" href="#interpreter.lexer.tokens.InvalidTokenException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception to throw when an invalid token is encountered.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.InvalidTokenException.fromLine">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fromLine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.InvalidTokenException.fromLine" title="Permalink to this definition">¶</a></dt>
@@ -115,6 +119,7 @@
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.KeywordToken">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.lexer.tokens.</span></span><span class="sig-name descname"><span class="pre">KeywordToken</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.KeywordToken" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.lexer.tokens.Token" title="interpreter.lexer.tokens.Token"><code class="xref py py-class docutils literal notranslate"><span class="pre">Token</span></code></a></p>
+<p>Represents a keyword token.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.KeywordToken.type_keywords">
 <span class="sig-name descname"><span class="pre">type_keywords</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.KeywordToken.type_keywords" title="Permalink to this definition">¶</a></dt>
@@ -143,6 +148,7 @@
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.OperatorToken">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.lexer.tokens.</span></span><span class="sig-name descname"><span class="pre">OperatorToken</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.OperatorToken" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.lexer.tokens.Token" title="interpreter.lexer.tokens.Token"><code class="xref py py-class docutils literal notranslate"><span class="pre">Token</span></code></a></p>
+<p>Represents an operator token.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.OperatorToken.regex">
 <span class="sig-name descname"><span class="pre">regex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.OperatorToken.regex" title="Permalink to this definition">¶</a></dt>
@@ -154,7 +160,7 @@
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.RParenToken">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.lexer.tokens.</span></span><span class="sig-name descname"><span class="pre">RParenToken</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.RParenToken" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.lexer.tokens.Token" title="interpreter.lexer.tokens.Token"><code class="xref py py-class docutils literal notranslate"><span class="pre">Token</span></code></a></p>
-<p>Represents a right parenthesis token in the RPAL interpreter.</p>
+<p>Represents a right parenthesis token.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.RParenToken.regex">
 <span class="sig-name descname"><span class="pre">regex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.RParenToken.regex" title="Permalink to this definition">¶</a></dt>
@@ -178,6 +184,7 @@
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.SpacesToken">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.lexer.tokens.</span></span><span class="sig-name descname"><span class="pre">SpacesToken</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.SpacesToken" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.lexer.tokens.Token" title="interpreter.lexer.tokens.Token"><code class="xref py py-class docutils literal notranslate"><span class="pre">Token</span></code></a></p>
+<p>Represents a space token.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.SpacesToken.regex">
 <span class="sig-name descname"><span class="pre">regex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.SpacesToken.regex" title="Permalink to this definition">¶</a></dt>
@@ -189,6 +196,7 @@
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.StringToken">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.lexer.tokens.</span></span><span class="sig-name descname"><span class="pre">StringToken</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.StringToken" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.lexer.tokens.Token" title="interpreter.lexer.tokens.Token"><code class="xref py py-class docutils literal notranslate"><span class="pre">Token</span></code></a></p>
+<p>Represents a string token.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.StringToken.regex">
 <span class="sig-name descname"><span class="pre">regex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.lexer.tokens.StringToken.regex" title="Permalink to this definition">¶</a></dt>
@@ -206,6 +214,11 @@
 value (str): The value of the token.
 line (int): The line number where the token appears.
 col (int): The column number where the token appears.</p>
+</dd>
+<dt>Methods:</dt><dd><p>isType(t) -&gt; bool: Checks whether the token is of a certain type.
+isValue(value) -&gt; bool: Checks whether the token has a certain value.
+getValue() -&gt; str: Returns the value of the token.
+getType() -&gt; str: Returns the type of the token.</p>
 </dd>
 </dl>
 <dl class="py method">

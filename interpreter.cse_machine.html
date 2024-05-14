@@ -41,35 +41,54 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.control.</span></span><span class="sig-name descname"><span class="pre">Control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controlStruct</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.control.Control" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The control of the CSE machine.</p>
+<dl class="simple">
+<dt>Methods: </dt><dd><p>removeRightMost() -&gt; Symbol: Removes the rightmost element of the control.
+insertControlStruct(controlStruct: List[Symbol]): Inserts a control structure to the control.
+insertEnvMarker(env_index: int): Inserts an environment marker to the control.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.control.Control.addGamma">
 <span class="sig-name descname"><span class="pre">addGamma</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.control.Control.addGamma" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Inserts a gamma symbol to the control.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.control.Control.addSymbol">
-<span class="sig-name descname"><span class="pre">addSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.control.Control.addSymbol" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">addSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#interpreter.cse_machine.symbol.Symbol" title="interpreter.cse_machine.symbol.Symbol"><span class="pre">Symbol</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.control.Control.addSymbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts a symbol to the control.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>symbol: Symbol</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.control.Control.insertControlStruct">
 <span class="sig-name descname"><span class="pre">insertControlStruct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controlStruct</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.control.Control.insertControlStruct" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Inserts a control structure to the control.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>controlStruct: List[Symbol]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.control.Control.insertEnvMarker">
-<span class="sig-name descname"><span class="pre">insertEnvMarker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.control.Control.insertEnvMarker" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="interpreter.cse_machine.control.Control.peekRightMost">
-<span class="sig-name descname"><span class="pre">peekRightMost</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.control.Control.peekRightMost" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">insertEnvMarker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.control.Control.insertEnvMarker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts an environment marker to the control.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>env_index: int</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.control.Control.removeRightMost">
 <span class="sig-name descname"><span class="pre">removeRightMost</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.control.Control.removeRightMost" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Removes the rightmost element of the control.</p>
+<p>Returns: Symbol | None</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -84,7 +103,10 @@
 <dt class="sig sig-object py" id="interpreter.cse_machine.control_structures.CSInitializer.init">
 <span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#interpreter.cse_machine.control_structures.ControlStructures" title="interpreter.cse_machine.control_structures.ControlStructures"><span class="pre">ControlStructures</span></a></span></span><a class="headerlink" href="#interpreter.cse_machine.control_structures.CSInitializer.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates the control structures for the CSE machine from the Standardized Tree.</p>
-<p>Returns: ControlStructures object containing the control structures.</p>
+<dl class="simple">
+<dt>Returns: </dt><dd><p>ControlStructures object containing the control structures.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -113,10 +135,16 @@
 <dt class="sig sig-object py" id="interpreter.cse_machine.control_structures.ControlStructures">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.control_structures.</span></span><span class="sig-name descname"><span class="pre">ControlStructures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">control_structure_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.control_structures.ControlStructures" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class which represents the control structures as an object.</p>
+<dl class="simple">
+<dt>Attributes: </dt><dd><p>control_structure_map (dict): A dictionary of control structures.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.control_structures.ControlStructures.get">
 <span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_index</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#interpreter.cse_machine.control_structures.ControlStruct" title="interpreter.cse_machine.control_structures.ControlStruct"><span class="pre">ControlStruct</span></a></span></span><a class="headerlink" href="#interpreter.cse_machine.control_structures.ControlStructures.get" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns the control structure for the given delta index.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -127,8 +155,16 @@
 <dt class="sig sig-object py" id="interpreter.cse_machine.environment.Environment">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.environment.</span></span><span class="sig-name descname"><span class="pre">Environment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envIndex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.environment.Environment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Represents the environments of the CSE machine as a tree structure. 
-Initially the environment is the Primitive Environment.</p>
+<p>Represents the environments of the CSE machine as a tree structure.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>envMarker (EnvMarkerSymbol): The environment marker symbol.
+parent (Environment): The parent environment.
+envData (dict): The data in the environment.</p>
+</dd>
+<dt>Methods:</dt><dd><p>insertEnvData(name: str, value: Symbol): Inserts the values for the variables in the environment.
+lookUpEnv(name: str) -&gt; Symbol: Looks up the relevant value for a given variable.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.environment.Environment.getIndex">
 <span class="sig-name descname"><span class="pre">getIndex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.environment.Environment.getIndex" title="Permalink to this definition">¶</a></dt>
@@ -137,16 +173,22 @@ Initially the environment is the Primitive Environment.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.environment.Environment.insertEnvData">
 <span class="sig-name descname"><span class="pre">insertEnvData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.environment.Environment.insertEnvData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inserts the values for the variables in the environment.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.environment.Environment.lookUpEnv">
 <span class="sig-name descname"><span class="pre">lookUpEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.environment.Environment.lookUpEnv" title="Permalink to this definition">¶</a></dt>
-<dd><p>Looks up the value for the variable.
-Checks the parent environment if not in the current.</p>
+<dd></dd></dl>
+
 </dd></dl>
 
+</section>
+<section id="module-interpreter.cse_machine.exceptions">
+<span id="interpreter-cse-machine-exceptions-module"></span><h2>interpreter.cse_machine.exceptions module<a class="headerlink" href="#module-interpreter.cse_machine.exceptions" title="Permalink to this heading">¶</a></h2>
+<dl class="py exception">
+<dt class="sig sig-object py" id="interpreter.cse_machine.exceptions.MachineException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.exceptions.</span></span><span class="sig-name descname"><span class="pre">MachineException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.exceptions.MachineException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
 </dd></dl>
 
 </section>
@@ -167,6 +209,7 @@ Checks the parent environment if not in the current.</p>
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.DefinedFunction">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">DefinedFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_DefinedFunction__name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.DefinedFunction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A parent class for the defined functions in the Primitive Environment.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.DefinedFunction.getName">
 <span class="sig-name descname"><span class="pre">getName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.DefinedFunction.getName" title="Permalink to this definition">¶</a></dt>
@@ -183,6 +226,7 @@ Checks the parent environment if not in the current.</p>
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.DefinedFunctions">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">DefinedFunctions</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.DefinedFunctions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The functions defined in the Primitive Environment are represented here.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.DefinedFunctions.CONC">
 <span class="sig-name descname"><span class="pre">CONC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Conc'</span></em><a class="headerlink" href="#interpreter.cse_machine.functions.DefinedFunctions.CONC" title="Permalink to this definition">¶</a></dt>
@@ -228,6 +272,16 @@ Checks the parent environment if not in the current.</p>
 <span class="sig-name descname"><span class="pre">PRINT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Print'</span></em><a class="headerlink" href="#interpreter.cse_machine.functions.DefinedFunctions.PRINT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="interpreter.cse_machine.functions.DefinedFunctions.STEM">
+<span class="sig-name descname"><span class="pre">STEM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Stem'</span></em><a class="headerlink" href="#interpreter.cse_machine.functions.DefinedFunctions.STEM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="interpreter.cse_machine.functions.DefinedFunctions.STERN">
+<span class="sig-name descname"><span class="pre">STERN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Stern'</span></em><a class="headerlink" href="#interpreter.cse_machine.functions.DefinedFunctions.STERN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.DefinedFunctions.get_functions">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_functions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.DefinedFunctions.get_functions" title="Permalink to this definition">¶</a></dt>
@@ -244,6 +298,7 @@ Checks the parent environment if not in the current.</p>
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.FunctionFactory">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">FunctionFactory</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.FunctionFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A factory class to create objects to define the functions of each predefined function.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.functions.FunctionFactory.create">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.FunctionFactory.create" title="Permalink to this definition">¶</a></dt>
@@ -339,6 +394,28 @@ Checks the parent environment if not in the current.</p>
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="interpreter.cse_machine.functions.StemFn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">StemFn</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.StemFn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.functions.DefinedFunction" title="interpreter.cse_machine.functions.DefinedFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefinedFunction</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="interpreter.cse_machine.functions.StemFn.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.StemFn.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="interpreter.cse_machine.functions.SternFn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.functions.</span></span><span class="sig-name descname"><span class="pre">SternFn</span></span><a class="headerlink" href="#interpreter.cse_machine.functions.SternFn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.functions.DefinedFunction" title="interpreter.cse_machine.functions.DefinedFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefinedFunction</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="interpreter.cse_machine.functions.SternFn.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.functions.SternFn.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-interpreter.cse_machine.st">
 <span id="interpreter-cse-machine-st-module"></span><h2>interpreter.cse_machine.st module<a class="headerlink" href="#module-interpreter.cse_machine.st" title="Permalink to this heading">¶</a></h2>
@@ -384,11 +461,6 @@ Each node contains a reference to its node value, left child, and right sibling.
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="interpreter.cse_machine.st.STNode.hasToken">
-<span class="sig-name descname"><span class="pre">hasToken</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'bool'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'interpreter.lexer.tokens.Token'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.st.STNode.hasToken" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.st.STNode.is_conditional">
 <span class="sig-name descname"><span class="pre">is_conditional</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.st.STNode.is_conditional" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -422,8 +494,13 @@ Each node contains a reference to its node value, left child, and right sibling.
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.st.STNode.siblings">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">siblings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sibling_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.st.STNode.siblings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the right sibling of each node in the list to the next node in the list
-Returns the first node in the list.</p>
+<dd><p>Set the right sibling of each node in the list to the next node in the list</p>
+<dl class="simple">
+<dt>Args: </dt><dd><p>sibling_list (List[STNode]): A list of nodes to be set as siblings.</p>
+</dd>
+<dt>Returns: </dt><dd><p>The first node.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -448,6 +525,13 @@ Returns the first node in the list.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.stack.</span></span><span class="sig-name descname"><span class="pre">Stack</span></span><a class="headerlink" href="#interpreter.cse_machine.stack.Stack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The stack to evaluate the CONTROL.</p>
+<dl class="simple">
+<dt>Methods:</dt><dd><p>popStack() -&gt; Symbol: Pops the top element from the stack.
+top() -&gt; Symbol: Returns the top element of the stack.
+pushStack(symbol: Symbol): Pushes the symbol to the stack.
+removeEnvironment(envMarker: EnvMarkerSymbol): Removes the environment marker from the stack.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.stack.Stack.popStack">
 <span class="sig-name descname"><span class="pre">popStack</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#interpreter.cse_machine.symbol.Symbol" title="interpreter.cse_machine.symbol.Symbol"><span class="pre">Symbol</span></a></span></span><a class="headerlink" href="#interpreter.cse_machine.stack.Stack.popStack" title="Permalink to this definition">¶</a></dt>
@@ -477,22 +561,26 @@ Returns the first node in the list.</p>
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.BetaSymbol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">BetaSymbol</span></span><a class="headerlink" href="#interpreter.cse_machine.symbol.BetaSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.symbol.Symbol" title="interpreter.cse_machine.symbol.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">Symbol</span></code></a></p>
-<p>Represents a beta symbol.
-Used when representing a conditonal operator in the control without standardizing.</p>
+<p>Represents a beta symbol.</p>
+<p>Used when representing a conditonal operator in the control without standardizing.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.BinaryOperatorSymbol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">BinaryOperatorSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.BinaryOperatorSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.symbol.OperatorSymbol" title="interpreter.cse_machine.symbol.OperatorSymbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">OperatorSymbol</span></code></a></p>
+<p>Represents a binary operator symbol.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.DeltaSymbol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">DeltaSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.DeltaSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.symbol.Symbol" title="interpreter.cse_machine.symbol.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">Symbol</span></code></a></p>
-<p>Represents a control structure as a Symbol in the control.
-Has an index which points to relevant control structure in the control structure array.</p>
+<p>Represents a control structure as a Symbol in the control.</p>
+<dl class="simple">
+<dt>Attributes: </dt><dd><p>index (int): Points to relevant control structure in the control structure array.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py class">
@@ -500,25 +588,34 @@ Has an index which points to relevant control structure in the control structure
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">EnvMarkerSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envIndex</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.EnvMarkerSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.symbol.Symbol" title="interpreter.cse_machine.symbol.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">Symbol</span></code></a></p>
 <p>Represents an environment marker in the control and the stack.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>envIndex (int): The index of the environment marker.</p>
+</dd>
+<dt>Methods:</dt><dd><p>__eq__(other) -&gt; bool: Checks whether an instance of the EnvMarkerSymbol and then checks whether equal.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.EtaClosureSymbol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">EtaClosureSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envIndex</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.EtaClosureSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.symbol.LambdaClosureSymbol" title="interpreter.cse_machine.symbol.LambdaClosureSymbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">LambdaClosureSymbol</span></code></a></p>
-<p>Represents an eta closure in the CSE machine.</p>
-<p>Extends the LambdaClosure class.</p>
+<p>Represents an eta closure in the CSE machine.
+Extends the LambdaClosure class.</p>
+<dl class="simple">
+<dt>Methods: </dt><dd><p>fromLambdaClosure(lambdaClosure:LambdaClosureSymbol) -&gt; EtaClosureSymbol: Creates an eta closure from a lambda closure.
+toLambdaClosure(etaClosure) -&gt; LambdaClosureSymbol: Converts an eta closure to a lambda closure.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.EtaClosureSymbol.fromLambdaClosure">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fromLambdaClosure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambdaClosure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#interpreter.cse_machine.symbol.LambdaClosureSymbol" title="interpreter.cse_machine.symbol.LambdaClosureSymbol"><span class="pre">LambdaClosureSymbol</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.EtaClosureSymbol.fromLambdaClosure" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates an eta closure from a lambda closure.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.EtaClosureSymbol.toLambdaClosure">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">toLambdaClosure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">etaClosure</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.EtaClosureSymbol.toLambdaClosure" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts an eta closure to a lambda closure.</p>
-</dd></dl>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -526,22 +623,26 @@ Has an index which points to relevant control structure in the control structure
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.FunctionSymbol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">FunctionSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.FunctionSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.symbol.Symbol" title="interpreter.cse_machine.symbol.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">Symbol</span></code></a></p>
+<p>Represents a function symbol.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.GammaSymbol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">GammaSymbol</span></span><a class="headerlink" href="#interpreter.cse_machine.symbol.GammaSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.symbol.Symbol" title="interpreter.cse_machine.symbol.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">Symbol</span></code></a></p>
-<p>Represents a gamma Symbol in the CSE machine.</p>
+<p>Represents a gamma Symbol.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.LambdaClosureSymbol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">LambdaClosureSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envIndex</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.LambdaClosureSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.symbol.LambdaSymbol" title="interpreter.cse_machine.symbol.LambdaSymbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">LambdaSymbol</span></code></a></p>
-<p>Represents a lambda closure (lambda in the stack) in the CSE machine.</p>
-<p>Has the additional attribute envIndex.</p>
-<p>Extends the Lambda class.</p>
+<p>Represents a lambda closure (lambda in the stack) in the CSE machine.
+Extends the Lambda class.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>envMarker (EnvMarkerSymbol): The environment marker the lambda closure.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.LambdaClosureSymbol.getEnvMarkerIndex">
 <span class="sig-name descname"><span class="pre">getEnvMarkerIndex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.LambdaClosureSymbol.getEnvMarkerIndex" title="Permalink to this definition">¶</a></dt>
@@ -553,44 +654,60 @@ Has an index which points to relevant control structure in the control structure
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.LambdaSymbol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">LambdaSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.LambdaSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.symbol.Symbol" title="interpreter.cse_machine.symbol.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">Symbol</span></code></a></p>
-<p>Represents a lambda Symbol in the CSE machine.</p>
-<p>attribute variables can either be a list or a single variable.</p>
+<p>Represents a lambda Symbol,.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>index (int): The index of the lambda in the control structure array.
+variables (Iterable): The variables of the lambda.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.NameSymbol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">NameSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.NameSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.symbol.Symbol" title="interpreter.cse_machine.symbol.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">Symbol</span></code></a></p>
-<p>Represents variables and numerics in the CSE machine.</p>
+<p>Represents variables and numerics as a symbol.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>name (str): The name of the symbol.
+nameType (type): The type of the symbol.
+is_id (bool): True if the symbol is an identifier.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.NameSymbol.isFunction">
 <span class="sig-name descname"><span class="pre">isFunction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.NameSymbol.isFunction" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns True if the symbol is a function.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.NameSymbol.isId">
 <span class="sig-name descname"><span class="pre">isId</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.NameSymbol.isId" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns if the symbol is an identifier.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.NameSymbol.isPrimitive">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isPrimitive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nameType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.NameSymbol.isPrimitive" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns True if the symbol is a string, integer or a bool.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.NameSymbol.isString">
 <span class="sig-name descname"><span class="pre">isString</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.NameSymbol.isString" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns True if the symbol is a string.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.NameSymbol.isTupleSymbol">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isTupleSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nameType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.NameSymbol.isTupleSymbol" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns True if the symbol is a TupleSymbol.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.NameSymbol.isValidType">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isValidType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nameType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.NameSymbol.isValidType" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns True if the symbol is a valid type.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -598,14 +715,14 @@ Has an index which points to relevant control structure in the control structure
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.OperatorSymbol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">OperatorSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.OperatorSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.symbol.Symbol" title="interpreter.cse_machine.symbol.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">Symbol</span></code></a></p>
+<p>“Represents an operator symbol.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.Symbol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">Symbol</span></span><a class="headerlink" href="#interpreter.cse_machine.symbol.Symbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Represents differnt types of symbols in the CSE machine.
-Include both control symbols and stack symbols.</p>
+<p>Represents symbols in the CSE machine.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.Symbol.isType">
 <span class="sig-name descname"><span class="pre">isType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.Symbol.isType" title="Permalink to this definition">¶</a></dt>
@@ -617,6 +734,7 @@ Include both control symbols and stack symbols.</p>
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.SymbolFactory">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">SymbolFactory</span></span><a class="headerlink" href="#interpreter.cse_machine.symbol.SymbolFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A factory class to create symbols from the ST nodes.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.SymbolFactory.createSymbol">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">createSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#interpreter.cse_machine.st.STNode" title="interpreter.cse_machine.st.STNode"><span class="pre">STNode</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.SymbolFactory.createSymbol" title="Permalink to this definition">¶</a></dt>
@@ -628,29 +746,30 @@ Include both control symbols and stack symbols.</p>
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.TauSymbol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">TauSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.TauSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.symbol.Symbol" title="interpreter.cse_machine.symbol.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">Symbol</span></code></a></p>
-<p>Represents a tau symbol.
-Used when representing a tau node in the control.</p>
+<p>Represents a tau symbol.</p>
+<p>Used when representing a tau node in the control.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.TupleSymbol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">TupleSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tupleList</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.TupleSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.symbol.TauSymbol" title="interpreter.cse_machine.symbol.TauSymbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">TauSymbol</span></code></a></p>
-<p>Represents a Tuple in the stack as an object.
-Used in standardizing the tau node in the st.</p>
+<p>Represents a Tuple in the stack as an object.</p>
+<p>Used in standardizing the tau node in the st.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.UnaryOperatorSymbol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">UnaryOperatorSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.symbol.UnaryOperatorSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.symbol.OperatorSymbol" title="interpreter.cse_machine.symbol.OperatorSymbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">OperatorSymbol</span></code></a></p>
+<p>Represents a unary operator symbol.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="interpreter.cse_machine.symbol.YStarSymbol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interpreter.cse_machine.symbol.</span></span><span class="sig-name descname"><span class="pre">YStarSymbol</span></span><a class="headerlink" href="#interpreter.cse_machine.symbol.YStarSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#interpreter.cse_machine.symbol.Symbol" title="interpreter.cse_machine.symbol.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">Symbol</span></code></a></p>
-<p>Represents a Y* symbol in the CSE machine.</p>
+<p>Represents a Y* symbol.</p>
 </dd></dl>
 
 </section>
@@ -662,7 +781,18 @@ Used in standardizing the tau node in the st.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The CSEMachine class is responsible for simulating the Control Structure Environment (CSE) machine
 used in the RPAL language interpreter. It manages the control structures, environment, and stack
-to intepret the RPAL code. The class provides methods to evaluate expressions based on the cse machine rules</p>
+to intepret the RPAL code. This class provides methods to evaluate expressions based on the cse machine rules.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>st (STNode): The standardized tree which is used to generate control structures.
+csMap (dict): The map of control structures. ie. delta-0, delta-1, etc.
+control (Control): The control of the cse machine.
+envIndexCounter (int): The environment index counter use to create new environments - eg e0, e1, etc.
+envMap (dict): The map of environments in the cse machine.
+__envStack (Stack): The stack of environments.
+stack (Stack): The stack of the cse machine.
+logger (Logger): The logger object.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.CSEMachine.applyFP">
 <span class="sig-name descname"><span class="pre">applyFP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#interpreter.cse_machine.symbol.EtaClosureSymbol" title="interpreter.cse_machine.symbol.EtaClosureSymbol"><span class="pre">EtaClosureSymbol</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.CSEMachine.applyFP" title="Permalink to this definition">¶</a></dt>
@@ -679,10 +809,10 @@ to intepret the RPAL code. The class provides methods to evaluate expressions ba
 <dl class="py method">
 <dt class="sig sig-object py" id="interpreter.cse_machine.CSEMachine.applyLambda">
 <span class="sig-name descname"><span class="pre">applyLambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#interpreter.cse_machine.symbol.LambdaClosureSymbol" title="interpreter.cse_machine.symbol.LambdaClosureSymbol"><span class="pre">LambdaClosureSymbol</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interpreter.cse_machine.CSEMachine.applyLambda" title="Permalink to this definition">¶</a></dt>
-<dd><p>CSE Rule 4 and CSE Rule 11 and also Rule 12, 13</p>
+<dd><p>CSE Rule 4 and CSE Rule 11</p>
 <p>This function evaluates n-ary functions as well.
 Creates a new environment and make it the current environment.
-Also Insert environment data for env_variables with the respective env_values.</p>
+Also Inserts environment data for env_variables with the respective env_values.</p>
 </dd></dl>
 
 <dl class="py method">

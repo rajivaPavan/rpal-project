@@ -28,6 +28,14 @@ interpreter.cse\_machine.environment module
    :undoc-members:
    :show-inheritance:
 
+interpreter.cse\_machine.exceptions module
+------------------------------------------
+
+.. automodule:: interpreter.cse_machine.exceptions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 interpreter.cse\_machine.functions module
 -----------------------------------------
 

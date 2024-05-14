@@ -40,6 +40,7 @@
 <dt class="sig sig-object py" id="structs.stack.Stack">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">structs.stack.</span></span><span class="sig-name descname"><span class="pre">Stack</span></span><a class="headerlink" href="#structs.stack.Stack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<p>A generic stack implementation.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="structs.stack.Stack.is_empty">
 <span class="sig-name descname"><span class="pre">is_empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#structs.stack.Stack.is_empty" title="Permalink to this definition">¶</a></dt>
@@ -76,9 +77,9 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class representing a node in a binary tree.</p>
 <dl class="simple">
-<dt>Attributes:</dt><dd><p>value: The value of the node.
-left: The left child of the node.
-right: The right child of the node.</p>
+<dt>Attributes:</dt><dd><p>__value: The value of the node.
+__left: The left child of the node.
+__right: The right child of the node.</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -111,17 +112,21 @@ right: The right child of the node.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="structs.tree.BinaryTreeNode.isValue">
 <span class="sig-name descname"><span class="pre">isValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#structs.tree.BinaryTreeNode.isValue" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Checks if the node value is an instance of a class of the given value and compares the value.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="structs.tree.BinaryTreeNode.is_id">
 <span class="sig-name descname"><span class="pre">is_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#structs.tree.BinaryTreeNode.is_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>”
+Returns true if the node value is an identifier.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="structs.tree.BinaryTreeNode.is_name">
 <span class="sig-name descname"><span class="pre">is_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#structs.tree.BinaryTreeNode.is_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns true if the node value is a name.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="structs.tree.BinaryTreeNode.setLeft">
@@ -144,6 +149,7 @@ right: The right child of the node.</p>
 <dt class="sig sig-object py" id="structs.tree.TreeFormatter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">structs.tree.</span></span><span class="sig-name descname"><span class="pre">TreeFormatter</span></span><a class="headerlink" href="#structs.tree.TreeFormatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class that provides a method to represent a tree structure in the specified format.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="structs.tree.TreeFormatter.line_str">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">line_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#structs.tree.TreeFormatter.line_str" title="Permalink to this definition">¶</a></dt>

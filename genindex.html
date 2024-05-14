@@ -39,7 +39,6 @@
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
- | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#K"><strong>K</strong></a>
  | <a href="#L"><strong>L</strong></a>
@@ -286,14 +285,6 @@
   </ul></td>
 </tr></table>
 
-<h2 id="H">H</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode.hasToken">hasToken() (interpreter.cse_machine.st.STNode method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -376,6 +367,13 @@
 </li>
       </ul></li>
       <li>
+    interpreter.cse_machine.exceptions
+
+      <ul>
+        <li><a href="interpreter.cse_machine.html#module-interpreter.cse_machine.exceptions">module</a>
+</li>
+      </ul></li>
+      <li>
     interpreter.cse_machine.functions
 
       <ul>
@@ -403,6 +401,8 @@
         <li><a href="interpreter.cse_machine.html#module-interpreter.cse_machine.symbol">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     interpreter.lexer
 
@@ -410,8 +410,6 @@
         <li><a href="interpreter.lexer.html#module-interpreter.lexer">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     interpreter.lexer.tokens
 
@@ -545,6 +543,8 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="interpreter.cse_machine.html#interpreter.cse_machine.exceptions.MachineException">MachineException</a>
+</li>
       <li><a href="myrpal.html#myrpal.main">main() (in module myrpal)</a>
 </li>
       <li><a href="interpreter.ast.html#interpreter.ast.nodes.Nodes.MINUS">MINUS (interpreter.ast.nodes.Nodes attribute)</a>
@@ -568,6 +568,8 @@
         <li><a href="interpreter.cse_machine.html#module-interpreter.cse_machine.control_structures">interpreter.cse_machine.control_structures</a>
 </li>
         <li><a href="interpreter.cse_machine.html#module-interpreter.cse_machine.environment">interpreter.cse_machine.environment</a>
+</li>
+        <li><a href="interpreter.cse_machine.html#module-interpreter.cse_machine.exceptions">interpreter.cse_machine.exceptions</a>
 </li>
         <li><a href="interpreter.cse_machine.html#module-interpreter.cse_machine.functions">interpreter.cse_machine.functions</a>
 </li>
@@ -679,8 +681,6 @@
 </li>
       <li><a href="structs.html#structs.stack.Stack.peek">peek() (structs.stack.Stack method)</a>
 </li>
-      <li><a href="interpreter.cse_machine.html#interpreter.cse_machine.control.Control.peekRightMost">peekRightMost() (interpreter.cse_machine.control.Control method)</a>
-</li>
       <li><a href="interpreter.ast.html#interpreter.ast.nodes.Nodes.PLUS">PLUS (interpreter.ast.nodes.Nodes attribute)</a>
 </li>
       <li><a href="structs.html#structs.stack.Stack.pop">pop() (structs.stack.Stack method)</a>
@@ -777,10 +777,10 @@
 </li>
       <li><a href="interpreter.cse_machine.html#interpreter.cse_machine.control.Control.removeRightMost">removeRightMost() (interpreter.cse_machine.control.Control method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="interpreter.lexer.html#interpreter.lexer.Lexer.reset">reset() (interpreter.lexer.Lexer method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="interpreter.parser.html#interpreter.parser.RPALParser">RPALParser (class in interpreter.parser)</a>
 </li>
       <li><a href="interpreter.lexer.html#interpreter.lexer.tokens.RParenToken">RParenToken (class in interpreter.lexer.tokens)</a>
@@ -806,8 +806,12 @@
 </li>
         <li><a href="interpreter.cse_machine.html#interpreter.cse_machine.functions.PrintFn.run">(interpreter.cse_machine.functions.PrintFn method)</a>
 </li>
+        <li><a href="interpreter.cse_machine.html#interpreter.cse_machine.functions.StemFn.run">(interpreter.cse_machine.functions.StemFn method)</a>
+</li>
+        <li><a href="interpreter.cse_machine.html#interpreter.cse_machine.functions.SternFn.run">(interpreter.cse_machine.functions.SternFn method)</a>
+</li>
       </ul></li>
-      <li><a href="tests.html#tests.test_cse_machine.TestRPALSTGeneration.run_rpal">run_rpal() (tests.test_cse_machine.TestRPALSTGeneration method)</a>
+      <li><a href="tests.html#tests.test_cse_machine.TestMachineOutput.run_rpal">run_rpal() (tests.test_cse_machine.TestMachineOutput method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -841,11 +845,19 @@
       </ul></li>
       <li><a href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.stackLambda">stackLambda() (interpreter.cse_machine.CSEMachine method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="interpreter.cse_machine.html#interpreter.cse_machine.CSEMachine.stackName">stackName() (interpreter.cse_machine.CSEMachine method)</a>
 </li>
       <li><a href="interpreter.ast.html#interpreter.ast.standardize.ASTStandardizer.standardize">standardize() (interpreter.ast.standardize.ASTStandardizer method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.STEM">STEM (interpreter.cse_machine.functions.DefinedFunctions attribute)</a>
+</li>
+      <li><a href="interpreter.cse_machine.html#interpreter.cse_machine.functions.StemFn">StemFn (class in interpreter.cse_machine.functions)</a>
+</li>
+      <li><a href="interpreter.cse_machine.html#interpreter.cse_machine.functions.DefinedFunctions.STERN">STERN (interpreter.cse_machine.functions.DefinedFunctions attribute)</a>
+</li>
+      <li><a href="interpreter.cse_machine.html#interpreter.cse_machine.functions.SternFn">SternFn (class in interpreter.cse_machine.functions)</a>
 </li>
       <li><a href="interpreter.cse_machine.html#interpreter.cse_machine.st.STNode">STNode (class in interpreter.cse_machine.st)</a>
 </li>
@@ -894,7 +906,7 @@
 </li>
       <li><a href="tests.html#tests.test_parser.TestParser.test_ast_str">test_ast_str() (tests.test_parser.TestParser method)</a>
 </li>
-      <li><a href="tests.html#tests.test_cse_machine.TestRPALSTGeneration.test_cse_machine">test_cse_machine() (tests.test_cse_machine.TestRPALSTGeneration method)</a>
+      <li><a href="tests.html#tests.test_cse_machine.TestMachineOutput.test_cse_machine">test_cse_machine() (tests.test_cse_machine.TestMachineOutput method)</a>
 </li>
       <li><a href="tests.html#tests.test_rpal_parser.TestRPALParser.test_D">test_D() (tests.test_rpal_parser.TestRPALParser method)</a>
 </li>
@@ -968,16 +980,14 @@
 </li>
       <li><a href="tests.html#tests.test_lexer.TestLexer">TestLexer (class in tests.test_lexer)</a>
 </li>
+      <li><a href="tests.html#tests.test_cse_machine.TestMachineOutput">TestMachineOutput (class in tests.test_cse_machine)</a>
+</li>
       <li><a href="tests.html#tests.test_parser.TestParser">TestParser (class in tests.test_parser)</a>
 </li>
       <li><a href="tests.html#tests.test_rpal_parser.TestRPALParser">TestRPALParser (class in tests.test_rpal_parser)</a>
 </li>
-      <li><a href="tests.html#tests.test_cse_machine.TestRPALSTGeneration">TestRPALSTGeneration (class in tests.test_cse_machine)</a>
-
-      <ul>
-        <li><a href="tests.html#tests.test_st.TestRPALSTGeneration">(class in tests.test_st)</a>
+      <li><a href="tests.html#tests.test_st.TestRPALSTGeneration">TestRPALSTGeneration (class in tests.test_st)</a>
 </li>
-      </ul></li>
       <li>
     tests
 
