@@ -1,18 +1,33 @@
-# rpal-project
+# RPAL Interpreter
 
-The project is to implement a lexical analyzer and parser for an RPAL language using Python. The lexical analyzer will read the input file and generate a list of tokens. The parser will read the list of tokens and generate an abstract syntax tree (AST). The AST will be used to generate the output in the form of a tree.
+This project aims to implement an RPAL interpreter in Python. The interpreter will be able to parse RPAL code, build an abstract syntax tree (AST), and execute the RPAL program.
 
-# Usage 
+## Features
+- Lexical analysis of RPAL code
+- Parsing RPAL code to build an abstract syntax tree (AST)
+- Interpreting and executing RPAL programs
+- Support for variable bindings, function definitions, conditionals, and recursion
+
+
+## Usage 
 Navigate to the `/src` directory of the project.
 To run the program, use the following command:
 
 ```bash
-python myrpal.py simple
+python myrpal.py filename
+```
+where `filename` is the name of the file containing the RPAL code.
+
+to print the abstract syntax tree, add the `-ast` flag at the end of the command
+
+```bash
+python myrpal.py filename -ast
 ```
 
-to print the ast, add the `-ast` flag at the end of the command
+to print the standardized tree, add the `-st` flag at the end of the command
+
 ```bash
-python myrpal.py simple -ast
+python myrpal.py filename -st
 ```
 
 In Linux, run the command by replacing `python` with `python3`
@@ -21,9 +36,7 @@ In Linux, run the command by replacing `python` with `python3`
 
 To run the tests, navigate to the `/src` of the project and use the following commands.
 
-
-
-```bash
+```powershell
 # lexer tests
 python -m unittest tests/test_lexer.py
 
@@ -31,12 +44,17 @@ python -m unittest tests/test_lexer.py
 python -m unittest tests/test_parser.py
 python -m unittest tests/test_rpal_parser.py
 
+# ...
+
 # all
 python -m unittest discover -s tests -p 'test_*.py'
-
 ```
 
 # Documentation
+
+Documentation can be found at [https://rajivapavan.github.io/rpal-project/](https://rajivapavan.github.io/rpal-project/)
+
+Documentation is built using Sphinx.
 
 To build the documentation,
 enable the virtual environment
@@ -49,7 +67,6 @@ install the required packages
 ```powershell
 pip install -r requirements.txt
 ```
-
 
 From the root directory of the project, run the following commands:
 ```bash
