@@ -99,6 +99,14 @@ class STNode(ASTNode):
             left = left.getRight()
         return count
     
+    def valuesOfChildren(self):
+        node = self.getLeft()
+        values = []
+        while node is not None:
+            values.append(node.parseValueInToken())
+            node = node.getRight()
+        return values
+    
     @staticmethod
     def siblings(sibling_list):
         """

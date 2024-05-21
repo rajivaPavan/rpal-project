@@ -134,7 +134,7 @@ class CSInitializer:
             if x_value != Nodes.COMMA:
                 symbol = LambdaSymbol(deltaIndex, [x_value])
             else:
-                values = valuesOfChildren(x)
+                values = x.valuesOfChildren()
                 symbol = LambdaSymbol(deltaIndex, values)
             currentCS.addSymbol(symbol)
                 # don't traverse left of lambda
@@ -142,14 +142,7 @@ class CSInitializer:
             traverse(x.getRight(), deltaIndex)
             return deltaIndex
         
-        def valuesOfChildren(node:STNode):
-            node = node.getLeft()
-            values = []
-            while node is not None:
-                values.append(node.parseValueInToken())
-                node = node.getRight()
-            return values
-
+        
         def handleConditional(node:STNode, deltaIndex:int, currentCS:ControlStruct):
             symbol = BetaSymbol()
             delta_then = self.__addNewControlStruct(deltaIndex)
