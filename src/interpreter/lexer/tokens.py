@@ -1,13 +1,12 @@
 import re
 
 class TokenRegex:
-    OPERATOR_SYMBOL ="+\-*<>&.@/:=~|$!#%^_\[\]\{\}\"\`?"
     Identifier = re.compile(r"[a-zA-Z][a-zA-Z0-9_]*")
     Integer = re.compile(r"[0-9]+")
-    Operator = re.compile(r"["+OPERATOR_SYMBOL+"]+")
-    String = re.compile(r"\'[(\\t)(\\n)(\\)(\\\")\(\);,\sa-zA-Z0-9"+OPERATOR_SYMBOL+"]*\'")
+    Operator = re.compile(r"[+\-*<>&.@/:=~|$!#%^_\[\]\{\}\"\`?]+")
+    String = re.compile(r"\'[(\\t)(\\n)(\\)(\\\")\(\);,\sa-zA-Z0-9+\-*<>&.@/:=~|$!#%^_\[\]\{\}\"\`?]*\'")
     Spaces = re.compile(r"[\s\n]+")
-    Comment = re.compile(r"\/\/[\"\(\);,\\ a-zA-Z0-9"+OPERATOR_SYMBOL+"]*\n")
+    Comment = re.compile(r"\/\/[\"\(\);,\\ a-zA-Z0-9+\-*<>&.@/:=~|$!#%^_\[\]\{\}\"\`?]*\n")
     OpenParen = re.compile(r"\(")
     CloseParen = re.compile(r"\)")
     SemiColon = re.compile(r";")
