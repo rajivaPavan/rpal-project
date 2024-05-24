@@ -274,7 +274,7 @@ getType() -&gt; str: Returns the type of the token.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.TokenRegex.Comment">
-<span class="sig-name descname"><span class="pre">Comment</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('\\/\\/[\\&quot;\\(\\);,\\\\</span> <span class="pre">a-zA-Z0-9+\\-*&lt;&gt;&amp;.&#64;/:=~|$!#%^_\\[\\]\\{\\}&quot;\\`?]*\n')</span></em><a class="headerlink" href="#interpreter.lexer.tokens.TokenRegex.Comment" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Comment</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('\\/\\/[\\&quot;\\(\\);,\\\\</span> <span class="pre">a-zA-Z0-9+\\-*&lt;&gt;&amp;.&#64;/:=~|$!#%^_\\[\\]\\{\\}\\&quot;\\`?]*\\n')</span></em><a class="headerlink" href="#interpreter.lexer.tokens.TokenRegex.Comment" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -288,18 +288,13 @@ getType() -&gt; str: Returns the type of the token.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="interpreter.lexer.tokens.TokenRegex.OPERATOR_SYMBOL">
-<span class="sig-name descname"><span class="pre">OPERATOR_SYMBOL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'+\\-*&lt;&gt;&amp;.&#64;/:=~|$!#%^_\\[\\]\\{\\}&quot;\\`?'</span></em><a class="headerlink" href="#interpreter.lexer.tokens.TokenRegex.OPERATOR_SYMBOL" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.TokenRegex.OpenParen">
 <span class="sig-name descname"><span class="pre">OpenParen</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('\\(')</span></em><a class="headerlink" href="#interpreter.lexer.tokens.TokenRegex.OpenParen" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.TokenRegex.Operator">
-<span class="sig-name descname"><span class="pre">Operator</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[+\\-*&lt;&gt;&amp;.&#64;/:=~|$!#%^_\\[\\]\\{\\}&quot;\\`?]+')</span></em><a class="headerlink" href="#interpreter.lexer.tokens.TokenRegex.Operator" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Operator</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[+\\-*&lt;&gt;&amp;.&#64;/:=~|$!#%^_\\[\\]\\{\\}\\&quot;\\`?]+')</span></em><a class="headerlink" href="#interpreter.lexer.tokens.TokenRegex.Operator" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -314,7 +309,7 @@ getType() -&gt; str: Returns the type of the token.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="interpreter.lexer.tokens.TokenRegex.String">
-<span class="sig-name descname"><span class="pre">String</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('\\\'[(\\\\t)(\\\\n)(\\\\)(\\\\\\&quot;)\\(\\);,\\sa-zA-Z0-9+\\-*&lt;&gt;&amp;.&#64;/:=~|$!#%^_\\[\\]\\{\\}&quot;\\`?]*\'')</span></em><a class="headerlink" href="#interpreter.lexer.tokens.TokenRegex.String" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">String</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('\\\'[(\\\\t)(\\\\n)(\\\\)(\\\\\\&quot;)\\(\\);,\\sa-zA-Z0-9+\\-*&lt;&gt;&amp;.&#64;/:=~|$!#%^_\\[\\]\\{\\}\\&quot;\\`?]*\\\'')</span></em><a class="headerlink" href="#interpreter.lexer.tokens.TokenRegex.String" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
