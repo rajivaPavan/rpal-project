@@ -280,6 +280,7 @@ class CSEMachine:
         "+": lambda rator, rand: rator + rand,
         "-": lambda rator, rand: rator - rand,
         "*": lambda rator, rand: rator * rand,
+        "**": lambda rator, rand: rator ** rand,
         "/": lambda rator, rand: int(rator / rand),
         "or": lambda rator, rand: rator or rand,
         "&": lambda rator, rand: rator and rand,
