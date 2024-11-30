@@ -22,8 +22,7 @@ def main():
     st.sidebar.markdown(
         """
         This tool allows you to interpret RPAL code directly in your browser.
-        Made with ❤️ using Streamlit.
-        [View on GitHub](https://github.com/your-username/rpal-interpreter)
+        [View on GitHub](https://github.com/rajivaPavan/rpal-project)
         """
     )
 
