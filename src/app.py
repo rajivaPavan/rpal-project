@@ -1,121 +1,70 @@
-# app.py
 import streamlit as st
-from interpreter import Interpreter
 import io
 import sys
+from editor.components import *
+from interpreter import Interpreter
 
-def intepret(code , switch) :
-    # Create interpreter instance and run the code
-    interpreter = Interpreter(code, switch)
-    # Save old stdout
-    old_stdout = sys.stdout
-    new_stdout = io.StringIO()
-    sys.stdout = new_stdout
-
-    # Run interpreter
+def interpret_code(code):
+    interpreter = Interpreter(code)
     interpreter.interpret()
-
-    # Get output and restore stdout
-    output = new_stdout.getvalue()
-    sys.stdout = old_stdout
-
-    # Display in Streamlit
-    st.write(output)
-
+    return {
+        None: interpreter.get_result(None),
+        "-ast": interpreter.get_result("-ast"),
+        "-st": interpreter.get_result("-st"),
+    }
 
 def main():
+    st.set_page_config(page_title="RPAL Interpreter", page_icon="🐍", layout="wide")
     st.title("RPAL Interpreter")
 
-    # Create a text area for code input
-    code = st.text_area("Enter your RPAL code:", height=200)
-
-    # Add radio buttons for switches
-    switch = st.radio(
-        "Select output type:",
-        [None, "-ast", "-st"],
-        format_func=lambda x: "Default output" if x is None else x
+    # Add a sidebar with a link to your GitHub repository
+    st.sidebar.title("About")
+    st.sidebar.markdown(
+        """
+        This tool allows you to interpret RPAL code directly in your browser.
+        [View on GitHub](https://github.com/rajivaPavan/rpal-project)
+        """
     )
 
-    # Add a button to run the code
-    if st.button("Run"):
+    # State to hold code and results
+    if "results" not in st.session_state:
+        st.session_state["results"] = None
+        st.session_state["last_code"] = ""
+
+    # Create a layout for input and output
+    code_col, output_col = st.columns([2, 1])
+
+    # Code input
+    with code_col:
+        code = st.text_area("Enter your RPAL code:", height=400)
+        run_button = st.button("Run")
+
+    # Output and format toggle
+    with output_col:
+        switch = switches()
+        output_area = st.empty()
+
+    # Handle "Run" button click
+    if run_button:
         if code:
             try:
-                intepret(code, switch)
+                # Interpret the code and save results in session state
+                st.session_state["results"] = interpret_code(code)
+                st.session_state["last_code"] = code
+                st.success("Code executed successfully! Toggle output formats to view.")
             except Exception as e:
+                st.session_state["results"] = None
                 st.error(f"Error: {str(e)}")
         else:
-            st.warning("Please enter some code first!")
+            st.warning("Enter your RPAL code first 👀")
 
-    # Add examples section
-    with st.expander("Example Programs"):
-        st.markdown("""
-        **1. Hello World**
-        ```
-        'Hello World'
-        ```
-
-        **2. Simple Arithmetic**
-        ```
-        let sum = 2 + 3 in sum
-        ```
-
-        **3. Function Definition**
-        ```
-        let f x = x + 1 in f 3
-        ```
-
-        **4. Recursion**
-        ```
-        let fact = fn n.
-            n eq 0 -> 1
-            | n * fact (n-1)
-        in fact 5
-        ```
-
-        **5. Tuple Construction**
-        ```
-        let t = (1,2,3) in t
-        ```
-        """)
-
-    # Add documentation section
-    with st.expander("RPAL Language Guide"):
-        st.markdown("""
-        ### Basic Syntax
-        - Comments start with //
-        - Strings are enclosed in single quotes
-        - Basic arithmetic operators: +, -, *, /, **
-        - Boolean operators: and, or, not
-        - Comparison operators: eq, ne, gr, ge, ls, le
-
-        ### Variable Declaration
-        ```
-        let x = value in expression
-        ```
-
-        ### Function Definition
-        ```
-        let f x = expression in f arg
-        // or
-        let f = fn x.expression in f arg
-        ```
-
-        ### Conditional Expression
-        ```
-        condition -> expression1 | expression2
-        ```
-
-        ### List Operations
-        ```
-        Order, Conc, Stem, Stern
-        ```
-
-        ### Built-in Functions
-        - Print: Prints values
-        - Order: Returns length of tuple
-        - Conc: Concatenates strings
-        - ItoS: Converts integer to string
-        """)
+    # Display output based on selected format
+    if st.session_state["results"] is not None:
+        output = st.session_state["results"].get(switch, "")
+        output_area.caption(out_format(switch))
+        output_area.text_area("", output, height=400, disabled=True, label_visibility="collapsed")
+    elif st.session_state["last_code"] != code:
+        st.info("Run the code to see output.")
 
 if __name__ == "__main__":
     main()
